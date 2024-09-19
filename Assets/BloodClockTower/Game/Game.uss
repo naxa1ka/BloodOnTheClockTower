@@ -1,0 +1,3 @@
+﻿.hub {
+    background-image: var(--main-screen-background);
+}

@@ -1,4 +1,6 @@
-﻿public class MenuPresenter : IPresenter
+﻿using BloodClockTower.UI;
+
+public class MenuPresenter : IPresenter
 {
     private readonly MenuView _view;
     private readonly MenuViewModel _viewModel;

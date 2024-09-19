@@ -1,4 +1,5 @@
 ﻿    using System;
+    using System.Collections;
     using UnityEngine.SceneManagement;
     using UObject = UnityEngine.Object;
 
@@ -14,6 +15,7 @@
             _name = name;
             _context = new Lazy<T>(() =>
             {
+              
                 var context = UObject.FindObjectOfType<T>();
                 if (context == null)
                     throw new ArgumentNullException(nameof(context), "Impossible to find scene context");
@@ -21,8 +23,9 @@
             });
         }
 
-        public void Load()
+        public IEnumerator Load()
         {
-            SceneManager.LoadScene(_name);
+            yield return SceneManager.LoadSceneAsync(_name);
+            yield return null;
         }
     }
