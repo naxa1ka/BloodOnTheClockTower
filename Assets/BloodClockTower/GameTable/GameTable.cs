@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using BloodClockTower;
+using Nxlk.LINQ;
+using Nxlk.UniRx;
 using UniRx;
 
 public class GameTable : DisposableObject
@@ -10,8 +12,8 @@ public class GameTable : DisposableObject
 
     public GameTable(int playersAmount)
     {
-        _players = new ReactiveCollection<IPlayer>(
+        _players = CollectionExtensions.AddTo(new ReactiveCollection<IPlayer>(
             Enumerable.Range(0, playersAmount).Select(_ => new Player())
-        ).AddTo(disposables);
+        ), disposables);
     }
 }

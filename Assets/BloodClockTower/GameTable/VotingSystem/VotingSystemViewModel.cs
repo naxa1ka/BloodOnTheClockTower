@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Nxlk.Bool;
+using Nxlk.LINQ;
+using Nxlk.UniRx;
 using UniRx;
 using static BloodClockTower.PlayerViewModel;
+using CollectionExtensions = Nxlk.LINQ.CollectionExtensions;
 
 namespace BloodClockTower
 {
@@ -41,12 +45,12 @@ namespace BloodClockTower
         {
             _gameTableViewModel = gameTableViewModel;
             _votingHistoryViewModel = votingHistoryViewModel;
-            _currentState = new ReactiveProperty<State>(State.Idle).AddTo(disposables);
+            _currentState = CollectionExtensions.AddTo(new ReactiveProperty<State>(State.Idle), disposables);
         }
 
         public void Initialize()
         {
-            _gameTableViewModel.Clicked.Subscribe(OnPlayerClicked).AddTo(disposables);
+            CollectionExtensions.AddTo(_gameTableViewModel.Clicked.Subscribe(OnPlayerClicked), disposables);
         }
 
         private void OnPlayerClicked(PlayerViewModel player)

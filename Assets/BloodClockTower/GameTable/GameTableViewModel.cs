@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using BloodClockTower;
+using Nxlk.LINQ;
+using Nxlk.UniRx;
 using UniRx;
+using CollectionExtensions = Nxlk.LINQ.CollectionExtensions;
 
 public class GameTableViewModel : DisposableObject, IInitializable
 {
@@ -17,16 +20,16 @@ public class GameTableViewModel : DisposableObject, IInitializable
     public GameTableViewModel(GameTable model)
     {
         _model = model;
-        _players = new ReactiveCollection<PlayerViewModel>().AddTo(disposables);
-        _clickedPlayerSubject = new Subject<PlayerViewModel>().AddTo(disposables);
+        _players = CollectionExtensions.AddTo(new ReactiveCollection<PlayerViewModel>(), disposables);
+        _clickedPlayerSubject = CollectionExtensions.AddTo(new Subject<PlayerViewModel>(), disposables);
         _playerViewModelMapping = new Dictionary<IPlayer, PlayerViewModel>();
         _playerSubscriptions = new Dictionary<PlayerViewModel, IDisposable>();
     }
 
     public void Initialize()
     {
-        _model.Players.ObserveAddItemWithCollection().Subscribe(AddPlayer).AddTo(disposables);
-        _model.Players.ObserveRemoveItem().Subscribe(RemovePlayer).AddTo(disposables);
+        CollectionExtensions.AddTo(_model.Players.ObserveAddItemWithCollection().Subscribe(AddPlayer), disposables);
+        CollectionExtensions.AddTo(_model.Players.ObserveRemoveItem().Subscribe(RemovePlayer), disposables);
     }
 
     private void AddPlayer(IPlayer player)

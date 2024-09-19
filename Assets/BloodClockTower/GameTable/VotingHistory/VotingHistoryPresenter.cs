@@ -1,5 +1,10 @@
 ﻿using System.Linq;
-using BloodClockTower.UI;
+using Nxlk;
+using Nxlk.Bool;
+using Nxlk.LINQ;
+using Nxlk.ReactiveUIToolkit;
+using Nxlk.UIToolkit;
+using Nxlk.UniRx;
 using UniRx;
 
 namespace BloodClockTower
@@ -23,23 +28,21 @@ namespace BloodClockTower
 
         public void Initialize()
         {
-            Observable
-                .CombineLatest(
-                    _viewModel.VotingRounds.ObserveCountChanged(),
-                    _votingSystemViewModel.CurrentState,
-                    (votingRoundsCount, state) =>
-                        votingRoundsCount > 0 && state == VotingSystemViewModel.State.Idle
-                )
-                .StartWith(false)
-                .BindToVisible(_view.VotingHistoryButton)
-                .AddTo(disposables);
-            _viewModel.IsVisible.BindToVisible(_view.VotingHistoryContainer).AddTo(disposables);
-            _view
-                .VotingHistoryButton.SubscribeOnClick(
-                    () => _viewModel.IsVisible.Value.Switch(_viewModel.Hide, _viewModel.Show)
-                )
-                .AddTo(disposables);
-            _viewModel.IsVisible.WhereTrue().Subscribe(UpdateLabel).AddTo(disposables);
+            CollectionExtensions.AddTo(Observable
+                    .CombineLatest(
+                        _viewModel.VotingRounds.ObserveCountChanged(),
+                        _votingSystemViewModel.CurrentState,
+                        (votingRoundsCount, state) =>
+                            votingRoundsCount > 0 && state == VotingSystemViewModel.State.Idle
+                    )
+                    .StartWith(false)
+                    .BindToVisible(_view.VotingHistoryButton), disposables);
+            CollectionExtensions.AddTo(_viewModel.IsVisible.BindToVisible(_view.VotingHistoryContainer), disposables);
+            CollectionExtensions.AddTo(_view
+                    .VotingHistoryButton.SubscribeOnClick(
+                        () => _viewModel.IsVisible.Value.Switch(_viewModel.Hide, _viewModel.Show)
+                    ), disposables);
+            CollectionExtensions.AddTo(_viewModel.IsVisible.WhereTrue().Subscribe(UpdateLabel), disposables);
         }
 
         private void UpdateLabel()

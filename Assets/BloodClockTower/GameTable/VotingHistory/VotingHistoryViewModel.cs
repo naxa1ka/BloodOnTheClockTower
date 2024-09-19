@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using Nxlk.LINQ;
+using Nxlk.UniRx;
 using UniRx;
+using CollectionExtensions = Nxlk.LINQ.CollectionExtensions;
 
 namespace BloodClockTower
 {
@@ -13,8 +16,8 @@ namespace BloodClockTower
 
         public VotingHistoryViewModel()
         {
-            _isVisible = new ReactiveProperty<bool>().AddTo(disposables);
-            _votingRounds = new ReactiveCollection<VotingRound>().AddTo(disposables);
+            _isVisible = CollectionExtensions.AddTo(new ReactiveProperty<bool>(), disposables);
+            _votingRounds = CollectionExtensions.AddTo(new ReactiveCollection<VotingRound>(), disposables);
         }
 
         public void Add(VotingRound votingRound)

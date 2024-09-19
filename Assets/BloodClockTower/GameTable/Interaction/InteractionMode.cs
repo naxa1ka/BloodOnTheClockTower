@@ -1,4 +1,6 @@
-﻿using UniRx;
+﻿using Nxlk.LINQ;
+using Nxlk.UniRx;
+using UniRx;
 
 namespace BloodClockTower
 {
@@ -12,8 +14,8 @@ namespace BloodClockTower
 
         public InteractionMode()
         {
-            _canDrag = new ReactiveProperty<bool>(false).AddTo(disposables);
-            _canEditName = new ReactiveProperty<bool>(false).AddTo(disposables);
+            _canDrag = CollectionExtensions.AddTo(new ReactiveProperty<bool>(false), disposables);
+            _canEditName = CollectionExtensions.AddTo(new ReactiveProperty<bool>(false), disposables);
         }
 
         public void EnableEditName() => _canEditName.Value = true;

@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BloodClockTower.UI;
+using Nxlk;
+using Nxlk.Bool;
+using Nxlk.LINQ;
+using Nxlk.ReactiveUIToolkit;
+using Nxlk.UIToolkit;
+using Nxlk.UniRx;
 using OneOf;
 using OneOf.Types;
 using UniRx;
 using UnityEngine;
+using CollectionExtensions = Nxlk.LINQ.CollectionExtensions;
 
 namespace BloodClockTower
 {
@@ -39,39 +45,35 @@ namespace BloodClockTower
             _interactionMode = interactionMode;
             _votingHistoryViewModel = votingHistoryViewModel;
             _playerViewModelDisposablesMapping = new Dictionary<PlayerViewModel, IDisposable>();
-            Disposable
-                .Create(
-                    () =>
-                        StableCompositeDisposable
-                            .Create(_playerViewModelDisposablesMapping.Values)
-                            .Dispose()
-                )
-                .AddTo(disposables);
+            CollectionExtensions.AddTo(Disposable
+                    .Create(
+                        () =>
+                            StableCompositeDisposable
+                                .Create(_playerViewModelDisposablesMapping.Values)
+                                .Dispose()
+                    ), disposables);
         }
 
         public void Initialize()
         {
-            _viewModel
-                .Players.ObserveAddItemWithCollection()
-                .Subscribe(AddPlayer)
-                .AddTo(disposables);
-            _viewModel.Players.ObserveRemoveItem().Subscribe(RemovePlayer).AddTo(disposables);
+            CollectionExtensions.AddTo(_viewModel
+                    .Players.ObserveAddItemWithCollection()
+                    .Subscribe(AddPlayer), disposables);
+            CollectionExtensions.AddTo(_viewModel.Players.ObserveRemoveItem().Subscribe(RemovePlayer), disposables);
 
-            _votingHistoryViewModel
-                .IsVisible.InverseBool()
-                .BindToVisible(_view.Board)
-                .AddTo(disposables);
-            _viewModel.Clicked.Subscribe(SelectPlayer).AddTo(disposables);
-            _view.EditButton.SubscribeOnClick(EditButtonClicked).AddTo(disposables);
-            _view
-                .NameInputField.ObserveText()
-                .Subscribe(name =>
-                {
-                    if (Selected == null)
-                        throw new ArgumentNullException();
-                    Selected.SetName(name);
-                })
-                .AddTo(disposables);
+            CollectionExtensions.AddTo(_votingHistoryViewModel
+                    .IsVisible.InverseBool()
+                    .BindToVisible(_view.Board), disposables);
+            CollectionExtensions.AddTo(_viewModel.Clicked.Subscribe(SelectPlayer), disposables);
+            CollectionExtensions.AddTo(_view.EditButton.SubscribeOnClick(EditButtonClicked), disposables);
+            CollectionExtensions.AddTo(_view
+                    .NameInputField.ObserveText()
+                    .Subscribe(name =>
+                    {
+                        if (Selected == null)
+                            throw new ArgumentNullException();
+                        Selected.SetName(name);
+                    }), disposables);
         }
 
         private void SelectPlayer(PlayerViewModel model)

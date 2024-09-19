@@ -1,4 +1,9 @@
-﻿using BloodClockTower.UI;
+﻿using Nxlk;
+using Nxlk.Bool;
+using Nxlk.LINQ;
+using Nxlk.ReactiveUIToolkit;
+using Nxlk.UIToolkit;
+using Nxlk.UniRx;
 using UniRx;
 
 namespace BloodClockTower
@@ -16,12 +21,11 @@ namespace BloodClockTower
 
         public void Initialize()
         {
-            _view
-                .EditToggle.ObserveValue()
-                .Subscribe(
-                    renameValue => renameValue.Switch(_model.EnableEditName, _model.DisableEditName)
-                )
-                .AddTo(disposables);
+            CollectionExtensions.AddTo(_view
+                    .EditToggle.ObserveValue()
+                    .Subscribe(
+                        renameValue => renameValue.Switch(_model.EnableEditName, _model.DisableEditName)
+                    ), disposables);
         }
     }
 }
