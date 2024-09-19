@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace BloodClockTower
+namespace BloodClockTower.Bootstrap
 {
     public class BoostrapContext : MonoBehaviour
     {

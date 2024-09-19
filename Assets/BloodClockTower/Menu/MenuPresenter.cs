@@ -1,29 +1,31 @@
-﻿using Nxlk;
-using Nxlk.UIToolkit;
+﻿using Nxlk.UIToolkit;
 
-public class MenuPresenter : IPresenter
+namespace BloodClockTower.Menu
 {
-    private readonly MenuView _view;
-    private readonly MenuViewModel _viewModel;
-
-    public MenuPresenter(MenuView view, MenuViewModel viewModel)
+    public class MenuPresenter : IPresenter
     {
-        _view = view;
-        _viewModel = viewModel;
-    }
+        private readonly MenuView _view;
+        private readonly MenuViewModel _viewModel;
 
-    public void Initialize()
-    {
-        _view.StartButton.clicked += Start;
-    }
+        public MenuPresenter(MenuView view, MenuViewModel viewModel)
+        {
+            _view = view;
+            _viewModel = viewModel;
+        }
 
-    private void Start()
-    {
-        _viewModel.StartGame(_view.PlayersAmountInputField.value);
-    }
+        public void Initialize()
+        {
+            _view.StartButton.clicked += Start;
+        }
 
-    public void Dispose()
-    {
-        _view.StartButton.clicked -= Start;
+        private void Start()
+        {
+            _viewModel.StartGame(_view.PlayersAmountInputField.value);
+        }
+
+        public void Dispose()
+        {
+            _view.StartButton.clicked -= Start;
+        }
     }
 }

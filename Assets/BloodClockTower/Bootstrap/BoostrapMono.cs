@@ -1,21 +1,23 @@
-﻿using BloodClockTower;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BoostrapMono : MonoBehaviour
+namespace BloodClockTower.Bootstrap
 {
-    [SerializeField]
-    private BoostrapContext _context = null!;
-
-    private Bootstrap _bootstrap = null!;
-
-    private void Awake()
+    public class BoostrapMono : MonoBehaviour
     {
-        DontDestroyOnLoad(gameObject);
-        _bootstrap = new Bootstrap(_context);
-        _bootstrap.Compose();
+        [SerializeField]
+        private BoostrapContext _context = null!;
+
+        private Bootstrap _bootstrap = null!;
+
+        private void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+            _bootstrap = new Bootstrap(_context);
+            _bootstrap.Compose();
+        }
+
+        private void Start() => _bootstrap.Start();
+
+        private void OnDestroy() => _bootstrap.Dispose();
     }
-
-    private void Start() => _bootstrap.Start();
-
-    private void OnDestroy() => _bootstrap.Dispose();
 }

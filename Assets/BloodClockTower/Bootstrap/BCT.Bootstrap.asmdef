@@ -1,0 +1,4 @@
+﻿{
+  "name": "BCT.Bootstrap",
+  "references":[ "GUID:dd64b8313ca24fbd82eff21398b3d1ab", "GUID:0e3eef2a1c82419588fc8bcbcc3c4a7d", "GUID:a49df182736a49fa8a87830a75d0e580", "GUID:6e3bf7b3fc7247df90b3ef33c82dba42", "GUID:760568e081e05b343b467d3ef9a66904", "GUID:9ea0b5b22c574c5cbde29e60613d0cdd", "GUID:523581bf4cdc411d9cc244291737bf20" ]
+}

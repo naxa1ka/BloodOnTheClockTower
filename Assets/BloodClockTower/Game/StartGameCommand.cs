@@ -1,10 +1,7 @@
-﻿using Nxlk;
-using Nxlk.Coroutine;
+﻿using Nxlk.Coroutine;
 using Nxlk.UIToolkit;
-using UnityEngine;
-using UnityEngine.UIElements;
 
-namespace BloodClockTower
+namespace BloodClockTower.Game
 {
     public class StartGameCommand
     {

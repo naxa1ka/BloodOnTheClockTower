@@ -1,15 +1,17 @@
-﻿using Nxlk;
-using Nxlk.UIToolkit;
+﻿using Nxlk.UIToolkit;
 using UnityEngine.UIElements;
 
-public class MenuView
+namespace BloodClockTower.Menu
 {
-    public Button StartButton { get; }
-    public IntegerField PlayersAmountInputField { get; }
-
-    public MenuView(SafetyUiDocument uiDocument)
+    public class MenuView
     {
-        StartButton = uiDocument.Q<Button>("start-button");
-        PlayersAmountInputField = uiDocument.Q<IntegerField>("players-amount-input-field");
+        public Button StartButton { get; }
+        public IntegerField PlayersAmountInputField { get; }
+
+        public MenuView(SafetyUiDocument uiDocument)
+        {
+            StartButton = uiDocument.Q<Button>("start-button");
+            PlayersAmountInputField = uiDocument.Q<IntegerField>("players-amount-input-field");
+        }
     }
 }

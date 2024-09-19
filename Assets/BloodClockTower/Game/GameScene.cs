@@ -1,4 +1,4 @@
-﻿namespace BloodClockTower
+﻿namespace BloodClockTower.Game
 {
     public class GameScene : Scene<GameContext>
     {

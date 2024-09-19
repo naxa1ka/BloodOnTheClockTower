@@ -1,16 +1,19 @@
-﻿using BloodClockTower;
+﻿using BloodClockTower.Game;
 
-public class MenuViewModel
+namespace BloodClockTower.Menu
 {
-    private readonly StartGameCommand _startGameCommand;
-
-    public MenuViewModel(StartGameCommand startGameCommand)
+    public class MenuViewModel
     {
-        _startGameCommand = startGameCommand;
-    }
+        private readonly StartGameCommand _startGameCommand;
 
-    public void StartGame(int playersAmount)
-    {
-        _startGameCommand.Execute(playersAmount);
+        public MenuViewModel(StartGameCommand startGameCommand)
+        {
+            _startGameCommand = startGameCommand;
+        }
+
+        public void StartGame(int playersAmount)
+        {
+            _startGameCommand.Execute(playersAmount);
+        }
     }
 }

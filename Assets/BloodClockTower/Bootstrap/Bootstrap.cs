@@ -1,49 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
-using BloodClockTower;
-using Nxlk;
+using BloodClockTower.Game;
+using BloodClockTower.Menu;
 using Nxlk.LINQ;
 using Nxlk.UIToolkit;
 
-public class Bootstrap : IDisposable
+namespace BloodClockTower.Bootstrap
 {
-    private readonly List<IDisposable> _disposables = new();
-    private readonly List<IPresenter> _presenters = new();
-    private readonly MenuScene _menuScene;
-    private readonly BoostrapContext _context;
-
-    public Bootstrap(BoostrapContext context)
+    public class Bootstrap : IDisposable
     {
-        _menuScene = new MenuScene();
-        _context = context;
-    }
+        private readonly List<IDisposable> _disposables = new();
+        private readonly List<IPresenter> _presenters = new();
+        private readonly MenuScene _menuScene;
+        private readonly BoostrapContext _context;
 
-    public void Compose()
-    {
-        _context.CoroutineRunner.Run(_menuScene.Load());
-    }
+        public Bootstrap(BoostrapContext context)
+        {
+            _menuScene = new MenuScene();
+            _context = context;
+        }
 
-    public void Start()
-    {
-        new MenuPresenter(
-            new MenuView(_menuScene.Context.UIDocument.ToSafetyUiDocument()),
-            new MenuViewModel(
-                new StartGameCommand(
-                    _context.CoroutineRunner,
-                    new ViewFactory<PlayerIconView>(_context.PlayerIconView)
+        public void Compose()
+        {
+            _context.CoroutineRunner.Run(_menuScene.Load());
+        }
+
+        public void Start()
+        {
+            new MenuPresenter(
+                    new MenuView(_menuScene.Context.UIDocument.ToSafetyUiDocument()),
+                    new MenuViewModel(
+                        new StartGameCommand(
+                            _context.CoroutineRunner,
+                            new ViewFactory<PlayerIconView>(_context.PlayerIconView)
+                        )
+                    )
                 )
-            )
-        )
-            .AddTo(_presenters)
-            .AddTo(_disposables);
+                .AddTo(_presenters)
+                .AddTo(_disposables);
 
-        foreach (var presenter in _presenters)
-            presenter.Initialize();
-    }
+            foreach (var presenter in _presenters)
+                presenter.Initialize();
+        }
 
-    public void Dispose()
-    {
-        foreach (var disposable in _disposables)
-            disposable.Dispose();
+        public void Dispose()
+        {
+            foreach (var disposable in _disposables)
+                disposable.Dispose();
+        }
     }
 }

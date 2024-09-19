@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace BloodClockTower
+namespace BloodClockTower.Game
 {
     public class GameContext : MonoBehaviour
     {

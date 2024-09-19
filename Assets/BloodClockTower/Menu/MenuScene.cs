@@ -1,5 +1,8 @@
-﻿public class MenuScene : Scene<MenuContext>
+﻿namespace BloodClockTower.Menu
 {
-    public MenuScene()
-        : base("MenuScene") { }
+    public class MenuScene : Scene<MenuContext>
+    {
+        public MenuScene()
+            : base("MenuScene") { }
+    }
 }
