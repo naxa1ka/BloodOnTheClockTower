@@ -3,7 +3,7 @@ using UniRx;
 
 namespace BloodClockTower
 {
-    public class InteractionModePresenter : DisposableObject,  IPresenter
+    public class InteractionModePresenter : DisposableObject, IPresenter
     {
         private readonly InteractionModeView _view;
         private readonly IInteractionMode _model;
@@ -19,11 +19,7 @@ namespace BloodClockTower
             _view
                 .EditToggle.ObserveValue()
                 .Subscribe(
-                    renameValue =>
-                        renameValue.Switch(
-                            _model.EnableEditName,
-                            _model.DisableEditName
-                        )
+                    renameValue => renameValue.Switch(_model.EnableEditName, _model.DisableEditName)
                 )
                 .AddTo(disposables);
         }

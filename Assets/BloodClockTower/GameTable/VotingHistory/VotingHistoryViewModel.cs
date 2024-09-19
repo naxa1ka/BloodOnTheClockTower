@@ -7,10 +7,9 @@ namespace BloodClockTower
     {
         private readonly ReactiveCollection<VotingRound> _votingRounds;
         private readonly ReactiveProperty<bool> _isVisible;
-        
+
         public IReadOnlyReactiveCollection<VotingRound> VotingRounds => _votingRounds;
         public IReadOnlyReactiveProperty<bool> IsVisible => _isVisible;
-
 
         public VotingHistoryViewModel()
         {
@@ -23,9 +22,7 @@ namespace BloodClockTower
             _votingRounds.Add(votingRound);
         }
 
-        public void Initialize()
-        {
-        }
+        public void Initialize() { }
 
         public void Show()
         {

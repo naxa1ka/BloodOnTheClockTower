@@ -11,7 +11,7 @@ namespace BloodClockTower
         {
             StartCoroutine(RunInternal(coroutine, callback));
         }
-    
+
         private IEnumerator RunInternal(IEnumerator coroutine, Action? callback = null)
         {
             yield return StartCoroutine(coroutine);

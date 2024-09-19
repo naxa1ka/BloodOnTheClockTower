@@ -7,7 +7,7 @@ namespace BloodClockTower.UI
     public class MultiLabel : VisualElement
     {
         #region UXML
-        
+
         public new class UxmlFactory : UxmlFactory<MultiLabel, UxmlTraits> { }
 
         public new class UxmlTraits : VisualElement.UxmlTraits
@@ -42,7 +42,7 @@ namespace BloodClockTower.UI
                 );
             }
         }
-        
+
         #endregion
 
         private IEnumerable<Label> Labels => this.Query<Label>().ToList();
@@ -54,7 +54,7 @@ namespace BloodClockTower.UI
             set
             {
                 _displayTooltipWhenElided = value;
-                foreach (var label in Labels) 
+                foreach (var label in Labels)
                     label.displayTooltipWhenElided = _displayTooltipWhenElided;
             }
         }
@@ -66,7 +66,7 @@ namespace BloodClockTower.UI
             set
             {
                 _parseEscapeSequences = value;
-                foreach (var label in Labels) 
+                foreach (var label in Labels)
                     label.parseEscapeSequences = _parseEscapeSequences;
             }
         }
@@ -78,7 +78,7 @@ namespace BloodClockTower.UI
             set
             {
                 _text = value;
-                foreach (var label in Labels) 
+                foreach (var label in Labels)
                     label.text = _text;
             }
         }
@@ -90,14 +90,14 @@ namespace BloodClockTower.UI
             set
             {
                 _enableRichText = value;
-                foreach (var label in Labels) 
+                foreach (var label in Labels)
                     label.enableRichText = _enableRichText;
             }
         }
 
         public void SetValueWithoutNotify(string text)
         {
-            foreach (var label in Labels) 
+            foreach (var label in Labels)
                 ((INotifyValueChanged<string>)label).SetValueWithoutNotify(text);
         }
     }

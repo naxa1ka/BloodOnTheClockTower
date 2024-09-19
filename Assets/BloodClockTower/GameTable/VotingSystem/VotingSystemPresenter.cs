@@ -32,7 +32,6 @@ namespace BloodClockTower
             _model.CurrentState.Subscribe(UpdateLabel).AddTo(disposables);
             _model.CurrentState.Subscribe(UpdateLabelVisibility).AddTo(disposables);
             _model.CurrentState.Subscribe(UpdateButtonsVisibility).AddTo(disposables);
-            
         }
 
         private void UpdateButtonsVisibility(State state)

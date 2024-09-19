@@ -91,11 +91,11 @@ namespace BloodClockTower
                     Nominee.Name.Value,
                     Participants: _gameTableViewModel
                         .Players.Where(player => player.Role.Value.HasFlag(VoteRole.Nominee))
-                        .Select(playerViewModel=>playerViewModel.Name.Value)
+                        .Select(playerViewModel => playerViewModel.Name.Value)
                         .ToList(),
                     IgnoredParticipants: _gameTableViewModel
                         .Players.Where(player => player.Role.Value == VoteRole.Default)
-                        .Select(playerViewModel=>playerViewModel.Name.Value)
+                        .Select(playerViewModel => playerViewModel.Name.Value)
                         .ToList()
                 )
             );

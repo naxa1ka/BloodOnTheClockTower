@@ -59,11 +59,11 @@ namespace BloodClockTower
         public void MarkInitiator() => Mark(VoteRole.Initiator);
 
         public void UnmarkInitiator() => Unmark(VoteRole.Initiator);
-        
+
         public void MarkNominee() => Mark(VoteRole.Nominee);
 
         public void UnmarkNominee() => Unmark(VoteRole.Nominee);
-        
+
         public void MarkParticipant() => Mark(VoteRole.Participant);
 
         public void UnmarkParticipant() => Unmark(VoteRole.Participant);

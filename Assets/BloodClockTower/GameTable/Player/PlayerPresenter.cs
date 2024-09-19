@@ -29,8 +29,8 @@ namespace BloodClockTower
 
         public void Initialize()
         {
-
-            _viewModel.Name.Subscribe(name => _view.NameLabel.SetValueWithoutNotify(name.ToString()))
+            _viewModel
+                .Name.Subscribe(name => _view.NameLabel.SetValueWithoutNotify(name.ToString()))
                 .AddTo(disposables);
             _viewModel
                 .Position.Subscribe(newPosition => _view.Container.transform.position = newPosition)

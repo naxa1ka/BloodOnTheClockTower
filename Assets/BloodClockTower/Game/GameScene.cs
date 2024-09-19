@@ -2,8 +2,7 @@
 {
     public class GameScene : Scene<GameContext>
     {
-        public GameScene() : base("GameScene")
-        {
-        }
+        public GameScene()
+            : base("GameScene") { }
     }
 }

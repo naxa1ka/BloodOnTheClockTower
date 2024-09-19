@@ -10,10 +10,10 @@ public class GameTableViewModel : DisposableObject, IInitializable
     private readonly Dictionary<IPlayer, PlayerViewModel> _playerViewModelMapping;
     private readonly Dictionary<PlayerViewModel, IDisposable> _playerSubscriptions;
     private readonly Subject<PlayerViewModel> _clickedPlayerSubject;
-    
+
     public IReadOnlyReactiveCollection<PlayerViewModel> Players => _players;
     public IObservable<PlayerViewModel> Clicked => _clickedPlayerSubject;
-    
+
     public GameTableViewModel(GameTable model)
     {
         _model = model;
@@ -35,8 +35,13 @@ public class GameTableViewModel : DisposableObject, IInitializable
         _playerViewModelMapping[player] = playerViewModel;
         _players.Add(playerViewModel);
 
-        var d1 = playerViewModel.Clicked.Subscribe(_ => _clickedPlayerSubject.OnNext(playerViewModel));
-        _playerSubscriptions.Add(playerViewModel, StableCompositeDisposable.Create(d1, playerViewModel));
+        var d1 = playerViewModel.Clicked.Subscribe(
+            _ => _clickedPlayerSubject.OnNext(playerViewModel)
+        );
+        _playerSubscriptions.Add(
+            playerViewModel,
+            StableCompositeDisposable.Create(d1, playerViewModel)
+        );
     }
 
     private void RemovePlayer(IPlayer player)

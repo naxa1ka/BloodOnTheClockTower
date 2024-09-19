@@ -9,7 +9,7 @@ namespace BloodClockTower
 
         public IReadOnlyReactiveProperty<bool> CanDrag => _canDrag;
         public IReadOnlyReactiveProperty<bool> CanEditName => _canEditName;
-        
+
         public InteractionMode()
         {
             _canDrag = new ReactiveProperty<bool>(false).AddTo(disposables);
@@ -17,8 +17,9 @@ namespace BloodClockTower
         }
 
         public void EnableEditName() => _canEditName.Value = true;
+
         public void DisableEditName() => _canEditName.Value = false;
-        
+
         public void EnableDrag() => _canDrag.Value = true;
 
         public void DisableDrag() => _canDrag.Value = false;

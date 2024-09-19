@@ -9,7 +9,8 @@ namespace BloodClockTower
         {
             return observable.Subscribe(unit => onNext.Invoke());
         }
-        
-        public static IObservable<bool> InverseBool(this IObservable<bool> source) => source.Select(x => !x);
+
+        public static IObservable<bool> InverseBool(this IObservable<bool> source) =>
+            source.Select(x => !x);
     }
 }

@@ -6,7 +6,7 @@ namespace BloodClockTower.UI
     public class SafetyUiDocument
     {
         private readonly Lazy<VisualElement> _root;
-    
+
         public VisualElement Root => _root.Value;
 
         public SafetyUiDocument(UIDocument uiDocument)
@@ -31,6 +31,7 @@ namespace BloodClockTower.UI
             });
         }
 
-        public T Q<T>(string? name = null) where T : VisualElement => Root.Q<T>(name);
+        public T Q<T>(string? name = null)
+            where T : VisualElement => Root.Q<T>(name);
     }
 }

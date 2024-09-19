@@ -9,7 +9,7 @@ namespace BloodClockTower
         public VisualElement Board { get; private set; }
         public Button EditButton { get; private set; }
         public TextField NameInputField { get; private set; }
-        
+
         public GameTableView(SafetyUiDocument safetyUiDocument)
         {
             Board = safetyUiDocument.Q<VisualElement>("board");

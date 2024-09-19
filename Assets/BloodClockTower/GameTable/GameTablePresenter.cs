@@ -63,12 +63,15 @@ namespace BloodClockTower
                 .AddTo(disposables);
             _viewModel.Clicked.Subscribe(SelectPlayer).AddTo(disposables);
             _view.EditButton.SubscribeOnClick(EditButtonClicked).AddTo(disposables);
-            _view.NameInputField.ObserveText().Subscribe(name =>
-            {
-                if (Selected == null)
-                    throw new ArgumentNullException();
-                Selected.SetName(name);
-            }).AddTo(disposables);
+            _view
+                .NameInputField.ObserveText()
+                .Subscribe(name =>
+                {
+                    if (Selected == null)
+                        throw new ArgumentNullException();
+                    Selected.SetName(name);
+                })
+                .AddTo(disposables);
         }
 
         private void SelectPlayer(PlayerViewModel model)
@@ -76,6 +79,7 @@ namespace BloodClockTower
             _isRenaming.Switch(
                 () =>
                 {
+                    _view.NameInputField.Show();
                     _view.NameInputField.SetValueWithoutNotify(model.Name.Value.ToString());
                     Selected?.Deselect();
                     model.Select();
@@ -95,9 +99,11 @@ namespace BloodClockTower
                 },
                 () =>
                 {
-                    _view.NameInputField.Show();
+                    if (Selected != null)
+                        _view.NameInputField.Show();
                     _isRenaming = true;
-                });
+                }
+            );
         }
 
         private void AddPlayer(PlayerViewModel playerViewModel)

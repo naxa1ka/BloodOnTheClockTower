@@ -4,7 +4,7 @@ public class MenuPresenter : IPresenter
 {
     private readonly MenuView _view;
     private readonly MenuViewModel _viewModel;
-    
+
     public MenuPresenter(MenuView view, MenuViewModel viewModel)
     {
         _view = view;
@@ -19,7 +19,6 @@ public class MenuPresenter : IPresenter
     private void Start()
     {
         _viewModel.StartGame(_view.PlayersAmountInputField.value);
-        
     }
 
     public void Dispose()

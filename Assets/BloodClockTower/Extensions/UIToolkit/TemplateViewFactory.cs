@@ -13,7 +13,7 @@ namespace BloodClockTower.UI
 
         public VisualElement Create()
         {
-             return _visualTreeAsset.CloneTree().contentContainer;
+            return _visualTreeAsset.CloneTree().contentContainer;
         }
     }
 }

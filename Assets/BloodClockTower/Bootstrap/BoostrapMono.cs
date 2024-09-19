@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class BoostrapMono : MonoBehaviour
 {
-    [SerializeField] private BoostrapContext _context = null!; 
-    
+    [SerializeField]
+    private BoostrapContext _context = null!;
+
     private Bootstrap _bootstrap = null!;
-    
+
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);

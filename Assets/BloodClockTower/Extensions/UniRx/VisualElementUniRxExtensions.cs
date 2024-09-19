@@ -9,18 +9,18 @@ namespace BloodClockTower.UI
     {
         public static IObservable<Unit> WhereTrue(this IObservable<bool> source)
         {
-            return source.Where(x => x == true).Select(_=> Unit.Default);
+            return source.Where(x => x == true).Select(_ => Unit.Default);
         }
-          
+
         [MustUseReturnValue]
         public static IDisposable BindToVisible(
-            this VisualElement visualElement, IObservable<bool> source
-            
+            this VisualElement visualElement,
+            IObservable<bool> source
         )
         {
             return BindToVisible(source, visualElement);
         }
-        
+
         [MustUseReturnValue]
         public static IDisposable BindToVisible(
             this IObservable<bool> source,
@@ -29,7 +29,6 @@ namespace BloodClockTower.UI
         {
             return source.Subscribe(visualElement.SetVisible);
         }
-        
 
         public static IObservable<Unit> ObserveClick(this Button button)
         {

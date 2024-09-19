@@ -35,13 +35,13 @@ namespace BloodClockTower
                         gameTableViewModel,
                         votingHistoryViewModel
                     );
-                    
+
                     var interactionModeView = new InteractionModeView(safetyUiDocument);
                     var interactionModePresenter = new InteractionModePresenter(
                         interactionModeView,
                         interactionMode
                     );
-                    
+
                     var gameTableView = new GameTableView(safetyUiDocument);
                     var gameTablePresenter = new GameTablePresenter(
                         gameTableView,

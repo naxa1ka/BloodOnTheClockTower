@@ -24,15 +24,17 @@ public class Bootstrap : IDisposable
     public void Start()
     {
         new MenuPresenter(
-                new MenuView(_menuScene.Context.UIDocument.ToSafetyUiDocument()
-            ),
+            new MenuView(_menuScene.Context.UIDocument.ToSafetyUiDocument()),
             new MenuViewModel(
-                new StartGameCommand(_context.CoroutineRunner, new ViewFactory<PlayerIconView>(_context.PlayerIconView))
+                new StartGameCommand(
+                    _context.CoroutineRunner,
+                    new ViewFactory<PlayerIconView>(_context.PlayerIconView)
+                )
             )
         )
-        .AddTo(_presenters)
-        .AddTo(_disposables);
-        
+            .AddTo(_presenters)
+            .AddTo(_disposables);
+
         foreach (var presenter in _presenters)
             presenter.Initialize();
     }

@@ -14,6 +14,6 @@ namespace BloodClockTower
             {
                 falseAction();
             }
-        } 
+        }
     }
 }
