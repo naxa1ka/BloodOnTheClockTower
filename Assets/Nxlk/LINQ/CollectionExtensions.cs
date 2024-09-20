@@ -21,5 +21,10 @@ namespace Nxlk.LINQ
         {
             return enumerable.Concat(item.Yield());
         }
+        
+        public static IEnumerable<T> Except<T>(this IEnumerable<T> enumerable, T item)
+        {
+            return enumerable.Except(item.Yield());
+        }
     }
 }
