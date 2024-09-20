@@ -24,16 +24,28 @@ namespace BloodClockTower.Game
 
         private readonly ReactiveProperty<State> _currentState;
 
-        private PlayerViewModel Initiator =>
-            _gameTableViewModel.Players.Single(
+        private PlayerViewModel? InitiatorOrDefault =>
+            _gameTableViewModel.Players.SingleOrDefault(
                 player => player.Role.Value.HasFlag(VoteRole.Initiator)
             );
 
-        private PlayerViewModel Nominee =>
-            _gameTableViewModel.Players.Single(
+        private PlayerViewModel Initiator =>
+            InitiatorOrDefault ?? throw new NullReferenceException();
+
+        private PlayerViewModel? NomineeOrDefault =>
+            _gameTableViewModel.Players.SingleOrDefault(
                 player => player.Role.Value.HasFlag(VoteRole.Nominee)
             );
 
+        private PlayerViewModel Nominee => NomineeOrDefault ?? throw new NullReferenceException();
+
+        private bool AnyParticipant =>
+            _gameTableViewModel.Players.Any(
+                player => player.Role.Value.HasFlag(VoteRole.Participant)
+            );
+
+        public bool CanEndVoting =>
+            InitiatorOrDefault != null && NomineeOrDefault != null && AnyParticipant;
         public IReadOnlyReactiveProperty<State> CurrentState => _currentState;
 
         public VotingSystemViewModel(
@@ -87,20 +99,24 @@ namespace BloodClockTower.Game
 
         public void EndVoting()
         {
-            _votingHistoryViewModel.Add(
-                new VotingRound(
-                    Initiator.Name.Value,
-                    Nominee.Name.Value,
-                    Participants: _gameTableViewModel
-                        .Players.Where(player => player.Role.Value.HasFlag(VoteRole.Nominee))
-                        .Select(playerViewModel => playerViewModel.Name.Value)
-                        .ToList(),
-                    IgnoredParticipants: _gameTableViewModel
-                        .Players.Where(player => player.Role.Value == VoteRole.Default)
-                        .Select(playerViewModel => playerViewModel.Name.Value)
-                        .ToList()
-                )
-            );
+            if (CanEndVoting)
+            {
+                _votingHistoryViewModel.Add(
+                    new VotingRound(
+                        Initiator.Name.Value,
+                        Nominee.Name.Value,
+                        Participants: _gameTableViewModel
+                            .Players.Where(player => player.Role.Value.HasFlag(VoteRole.Nominee))
+                            .Select(playerViewModel => playerViewModel.Name.Value)
+                            .ToList(),
+                        IgnoredParticipants: _gameTableViewModel
+                            .Players.Where(player => player.Role.Value == VoteRole.Default)
+                            .Select(playerViewModel => playerViewModel.Name.Value)
+                            .ToList()
+                    )
+                );
+            }
+
             foreach (var player in _gameTableViewModel.Players)
                 player.ClearMark();
             _currentState.Value = State.Idle;
