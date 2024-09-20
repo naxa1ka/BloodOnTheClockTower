@@ -127,65 +127,56 @@ namespace BloodClockTower.Game
         private void ArrangePlayersInCircle()
         {
             const float maxIconSizeLimit = 256f;
-            const float leftMargin = 0f; // Left margin in pixels
-            const float rightMargin = 0f; // Right margin in pixels
-            const float topMargin = 0f; // Top margin in pixels
-            const float bottomMargin = 0f; // Bottom margin in pixels
+            const float leftMargin = 0f; 
+            const float rightMargin = 0f;
+            const float topMargin = 0f; 
+            const float bottomMargin = 0f;
 
-            int playerCount = _viewModel.Players.Count;
+            var playerCount = _viewModel.Players.Count;
             if (playerCount == 0)
                 return;
 
             var boardWidth = _view.Board.resolvedStyle.width;
             var boardHeight = _view.Board.resolvedStyle.height;
 
-            // Calculate effective dimensions
             var effectiveWidth = boardWidth - leftMargin - rightMargin;
             var effectiveHeight = boardHeight - topMargin - bottomMargin;
-            var centerX = leftMargin + (effectiveWidth / 2f);
-            var centerY = bottomMargin + (effectiveHeight / 2f);
+            var centerX = leftMargin + effectiveWidth / 2f;
+            var centerY = bottomMargin + effectiveHeight / 2f;
 
-            // Calculate sin(π / N) once for efficiency
-            float sinHalfAngle = Mathf.Sin(Mathf.PI / playerCount);
+            var sinHalfAngle = Mathf.Sin(Mathf.PI / playerCount);
 
-            // Calculate K factor
-            float K = (1f / sinHalfAngle) + 1f;
+            var k = 1f / sinHalfAngle + 1f;
 
-            // Compute maximum icon sizes based on effective dimensions
-            float S_width = effectiveWidth / K;
-            float S_height = effectiveHeight / K;
-            float S_max = Mathf.Min(S_width, S_height, maxIconSizeLimit);
+            var sWidth = effectiveWidth / k;
+            var sHeight = effectiveHeight / k;
+            var sMax = Mathf.Min(sWidth, sHeight, maxIconSizeLimit);
 
-            // Calculate initial radius
-            float R = S_max / (2f * sinHalfAngle);
+            var r = sMax / (2f * sinHalfAngle);
 
-            // Compute maximum possible radius considering icon size
-            float R_max_X = (effectiveWidth / 2f) - (S_max / 2f);
-            float R_max_Y = (effectiveHeight / 2f) - (S_max / 2f);
-            float R_max = Mathf.Min(R_max_X, R_max_Y);
+            var rMaxX = effectiveWidth / 2f - sMax / 2f;
+            var rMaxY = effectiveHeight / 2f - sMax / 2f;
+            var rMax = Mathf.Min(rMaxX, rMaxY);
 
-            // Adjust radius and icon size if necessary
-            if (R > R_max)
+            if (r > rMax)
             {
-                R = R_max;
-                S_max = 2f * R * sinHalfAngle;
-                // Ensure S_max does not exceed maxIconSizeLimit
-                S_max = Mathf.Min(S_max, maxIconSizeLimit);
+                r = rMax;
+                sMax = 2f * r * sinHalfAngle;
+                sMax = Mathf.Min(sMax, maxIconSizeLimit);
             }
 
-            // Angle between each icon in radians
-            float angleStepRadians = 2f * Mathf.PI / playerCount;
-            float startAngle = -Mathf.PI / 2f; // Start from the top
+            var angleStepRadians = 2f * Mathf.PI / playerCount;
+            const float startAngle = -Mathf.PI / 2f; 
 
-            for (int index = 0; index < playerCount; index++)
+            for (var index = 0; index < playerCount; index++)
             {
                 var playerViewModel = _viewModel.Players[index];
-                float angle = startAngle + index * angleStepRadians;
-                float x = centerX + R * Mathf.Cos(angle) - S_max / 2f;
-                float y = centerY + R * Mathf.Sin(angle) - S_max / 2f;
+                var angle = startAngle + index * angleStepRadians;
+                var x = centerX + r * Mathf.Cos(angle) - sMax / 2f;
+                var y = centerY + r * Mathf.Sin(angle) - sMax / 2f;
 
                 playerViewModel.SetPosition(new Vector3(x, y, 0f));
-                playerViewModel.SetSize(S_max);
+                playerViewModel.SetSize(sMax);
             }
         }
     }
