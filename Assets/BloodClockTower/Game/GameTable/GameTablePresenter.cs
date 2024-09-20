@@ -66,6 +66,7 @@ namespace BloodClockTower.Game
                 .AddTo(disposables);
             _viewModel.Clicked.Subscribe(SelectPlayer).AddTo(disposables);
             _view.EditButton.SubscribeOnClick(EditButtonClicked).AddTo(disposables);
+            _view.EndEditingButton.SubscribeOnClick(EditButtonClicked).AddTo(disposables);
             _view
                 .NameInputField.ObserveText()
                 .Subscribe(name =>
@@ -109,12 +110,16 @@ namespace BloodClockTower.Game
             _isRenaming.Switch(
                 () =>
                 {
+                    _view.EditButton.Hide();
+                    _view.EndEditingButton.Show();
                     _view.NameInputField.Hide();
                     Selected?.Deselect();
                     _isRenaming = false;
                 },
                 () =>
                 {
+                    _view.EditButton.Show();
+                    _view.EndEditingButton.Hide();
                     if (Selected != null)
                         _view.NameInputField.Show();
                     _isRenaming = true;
