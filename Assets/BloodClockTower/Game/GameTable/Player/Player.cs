@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using System.Diagnostics.Contracts;
+using UniRx;
 
 namespace BloodClockTower.Game
 {
@@ -7,19 +8,19 @@ namespace BloodClockTower.Game
         private readonly ReactiveProperty<PlayerName> _name;
 
         public IReadOnlyReactiveProperty<PlayerName> Name => _name;
-
-        public bool IsAlive { get; private set; } = true;
+        public bool IsAlive { get; }
 
         public Player()
+            : this(PlayerName.From("Unknown")) { }
+
+        public Player(PlayerName name, bool isAlive = true)
         {
-            _name = new ReactiveProperty<PlayerName>(new PlayerName("Empty name"));
+            _name = new ReactiveProperty<PlayerName>(name);
+            IsAlive = isAlive;
         }
 
-        public void Kill()
-        {
-            IsAlive = false;
-        }
+        public void ChangeName(string name) => _name.Value = PlayerName.From(name);
 
-        public void SetName(string name) => _name.Value = new PlayerName(name);
+        public IPlayer DeepClone() => new Player(_name.Value, IsAlive);
     }
 }

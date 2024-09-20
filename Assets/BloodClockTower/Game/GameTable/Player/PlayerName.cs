@@ -1,7 +1,6 @@
-﻿namespace BloodClockTower.Game
+﻿using ValueOf;
+
+namespace BloodClockTower.Game
 {
-    public record PlayerName(string Name)
-    {
-        public override string ToString() => Name;
-    }
+    public class PlayerName : ValueOf<string, PlayerName> { }
 }

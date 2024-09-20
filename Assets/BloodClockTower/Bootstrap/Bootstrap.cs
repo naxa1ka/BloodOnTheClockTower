@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using BloodClockTower.Game;
 using BloodClockTower.Menu;
+using Cysharp.Threading.Tasks;
 using Nxlk.LINQ;
 using Nxlk.UIToolkit;
+using OneOf;
+using OneOf.Types;
+using Object = UnityEngine.Object;
 
 namespace BloodClockTower.Bootstrap
 {
@@ -13,6 +17,7 @@ namespace BloodClockTower.Bootstrap
         private readonly List<IPresenter> _presenters = new();
         private readonly MenuScene _menuScene;
         private readonly BoostrapContext _context;
+        private OneOf<GameScopeMono, None> _gameScope = new None();
 
         public Bootstrap(BoostrapContext context)
         {
@@ -20,25 +25,26 @@ namespace BloodClockTower.Bootstrap
             _context = context;
         }
 
-        public void Compose()
+        public async UniTask Load()
         {
-            _context.CoroutineRunner.Run(_menuScene.Load());
+            await _menuScene.Load();
         }
 
-        public void Start()
+        public void Compose()
         {
             new MenuPresenter(
-                    new MenuView(_menuScene.Context.UIDocument.ToSafetyUiDocument()),
-                    new MenuViewModel(
-                        new StartGameCommand(
-                            _context.CoroutineRunner,
-                            new ViewFactory<PlayerIconView>(_context.PlayerIconView)
-                        )
-                    )
+                new MenuView(_menuScene.Context.UIDocument.ToSafetyUiDocument()),
+                new StartGameCommand(
+                    new ViewFactory<PlayerIconView>(_context.PlayerIconView),
+                    scope => _gameScope = scope
                 )
+            )
                 .AddTo(_presenters)
                 .AddTo(_disposables);
+        }
 
+        public void Initialize()
+        {
             foreach (var presenter in _presenters)
                 presenter.Initialize();
         }
@@ -47,6 +53,7 @@ namespace BloodClockTower.Bootstrap
         {
             foreach (var disposable in _disposables)
                 disposable.Dispose();
+            _gameScope.Switch(scope => Object.Destroy(scope.gameObject), none => { });
         }
     }
 }

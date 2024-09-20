@@ -9,6 +9,5 @@ namespace Nxlk.ReactiveUIToolkit
         {
             return toggle.RegisterValueChangedAsObservable();
         }
-
     }
 }

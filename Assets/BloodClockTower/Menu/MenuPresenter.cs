@@ -1,31 +1,31 @@
-﻿using Nxlk.UIToolkit;
+﻿using BloodClockTower.Game;
+using Cysharp.Threading.Tasks;
+using Nxlk.LINQ;
+using Nxlk.ReactiveUIToolkit;
+using Nxlk.UIToolkit;
+using Nxlk.UniRx;
 
 namespace BloodClockTower.Menu
 {
-    public class MenuPresenter : IPresenter
+    public class MenuPresenter : DisposableObject, IPresenter
     {
         private readonly MenuView _view;
-        private readonly MenuViewModel _viewModel;
+        private readonly StartGameCommand _startGameCommand;
 
-        public MenuPresenter(MenuView view, MenuViewModel viewModel)
+        public MenuPresenter(MenuView view, StartGameCommand startGameCommand)
         {
+            _startGameCommand = startGameCommand;
             _view = view;
-            _viewModel = viewModel;
         }
 
         public void Initialize()
         {
-            _view.StartButton.clicked += Start;
+            _view.StartButton.SubscribeOnClick(() => Start().Forget()).AddTo(disposables);
         }
 
-        private void Start()
+        private async UniTaskVoid Start()
         {
-            _viewModel.StartGame(_view.PlayersAmountInputField.value);
-        }
-
-        public void Dispose()
-        {
-            _view.StartButton.clicked -= Start;
+            await _startGameCommand.Execute(_view.PlayersAmountInputField.value);
         }
     }
 }

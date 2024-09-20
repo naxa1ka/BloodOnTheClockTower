@@ -1,4 +1,6 @@
-﻿namespace BloodClockTower.Menu
+﻿using Nxlk.Scene;
+
+namespace BloodClockTower.Menu
 {
     public class MenuScene : Scene<MenuContext>
     {

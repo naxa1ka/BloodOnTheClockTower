@@ -1,6 +1,5 @@
 ﻿using System;
 using Nxlk.Bool;
-using Nxlk.LINQ;
 using Nxlk.UniRx;
 using UniRx;
 using UnityEngine;
@@ -37,17 +36,14 @@ namespace BloodClockTower.Game
         public PlayerViewModel(IPlayer player)
         {
             _player = player;
-            _position = CollectionExtensions.AddTo(new ReactiveProperty<Vector3>(Vector3.zero), disposables);
-            _iconSize = CollectionExtensions.AddTo(new ReactiveProperty<float>(64), disposables);
-            _isSelected = CollectionExtensions.AddTo(new ReactiveProperty<bool>(false), disposables);
-            _role = CollectionExtensions.AddTo(new ReactiveProperty<VoteRole>(VoteRole.Default), disposables);
-            _clicked = CollectionExtensions.AddTo(new Subject<Unit>(), disposables);
+            _position = new ReactiveProperty<Vector3>(Vector3.zero).AddTo(disposables);
+            _iconSize = new ReactiveProperty<float>(64).AddTo(disposables);
+            _isSelected = new ReactiveProperty<bool>(false).AddTo(disposables);
+            _role = new ReactiveProperty<VoteRole>(VoteRole.Default).AddTo(disposables);
+            _clicked = new Subject<Unit>().AddTo(disposables);
         }
 
-        public void ChangePosition(Func<Vector3, Vector3> updatePosition) =>
-            SetPosition(updatePosition.Invoke(_position.Value));
-
-        public void SetName(string name) => _player.SetName(name);
+        public void ChangeName(string name) => _player.ChangeName(name);
 
         public void SetPosition(Vector3 position) => _position.Value = position;
 

@@ -5,6 +5,13 @@ namespace Nxlk.UniRx
 {
     public static class ReactiveCollectionExtensions
     {
+        public static IObservable<int> ObserveCountChangedWithCount<T>(
+            this IReadOnlyReactiveCollection<T> reactiveCollection
+        )
+        {
+            return reactiveCollection.ObserveCountChanged().StartWith(reactiveCollection.Count);
+        }
+
         public static IObservable<T> ObserveAddItem<T>(
             this IReadOnlyReactiveCollection<T> reactiveCollection
         )

@@ -1,4 +1,6 @@
-﻿namespace BloodClockTower.Game
+﻿using Nxlk.Scene;
+
+namespace BloodClockTower.Game
 {
     public class GameScene : Scene<GameContext>
     {

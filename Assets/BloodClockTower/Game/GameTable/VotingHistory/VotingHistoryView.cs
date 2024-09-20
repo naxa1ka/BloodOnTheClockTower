@@ -5,13 +5,15 @@ namespace BloodClockTower.Game
 {
     public class VotingHistoryView
     {
-        public Button VotingHistoryButton { get; private set; }
+        public Button CloseVotingHistoryButton { get; private set; }
+        public Button OpenVotingHistoryButton { get; private set; }
         public VisualElement VotingHistoryContainer { get; private set; }
         public Label VotingHistoryLabel { get; private set; }
 
         public VotingHistoryView(SafetyUiDocument uiDocument)
         {
-            VotingHistoryButton = uiDocument.Q<Button>("voting-history-button");
+            CloseVotingHistoryButton = uiDocument.Q<Button>("close-voting-history-button");
+            OpenVotingHistoryButton = uiDocument.Q<Button>("open-voting-history-button");
             VotingHistoryContainer = uiDocument.Q<VisualElement>("voting-history-container");
             VotingHistoryLabel = uiDocument.Q<Label>("voting-history-label");
         }

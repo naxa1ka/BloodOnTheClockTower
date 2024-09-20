@@ -12,28 +12,22 @@ namespace BloodClockTower.Game
     {
         private readonly VotingSystemView _view;
         private readonly VotingSystemViewModel _model;
-        private readonly GameTableViewModel _gameTableViewModel;
 
-        public VotingSystemPresenter(
-            VotingSystemView view,
-            VotingSystemViewModel model,
-            GameTableViewModel gameTableViewModel
-        )
+        public VotingSystemPresenter(VotingSystemView view, VotingSystemViewModel model)
         {
             _view = view;
             _model = model;
-            _gameTableViewModel = gameTableViewModel;
         }
 
         public void Initialize()
         {
-            CollectionExtensions.AddTo(_view.StartVotingButton.SubscribeOnClick(_model.StartVoting), disposables);
-            CollectionExtensions.AddTo(_view.EndVotingButton.SubscribeOnClick(_model.EndVoting), disposables);
-            CollectionExtensions.AddTo(_view.ResetInitiatorButton.SubscribeOnClick(_model.ResetInitiator), disposables);
-            CollectionExtensions.AddTo(_view.ResetNomineeButton.SubscribeOnClick(_model.ResetNominee), disposables);
-            CollectionExtensions.AddTo(_model.CurrentState.Subscribe(UpdateLabel), disposables);
-            CollectionExtensions.AddTo(_model.CurrentState.Subscribe(UpdateLabelVisibility), disposables);
-            CollectionExtensions.AddTo(_model.CurrentState.Subscribe(UpdateButtonsVisibility), disposables);
+            _view.StartVotingButton.SubscribeOnClick(_model.StartVoting).AddTo(disposables);
+            _view.EndVotingButton.SubscribeOnClick(_model.EndVoting).AddTo(disposables);
+            _view.ResetInitiatorButton.SubscribeOnClick(_model.ResetInitiator).AddTo(disposables);
+            _view.ResetNomineeButton.SubscribeOnClick(_model.ResetNominee).AddTo(disposables);
+            _model.CurrentState.Subscribe(UpdateLabel).AddTo(disposables);
+            _model.CurrentState.Subscribe(UpdateLabelVisibility).AddTo(disposables);
+            _model.CurrentState.Subscribe(UpdateButtonsVisibility).AddTo(disposables);
         }
 
         private void UpdateButtonsVisibility(State state)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Nxlk.LINQ;
 using Nxlk.UniRx;
 using UniRx;
 using CollectionExtensions = Nxlk.LINQ.CollectionExtensions;
@@ -8,7 +9,8 @@ namespace BloodClockTower.Game
 {
     public class GameTableViewModel : DisposableObject, IInitializable
     {
-        private readonly GameTable _model;
+        private readonly Night _night;
+
         private readonly ReactiveCollection<PlayerViewModel> _players;
         private readonly Dictionary<IPlayer, PlayerViewModel> _playerViewModelMapping;
         private readonly Dictionary<PlayerViewModel, IDisposable> _playerSubscriptions;
@@ -17,19 +19,19 @@ namespace BloodClockTower.Game
         public IReadOnlyReactiveCollection<PlayerViewModel> Players => _players;
         public IObservable<PlayerViewModel> Clicked => _clickedPlayerSubject;
 
-        public GameTableViewModel(GameTable model)
+        public GameTableViewModel(Night night)
         {
-            _model = model;
-            _players = CollectionExtensions.AddTo(new ReactiveCollection<PlayerViewModel>(), disposables);
-            _clickedPlayerSubject = CollectionExtensions.AddTo(new Subject<PlayerViewModel>(), disposables);
+            _night = night;
+            _players = new ReactiveCollection<PlayerViewModel>().AddTo(disposables);
+            _clickedPlayerSubject = new Subject<PlayerViewModel>().AddTo(disposables);
             _playerViewModelMapping = new Dictionary<IPlayer, PlayerViewModel>();
             _playerSubscriptions = new Dictionary<PlayerViewModel, IDisposable>();
         }
 
         public void Initialize()
         {
-            CollectionExtensions.AddTo(_model.Players.ObserveAddItemWithCollection().Subscribe(AddPlayer), disposables);
-            CollectionExtensions.AddTo(_model.Players.ObserveRemoveItem().Subscribe(RemovePlayer), disposables);
+            _night.Players.ObserveAddItemWithCollection().Subscribe(AddPlayer).AddTo(disposables);
+            _night.Players.ObserveRemoveItem().Subscribe(RemovePlayer).AddTo(disposables);
         }
 
         private void AddPlayer(IPlayer player)

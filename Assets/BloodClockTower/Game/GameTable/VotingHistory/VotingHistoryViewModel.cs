@@ -1,38 +1,28 @@
 ﻿using Nxlk.UniRx;
 using UniRx;
-using CollectionExtensions = Nxlk.LINQ.CollectionExtensions;
 
 namespace BloodClockTower.Game
 {
     public class VotingHistoryViewModel : DisposableObject, IInitializable
     {
-        private readonly ReactiveCollection<VotingRound> _votingRounds;
+        private readonly Night _night;
         private readonly ReactiveProperty<bool> _isVisible;
 
-        public IReadOnlyReactiveCollection<VotingRound> VotingRounds => _votingRounds;
+        public IReadOnlyReactiveCollection<IVotingRound> VotingRounds => _night.VotingRounds;
         public IReadOnlyReactiveProperty<bool> IsVisible => _isVisible;
 
-        public VotingHistoryViewModel()
+        public VotingHistoryViewModel(Night night)
         {
-            _isVisible = CollectionExtensions.AddTo(new ReactiveProperty<bool>(), disposables);
-            _votingRounds = CollectionExtensions.AddTo(new ReactiveCollection<VotingRound>(), disposables);
-        }
-
-        public void Add(VotingRound votingRound)
-        {
-            _votingRounds.Add(votingRound);
+            _night = night;
+            _isVisible = new ReactiveProperty<bool>().AddTo(disposables);
         }
 
         public void Initialize() { }
 
-        public void Show()
-        {
-            _isVisible.Value = true;
-        }
+        public void Add(IVotingRound votingRound) => _night.Add(votingRound);
 
-        public void Hide()
-        {
-            _isVisible.Value = false;
-        }
+        public void Show() => _isVisible.Value = true;
+
+        public void Hide() => _isVisible.Value = false;
     }
 }

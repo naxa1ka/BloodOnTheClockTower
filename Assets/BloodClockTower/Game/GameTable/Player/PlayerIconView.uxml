@@ -8,6 +8,6 @@
         <Nxlk.UIToolkit.MultiLabel text="Илья" name="name-label" display-tooltip-when-elision="false" style="position: absolute; top: 154px;">
             <ui:Label tabindex="-1" text="Илья" name="name-label-0" style="color: rgb(255, 254, 255); -unity-text-outline-color: rgb(6, 4, 7); font-size: 32px; text-shadow: 0.5px 0.5px 1px rgb(216, 55, 246); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 0; padding-right: 0; padding-top: 0; padding-left: 0; position: absolute;" />
             <ui:Label tabindex="-1" text="Илья" name="name-label-1" style="color: rgb(255, 254, 255); -unity-text-outline-color: rgb(6, 4, 7); font-size: 32px; text-shadow: -0.5px -0.5px 1px rgb(108, 29, 155); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 0; padding-right: 0; padding-top: 0; padding-left: 0;" />
-        </BloodClockTower.UI.MultiLabel>
+        </Nxlk.UIToolkit.MultiLabel>
     </ui:VisualElement>
 </ui:UXML>

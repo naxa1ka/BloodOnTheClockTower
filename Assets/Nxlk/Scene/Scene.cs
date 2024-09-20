@@ -1,34 +1,33 @@
 ﻿using System;
-using System.Collections;
+using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
 using UObject = UnityEngine.Object;
 
-public class Scene<T>
-    where T : UObject
+namespace Nxlk.Scene
 {
-    private readonly string _name;
-    private readonly Lazy<T> _context;
-
-    public T Context => _context.Value;
-
-    public Scene(string name)
+    public class Scene<T>
+        where T : UObject
     {
-        _name = name;
-        _context = new Lazy<T>(() =>
+        private readonly string _name;
+        private readonly Lazy<T> _context;
+
+        public T Context => _context.Value;
+
+        public Scene(string name)
         {
-            var context = UObject.FindObjectOfType<T>();
-            if (context == null)
-                throw new ArgumentNullException(
-                    nameof(context),
-                    "Impossible to find scene context"
-                );
-            return context;
-        });
-    }
+            _name = name;
+            _context = new Lazy<T>(() =>
+            {
+                var context = UObject.FindObjectOfType<T>();
+                if (context == null)
+                    throw new ArgumentNullException(
+                        nameof(context),
+                        "Impossible to find scene context"
+                    );
+                return context;
+            });
+        }
 
-    public IEnumerator Load()
-    {
-        yield return SceneManager.LoadSceneAsync(_name);
-        yield return null;
+        public async UniTask Load() => await SceneManager.LoadSceneAsync(_name);
     }
 }

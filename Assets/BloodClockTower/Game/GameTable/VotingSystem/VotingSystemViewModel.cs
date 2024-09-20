@@ -43,12 +43,12 @@ namespace BloodClockTower.Game
         {
             _gameTableViewModel = gameTableViewModel;
             _votingHistoryViewModel = votingHistoryViewModel;
-            _currentState = CollectionExtensions.AddTo(new ReactiveProperty<State>(State.Idle), disposables);
+            _currentState = new ReactiveProperty<State>(State.Idle).AddTo(disposables);
         }
 
         public void Initialize()
         {
-            CollectionExtensions.AddTo(_gameTableViewModel.Clicked.Subscribe(OnPlayerClicked), disposables);
+            _gameTableViewModel.Clicked.Subscribe(OnPlayerClicked).AddTo(disposables);
         }
 
         private void OnPlayerClicked(PlayerViewModel player)

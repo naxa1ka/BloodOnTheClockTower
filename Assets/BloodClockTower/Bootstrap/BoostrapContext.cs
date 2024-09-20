@@ -1,5 +1,4 @@
-﻿using Nxlk.Coroutine;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace BloodClockTower.Bootstrap
@@ -8,8 +7,5 @@ namespace BloodClockTower.Bootstrap
     {
         [field: SerializeField]
         public VisualTreeAsset PlayerIconView { get; private set; } = null!;
-
-        [field: SerializeField]
-        public CoroutineRunner CoroutineRunner { get; private set; } = null!;
     }
 }

@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using System.Diagnostics.Contracts;
+using UniRx;
 
 namespace BloodClockTower.Game
 {
@@ -6,7 +7,10 @@ namespace BloodClockTower.Game
     {
         IReadOnlyReactiveProperty<PlayerName> Name { get; }
         bool IsAlive { get; }
-        void Kill();
-        void SetName(string name);
+
+        void ChangeName(string name);
+
+        [Pure]
+        IPlayer DeepClone();
     }
 }
