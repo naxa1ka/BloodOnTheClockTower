@@ -18,7 +18,6 @@ namespace BloodClockTower.Game
             Participant = 1 << 3,
         }
 
-        private readonly IPlayer _player;
         private readonly ReactiveProperty<Vector3> _position;
         private readonly ReactiveProperty<float> _iconSize;
         private readonly ReactiveProperty<bool> _isSelected;
@@ -29,13 +28,14 @@ namespace BloodClockTower.Game
         public IReadOnlyReactiveProperty<bool> IsSelected => _isSelected;
         public IReadOnlyReactiveProperty<float> IconSize => _iconSize;
         public IReactiveProperty<VoteRole> Role => _role;
-        public IReadOnlyReactiveProperty<PlayerName> Name => _player.Name;
+        public IReadOnlyReactiveProperty<PlayerName> Name => Player.Name;
         public IObservable<Unit> Clicked => _clicked;
         public bool IsParticipant => _role.Value.HasFlag(VoteRole.Participant);
+        public IPlayer Player { get; }
 
         public PlayerViewModel(IPlayer player)
         {
-            _player = player;
+            Player = player;
             _position = new ReactiveProperty<Vector3>(Vector3.zero).AddTo(disposables);
             _iconSize = new ReactiveProperty<float>(64).AddTo(disposables);
             _isSelected = new ReactiveProperty<bool>(false).AddTo(disposables);
@@ -43,7 +43,7 @@ namespace BloodClockTower.Game
             _clicked = new Subject<Unit>().AddTo(disposables);
         }
 
-        public void ChangeName(string name) => _player.ChangeName(name);
+        public void ChangeName(string name) => Player.ChangeName(name);
 
         public void SetPosition(Vector3 position) => _position.Value = position;
 

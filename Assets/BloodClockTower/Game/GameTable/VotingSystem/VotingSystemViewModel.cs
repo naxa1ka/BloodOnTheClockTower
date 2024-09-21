@@ -103,15 +103,15 @@ namespace BloodClockTower.Game
             {
                 _votingHistoryViewModel.Add(
                     new VotingRound(
-                        Initiator.Name.Value,
-                        Nominee.Name.Value,
+                        Initiator.Player,
+                        Nominee.Player,
                         Participants: _gameTableViewModel
                             .Players.Where(player => player.Role.Value.HasFlag(VoteRole.Nominee))
-                            .Select(playerViewModel => playerViewModel.Name.Value)
+                            .Select(playerViewModel => playerViewModel.Player)
                             .ToList(),
                         IgnoredParticipants: _gameTableViewModel
                             .Players.Where(player => player.Role.Value == VoteRole.Default)
-                            .Select(playerViewModel => playerViewModel.Name.Value)
+                            .Select(playerViewModel => playerViewModel.Player)
                             .ToList()
                     )
                 );

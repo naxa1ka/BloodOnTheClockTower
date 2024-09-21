@@ -6,24 +6,24 @@ namespace BloodClockTower.Game
     public interface IVotingRound
     {
         IVotingRound DeepClone();
-        PlayerName Initiator { get; init; }
-        PlayerName Nominee { get; init; }
-        IReadOnlyCollection<PlayerName> Participants { get; init; }
-        IReadOnlyCollection<PlayerName> IgnoredParticipants { get; init; }
+        IPlayer Initiator { get; init; }
+        IPlayer Nominee { get; init; }
+        IReadOnlyCollection<IPlayer> Participants { get; init; }
+        IReadOnlyCollection<IPlayer> IgnoredParticipants { get; init; }
     }
 
     public record VotingRound(
-        PlayerName Initiator,
-        PlayerName Nominee,
-        IReadOnlyCollection<PlayerName> Participants,
-        IReadOnlyCollection<PlayerName> IgnoredParticipants
+        IPlayer Initiator,
+        IPlayer Nominee,
+        IReadOnlyCollection<IPlayer> Participants,
+        IReadOnlyCollection<IPlayer> IgnoredParticipants
     ) : IVotingRound
     {
         public override string ToString()
         {
-            return $"{Initiator} -> {Nominee}"
-                + $"\nVoted: {string.Join(", ", Participants)}"
-                + $"\nIgnored: {string.Join(", ", IgnoredParticipants)}";
+            return $"{Initiator.Name.Value} -> {Nominee.Name.Value}"
+                + $"\nVoted: {string.Join(", ", Participants.Select(x => x.Name.Value))}"
+                + $"\nIgnored: {string.Join(", ", IgnoredParticipants.Select(x => x.Name.Value))}";
         }
 
         public IVotingRound DeepClone() =>
