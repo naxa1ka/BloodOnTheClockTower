@@ -24,3 +24,49 @@
     width: 128px;
     height: 128px;
 }
+
+.text-field {
+    background-color: #2C2C2C; /* Dark background color */
+    color: #FFFFFF; /* Placeholder text color */
+    font-size: 16px; /* Adjust the font size */
+    padding: 10px; /* Padding inside the text field */
+    border-radius: 10px; /* Rounded corners */
+    border-width: 5px; /* Border thickness */
+    border-color: #8A2BE2; /* Purple border color */
+    margin: 10px 0; /* Space around the text field */
+}
+
+.text-field #unity-text-input {
+    border-width: 0;
+    background-color: rgba(240, 248, 255, 0);
+    margin: 0;
+}
+
+.text-field Label{
+    align-self: center;
+    align-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.text-field TextElement {
+    padding: 5px;
+    color: #FFFFFF; /* White text color */
+    background-color: #555555;
+    border-width: 5px; /* Border thickness */
+    border-color: #580a9e; /* Purple border color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.text-field:focus {
+    border-color: #9D5FEF; /* Lighter purple border on focus */
+}
+
+.text-field Label:focus:enabled {
+    color: #FFFFFF; /* Placeholder text color */
+}
+
+.text-field:disabled {
+    background-color: #555555; /* Disabled state background */
+    color: #888888; /* Disabled state text color */
+}

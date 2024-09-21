@@ -1,19 +1,18 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/BloodClockTower/Game/Resources.uss?fileID=7433441132597879392&amp;guid=b0e19aa61f097fa49a35680f97110fb8&amp;type=3#Resources" />
-    <Style src="project://database/Assets/BloodClockTower/Game/Game.uss?fileID=7433441132597879392&amp;guid=0db68f1886494215a9b977dc2526fcf0&amp;type=3#Game" />
     <ui:VisualElement name="voting-history-container" style="flex-grow: 1; background-color: rgb(0, 0, 0); position: relative; width: 100%; height: 100%; max-height: 100%; min-height: 100%; max-width: 100%; min-width: 100px;">
-        <ui:Button text="CLOSE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="close-voting-history-button" style="font-size: 48px;" />
+        <ui:Button text="CLOSE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="close-voting-history-button" class="btn btn-primary" style="font-size: 48px;" />
         <ui:Label tabindex="-1" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="voting-history-label" style="color: rgb(174, 43, 176); font-size: 56px; white-space: normal; padding-top: 7px; padding-right: 7px; padding-bottom: 7px; padding-left: 7px; flex-grow: 1;" />
     </ui:VisualElement>
-    <ui:VisualElement name="root" class="hub" style="-unity-background-image-tint-color: rgb(186, 186, 186); flex-grow: 10;">
+    <ui:VisualElement name="root" style="-unity-background-image-tint-color: rgb(186, 186, 186); flex-grow: 10; background-image: resource(&apos;bg1&apos;);">
         <ui:VisualElement name="header" style="flex-grow: 1; flex-direction: column;">
             <ui:VisualElement name="label-container" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/BloodClockTower/Sprites/placeholder-label.png?fileID=2800000&amp;guid=abe6151e66d95cd4086b5ebb54c37c96&amp;type=3#placeholder-label&quot;); justify-content: center;">
                 <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="header-label" style="color: rgb(255, 255, 255); font-size: 64px; -unity-text-align: upper-center;" />
             </ui:VisualElement>
             <ui:VisualElement name="control" style="flex-grow: 1; flex-direction: row;">
-                <ui:TextField picking-mode="Ignore" label="Write name" value="filler text" name="name-input-field" class="hide" style="color: rgb(174, 43, 176); font-size: 36px;" />
-                <ui:Button name="prev-night-button" text="prev night" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 32px;" />
-                <ui:Button name="next-night-button" text="next night" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 32px;" />
+                <ui:TextField picking-mode="Ignore" label="Write name" value="filler text" name="name-input-field" class="hide text-field" style="color: rgb(174, 43, 176); font-size: 36px;" />
+                <ui:Button name="prev-night-button" text="prev night" parse-escape-sequences="true" display-tooltip-when-elided="true" class="btn-primary btn" style="font-size: 32px;" />
+                <ui:Button name="next-night-button" text="next night" parse-escape-sequences="true" display-tooltip-when-elided="true" class="btn btn-primary" style="font-size: 32px;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="body" style="flex-grow: 5;">

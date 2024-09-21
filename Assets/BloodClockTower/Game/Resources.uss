@@ -1,7 +1,3 @@
-:root {
-    --main-screen-background: resource('bg1.png');
-}
-
 .hide {
     display: none;
     visibility: hidden;

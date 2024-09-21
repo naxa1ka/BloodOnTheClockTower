@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement style="flex-grow: 1; margin-top: 12px; margin-right: 12px; margin-bottom: 12px; margin-left: 12px; justify-content: center;">
-        <ui:IntegerField name="players-amount-input-field" label="Amount" value="12" style="font-size: 128px; margin-top: 12px; margin-right: 12px; margin-bottom: 12px; margin-left: 12px;" />
-        <ui:Button name="start-button" text="start" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 128px; margin-top: 12px; margin-right: 12px; margin-bottom: 12px; margin-left: 12px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+        <ui:IntegerField name="players-amount-input-field" label="Amount" value="12" class="text-field" style="font-size: 128px; margin-top: 12px; margin-right: 12px; margin-bottom: 12px; margin-left: 12px;" />
+        <ui:Button name="start-button" text="start" parse-escape-sequences="true" display-tooltip-when-elided="true" class="btn btn-primary" style="font-size: 128px; margin-top: 12px; margin-right: 12px; margin-bottom: 12px; margin-left: 12px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
     </ui:VisualElement>
 </ui:UXML>
