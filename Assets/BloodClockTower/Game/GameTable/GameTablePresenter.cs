@@ -15,7 +15,6 @@ namespace BloodClockTower.Game
     {
         private readonly GameTableView _view;
         private readonly GameTableViewModel _viewModel;
-        private readonly Game _game;
         private readonly ViewFactory<PlayerIconView> _playerIconViewFactory;
         private readonly Dictionary<
             PlayerViewModel,
@@ -24,21 +23,15 @@ namespace BloodClockTower.Game
 
         private readonly VotingHistoryViewModel _votingHistoryViewModel;
 
-        private bool _isRenaming;
-        private PlayerViewModel? Selected =>
-            _viewModel.Players.SingleOrDefault(player => player.IsSelected.Value);
-
         public GameTablePresenter(
             GameTableView view,
             GameTableViewModel viewModel,
-            Game game,
             ViewFactory<PlayerIconView> playerIconViewFactory,
             VotingHistoryViewModel votingHistoryViewModel
         )
         {
             _view = view;
             _viewModel = viewModel;
-            _game = game;
             _playerIconViewFactory = playerIconViewFactory;
             _votingHistoryViewModel = votingHistoryViewModel;
             _playerViewModelDisposablesMapping = new Dictionary<PlayerViewModel, IDisposable>();
@@ -60,71 +53,14 @@ namespace BloodClockTower.Game
                 .Subscribe(AddPlayer)
                 .AddTo(disposables);
             _viewModel.Players.ObserveRemoveItem().Subscribe(RemovePlayer).AddTo(disposables);
-            _votingHistoryViewModel
-                .IsVisible.InverseBool()
-                .BindToVisible(_view.Root)
-                .AddTo(disposables);
-            _viewModel.Clicked.Subscribe(SelectPlayer).AddTo(disposables);
-            _view.EditButton.SubscribeOnClick(EditButtonClicked).AddTo(disposables);
-            _view.EndEditingButton.SubscribeOnClick(EditButtonClicked).AddTo(disposables);
-            _view
-                .NameInputField.ObserveText()
-                .Subscribe(name =>
-                {
-                    if (Selected == null)
-                        throw new ArgumentNullException();
-                    Selected.ChangeName(name);
-                })
-                .AddTo(disposables);
             _view
                 .Board.RegisterCallbackAsObservable<GeometryChangedEvent>()
                 .Subscribe(@event => ArrangePlayersInCircle())
                 .AddTo(disposables);
-
-            _view.HeaderLabel.text = $"Night: {_game.CurrentNight.Value.Number}";
-            _view
-                .NextNightButton.SubscribeOnClick(() => _game.NextNightOrStartNewNight())
+            _votingHistoryViewModel
+                .IsVisible.InverseBool()
+                .BindToVisible(_view.Root)
                 .AddTo(disposables);
-            _view.PreviousNightButton.SetEnabled(!_game.IsFirstNight());
-            _view
-                .PreviousNightButton.SubscribeOnClick(() => _game.PreviousNight())
-                .AddTo(disposables);
-        }
-
-        private void SelectPlayer(PlayerViewModel model)
-        {
-            _isRenaming.Switch(
-                () =>
-                {
-                    _view.NameInputField.Show();
-                    _view.NameInputField.SetValueWithoutNotify(model.Name.Value.ToString());
-                    Selected?.Deselect();
-                    model.Select();
-                },
-                () => { }
-            );
-        }
-
-        private void EditButtonClicked()
-        {
-            _isRenaming.Switch(
-                () =>
-                {
-                    _view.EditButton.Hide();
-                    _view.EndEditingButton.Show();
-                    _view.NameInputField.Hide();
-                    Selected?.Deselect();
-                    _isRenaming = false;
-                },
-                () =>
-                {
-                    _view.EditButton.Show();
-                    _view.EndEditingButton.Hide();
-                    if (Selected != null)
-                        _view.NameInputField.Show();
-                    _isRenaming = true;
-                }
-            );
         }
 
         private void AddPlayer(PlayerViewModel playerViewModel)

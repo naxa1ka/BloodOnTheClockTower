@@ -46,10 +46,17 @@ namespace BloodClockTower.Game
             new GameTablePresenter(
                 new GameTableView(_safetyUiDocument),
                 gameTableViewModel,
-                _game,
                 _playerIconViewFactory,
                 votingHistoryViewModel
             )
+                .AddTo(disposables)
+                .AddTo(_presenters);
+
+            new EditPlayerPresenter(new EditPlayerView(_safetyUiDocument), gameTableViewModel)
+                .AddTo(disposables)
+                .AddTo(_presenters);
+
+            new NightChangingPresenter(new NightChangingView(_safetyUiDocument), _game)
                 .AddTo(disposables)
                 .AddTo(_presenters);
 
