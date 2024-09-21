@@ -6,9 +6,11 @@ namespace BloodClockTower.Game
     public interface IPlayer
     {
         IReadOnlyReactiveProperty<PlayerName> Name { get; }
-        bool IsAlive { get; }
+        IReadOnlyReactiveProperty<bool> IsAlive { get; }
 
         void ChangeName(string name);
+        void Kill();
+        void Revive();
 
         [Pure]
         IPlayer DeepClone();

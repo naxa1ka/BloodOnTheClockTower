@@ -16,6 +16,7 @@ namespace BloodClockTower.Game
         private readonly EditPlayerView _view;
         private readonly GameTableViewModel _gameTableViewModel;
 
+        private IDisposable _selectedPlayerSubscription = Disposable.Empty;
         private readonly ReactiveProperty<bool> _isEditing;
         private readonly ReactiveProperty<OneOf<PlayerViewModel, None>> _selectedPlayer;
 
@@ -45,13 +46,24 @@ namespace BloodClockTower.Game
                 .AddTo(disposables);
             _isEditing.BindToVisible(_view.EndEditingButton).AddTo(disposables);
             _isEditing.InverseBool().BindToVisible(_view.StartEditingButton).AddTo(disposables);
-            _isEditing
+            Observable
                 .CombineLatest(
+                    _isEditing,
                     _selectedPlayer,
-                    (isSelected, selectedPlayer) => isSelected && selectedPlayer.IsT0
+                    (isEditing, selectedPlayer) => isEditing && selectedPlayer.IsT0
                 )
                 .BindToVisible(_view.NameInputField)
                 .AddTo(disposables);
+
+            Observable
+                .CombineLatest(
+                    _isEditing,
+                    _selectedPlayer,
+                    (isEditing, selectedPlayer) => (isSelected: isEditing, selectedPlayer)
+                )
+                .Subscribe(tuple => SubscribeOnKillButtons(tuple.isSelected, tuple.selectedPlayer))
+                .AddTo(disposables);
+
             _selectedPlayer
                 .Subscribe(
                     selectedPlayer =>
@@ -60,6 +72,51 @@ namespace BloodClockTower.Game
                         )
                 )
                 .AddTo(disposables);
+            _view
+                .KillPlayerButton.SubscribeOnClick(
+                    () =>
+                        _selectedPlayer.Value.Switch(
+                            player => player.Kill(),
+                            none => throw new InvalidOperationException()
+                        )
+                )
+                .AddTo(disposables);
+            _view
+                .RevivePlayerButton.SubscribeOnClick(
+                    () =>
+                        _selectedPlayer.Value.Switch(
+                            player => player.Revive(),
+                            none => throw new InvalidOperationException()
+                        )
+                )
+                .AddTo(disposables);
+        }
+
+        private void SubscribeOnKillButtons(bool isEditing, OneOf<PlayerViewModel, None> player)
+        {
+            _selectedPlayerSubscription.Dispose();
+            if (!isEditing)
+            {
+                HideButtons();
+                return;
+            }
+            if (!player.TryPickT0(out var selectedPlayer, out _))
+            {
+                HideButtons();
+                return;
+            }
+            selectedPlayer.IsAlive.BindToVisible(_view.KillPlayerButton).AddTo(disposables);
+            selectedPlayer
+                .IsAlive.InverseBool()
+                .BindToVisible(_view.RevivePlayerButton)
+                .AddTo(disposables);
+
+            return;
+            void HideButtons()
+            {
+                _view.KillPlayerButton.Hide();
+                _view.RevivePlayerButton.Hide();
+            }
         }
 
         private void ResetSelectedPlayer()

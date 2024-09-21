@@ -29,6 +29,7 @@ namespace BloodClockTower.Game
         public IReadOnlyReactiveProperty<float> IconSize => _iconSize;
         public IReactiveProperty<VoteRole> Role => _role;
         public IReadOnlyReactiveProperty<PlayerName> Name => Player.Name;
+        public IReadOnlyReactiveProperty<bool> IsAlive => Player.IsAlive;
         public IObservable<Unit> Clicked => _clicked;
         public bool IsParticipant => _role.Value.HasFlag(VoteRole.Participant);
         public IPlayer Player { get; }
@@ -42,6 +43,10 @@ namespace BloodClockTower.Game
             _role = new ReactiveProperty<VoteRole>(VoteRole.Default).AddTo(disposables);
             _clicked = new Subject<Unit>().AddTo(disposables);
         }
+
+        public void Kill() => Player.Kill();
+
+        public void Revive() => Player.Revive();
 
         public void ChangeName(string name) => Player.ChangeName(name);
 

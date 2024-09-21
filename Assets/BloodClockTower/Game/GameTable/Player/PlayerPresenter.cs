@@ -1,4 +1,5 @@
 ﻿using Nxlk.LINQ;
+using Nxlk.ReactiveUIToolkit;
 using Nxlk.UIToolkit;
 using Nxlk.UniRx;
 using UniRx;
@@ -52,6 +53,7 @@ namespace BloodClockTower.Game
                 )
                 .AddTo(disposables);
             _viewModel.Role.Subscribe(OnRoleChanged).AddTo(disposables);
+            _viewModel.IsAlive.InverseBool().BindToVisible(_view.KilledBorder).AddTo(disposables);
         }
 
         private void OnRoleChanged(VoteRole voteRole)
