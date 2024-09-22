@@ -14,19 +14,18 @@ namespace BloodClockTower.Game
 
         private readonly List<IInitializable> _initializables = new();
         private readonly List<IPresenter> _presenters = new();
-        private readonly UIToolkitEventSystem _uiToolkitEventSystem;
 
         public NightScope(
             ViewFactory<PlayerIconView> playerIconViewFactory,
             SafetyUiDocument safetyUiDocument,
             Game game,
-            Night night, UIToolkitEventSystem uiToolkitEventSystem)
+            Night night
+        )
         {
             _playerIconViewFactory = playerIconViewFactory;
             _safetyUiDocument = safetyUiDocument;
             _game = game;
             _night = night;
-            _uiToolkitEventSystem = uiToolkitEventSystem;
         }
 
         public void Compose()
@@ -68,8 +67,7 @@ namespace BloodClockTower.Game
                 new VotingHistoryView(_safetyUiDocument),
                 votingHistoryViewModel,
                 votingSystemViewModel,
-                editPlayerViewModel,
-                _uiToolkitEventSystem
+                editPlayerViewModel
             )
                 .AddTo(disposables)
                 .AddTo(_presenters);

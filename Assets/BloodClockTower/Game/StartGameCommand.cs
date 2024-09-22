@@ -27,12 +27,7 @@ namespace BloodClockTower.Game
             var safetyUiDocument = gameScene.Context.UIDocument.ToSafetyUiDocument();
             var gameObject = new GameObject("GameScope");
             var gameScopeMono = gameObject.AddComponent<GameScopeMono>();
-            gameScopeMono.Construct(
-                _playerIconViewFactory,
-                safetyUiDocument,
-                new UIToolkitEventSystem(gameScene.Context.PanelSettings),
-                playersAmount
-            );
+            gameScopeMono.Construct(_playerIconViewFactory, safetyUiDocument, playersAmount);
             _onLoad.Invoke(gameScopeMono);
         }
     }
