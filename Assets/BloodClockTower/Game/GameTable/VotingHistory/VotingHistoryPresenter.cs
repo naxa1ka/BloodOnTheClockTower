@@ -49,33 +49,7 @@ namespace BloodClockTower.Game
 
         private void UpdateLabel()
         {
-            var roundsAsString = string.Join(
-                "\n\n",
-                _viewModel.VotingRounds.Select(
-                    (round, index) => $"Round {index}" + $"\n{FormatRound(round)}"
-                )
-            );
-            var ignoredParticipantsOverall = _viewModel
-                .VotingRounds.SelectMany(x => x.IgnoredParticipants)
-                .Distinct();
-            var participantsOverall = _viewModel
-                .VotingRounds.SelectMany(x => x.Participants)
-                .Distinct();
-            _view.VotingHistoryLabel.text =
-                $"{roundsAsString}\n\n{FormatIgnoredParticipantsOverall()}\n{FormatParticipantsOverall()}";
-
-            return;
-            string FormatIgnoredParticipantsOverall() =>
-                $"Overall ignored: {string.Join(", ", ignoredParticipantsOverall.Select(x => x.Name.Value))}";
-
-            string FormatParticipantsOverall() =>
-                $"Overall voted: {string.Join(", ", participantsOverall.Select(x => x.Name.Value))}";
-
-            string FormatRound(IVotingRound round)
-            {
-                return $"{round.Initiator.Name.Value} -> {round.Nominee.Name.Value}"
-                    + $"\nVoted: {string.Join(", ", round.Participants.Select(x => x.Name.Value))}";
-            }
+            _view.VotingHistoryLabel.text = new VotingRoundsPerNight(_viewModel.VotingRounds).ToString();
         }
     }
 }

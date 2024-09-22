@@ -6,10 +6,10 @@ namespace BloodClockTower.Game
     public interface IVotingRound
     {
         IVotingRound DeepClone();
-        IPlayer Initiator { get; init; }
-        IPlayer Nominee { get; init; }
-        IReadOnlyCollection<IPlayer> Participants { get; init; }
-        IReadOnlyCollection<IPlayer> IgnoredParticipants { get; init; }
+        IPlayer Initiator { get; }
+        IPlayer Nominee { get; }
+        IReadOnlyCollection<IPlayer> Participants { get;  }
+        IReadOnlyCollection<IPlayer> IgnoredParticipants { get; }
     }
 
     public record VotingRound(

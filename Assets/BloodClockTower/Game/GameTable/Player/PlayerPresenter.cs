@@ -58,12 +58,10 @@ namespace BloodClockTower.Game
 
         private void OnRoleChanged(VoteRole voteRole)
         {
-            _view.BorderInner.SetVisible(voteRole.HasFlag(VoteRole.Participant));
-            var isPlayerInitiator = voteRole.HasFlag(VoteRole.Initiator);
-            _view.ArrowsInitiator.SetVisible(isPlayerInitiator);
-            var isPlayerNominee = voteRole.HasFlag(VoteRole.Nominee);
-            _view.ArrowsNominee.SetVisible(isPlayerNominee);
-            _view.BorderOuter.SetVisible(isPlayerInitiator || isPlayerNominee);
+            _view.BorderInner.SetVisible(voteRole.IsParticipant);
+            _view.ArrowsInitiator.SetVisible(voteRole.IsInitiator);
+            _view.ArrowsNominee.SetVisible(voteRole.IsNominee);
+            _view.BorderOuter.SetVisible(voteRole.IsInitiator || voteRole.IsNominee);
         }
     }
 }

@@ -25,24 +25,18 @@ namespace BloodClockTower.Game
         private readonly ReactiveProperty<State> _currentState;
 
         private PlayerViewModel? InitiatorOrDefault =>
-            _gameTableViewModel.Players.SingleOrDefault(
-                player => player.Role.Value.HasFlag(VoteRole.Initiator)
-            );
+            _gameTableViewModel.Players.SingleOrDefault(player => player.IsInitiator);
 
         private PlayerViewModel Initiator =>
             InitiatorOrDefault ?? throw new NullReferenceException();
 
         private PlayerViewModel? NomineeOrDefault =>
-            _gameTableViewModel.Players.SingleOrDefault(
-                player => player.Role.Value.HasFlag(VoteRole.Nominee)
-            );
+            _gameTableViewModel.Players.SingleOrDefault(player => player.IsNominee);
 
         private PlayerViewModel Nominee => NomineeOrDefault ?? throw new NullReferenceException();
 
         private bool AnyParticipant =>
-            _gameTableViewModel.Players.Any(
-                player => player.Role.Value.HasFlag(VoteRole.Participant)
-            );
+            _gameTableViewModel.Players.Any(player => player.IsParticipant);
 
         public bool CanEndVoting =>
             InitiatorOrDefault != null && NomineeOrDefault != null && AnyParticipant;
@@ -102,18 +96,7 @@ namespace BloodClockTower.Game
             if (CanEndVoting)
             {
                 _votingHistoryViewModel.Add(
-                    new VotingRound(
-                        Initiator.Player,
-                        Nominee.Player,
-                        Participants: _gameTableViewModel
-                            .Players.Where(player => player.Role.Value.HasFlag(VoteRole.Nominee))
-                            .Select(playerViewModel => playerViewModel.Player)
-                            .ToList(),
-                        IgnoredParticipants: _gameTableViewModel
-                            .Players.Where(player => player.Role.Value == VoteRole.Default)
-                            .Select(playerViewModel => playerViewModel.Player)
-                            .ToList()
-                    )
+                    new VotingRoundFromViewModelPlayers(_gameTableViewModel.Players)
                 );
             }
 

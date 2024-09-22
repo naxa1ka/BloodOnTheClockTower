@@ -8,14 +8,19 @@ namespace BloodClockTower.Game
 {
     public class PlayerViewModel : DisposableObject
     {
-        [Flags]
-        public enum VoteRole
+        public record VoteRole(bool IsInitiator, bool IsNominee, bool IsParticipant)
         {
-            None = 0,
-            Default = 1 << 0,
-            Initiator = 1 << 1,
-            Nominee = 1 << 2,
-            Participant = 1 << 3,
+            public bool IsIgnored => !IsInitiator && !IsNominee && !IsParticipant; 
+            public static VoteRole Default => new(false, true, false);
+            
+            public VoteRole MarkInitiator => this with { IsInitiator = true };
+            public VoteRole UnmarkInitiator => this with { IsInitiator = false };
+            
+            public VoteRole MarkNominee => this with { IsNominee = true };
+            public VoteRole UnmarkNominee => this with { IsNominee = false };
+            
+            public VoteRole MarkParticipant => this with { IsParticipant = true };
+            public VoteRole UnmarkParticipant => this with { IsParticipant = false };
         }
 
         private readonly ReactiveProperty<Vector3> _position;
@@ -31,7 +36,10 @@ namespace BloodClockTower.Game
         public IReadOnlyReactiveProperty<PlayerName> Name => Player.Name;
         public IReadOnlyReactiveProperty<bool> IsAlive => Player.IsAlive;
         public IObservable<Unit> Clicked => _clicked;
-        public bool IsParticipant => _role.Value.HasFlag(VoteRole.Participant);
+        public bool IsParticipant => _role.Value.IsInitiator;
+        public bool IsNominee => _role.Value.IsNominee;
+        public bool IsInitiator => _role.Value.IsInitiator;
+        public bool IsIgnoredParticipant => _role.Value.IsIgnored;
         public IPlayer Player { get; }
 
         public PlayerViewModel(IPlayer player)
@@ -43,7 +51,7 @@ namespace BloodClockTower.Game
             _role = new ReactiveProperty<VoteRole>(VoteRole.Default).AddTo(disposables);
             _clicked = new Subject<Unit>().AddTo(disposables);
         }
-
+        
         public void Kill() => Player.Kill();
 
         public void Revive() => Player.Revive();
@@ -60,30 +68,18 @@ namespace BloodClockTower.Game
 
         public void SetSize(float iconSize) => _iconSize.Value = iconSize;
 
-        public void MarkInitiator() => Mark(VoteRole.Initiator);
+        public void MarkInitiator() => _role.Value = _role.Value.MarkInitiator;
 
-        public void UnmarkInitiator() => Unmark(VoteRole.Initiator);
+        public void UnmarkInitiator() => _role.Value = _role.Value.UnmarkInitiator;
 
-        public void MarkNominee() => Mark(VoteRole.Nominee);
+        public void MarkNominee() => _role.Value = _role.Value.MarkNominee;
 
-        public void UnmarkNominee() => Unmark(VoteRole.Nominee);
+        public void UnmarkNominee() => _role.Value = _role.Value.UnmarkNominee;
 
-        public void MarkParticipant() => Mark(VoteRole.Participant);
+        public void MarkParticipant() => _role.Value = _role.Value.MarkParticipant;
 
-        public void UnmarkParticipant() => Unmark(VoteRole.Participant);
+        public void UnmarkParticipant() => _role.Value = _role.Value.UnmarkParticipant;
 
         public void ClearMark() => _role.Value = VoteRole.Default;
-
-        private void Mark(VoteRole role)
-        {
-            _role
-                .Value.Equals(VoteRole.Default)
-                .Switch(() => _role.Value = role, () => _role.Value |= role);
-        }
-
-        private void Unmark(VoteRole role)
-        {
-            _role.Value ^= role;
-        }
     }
 }
