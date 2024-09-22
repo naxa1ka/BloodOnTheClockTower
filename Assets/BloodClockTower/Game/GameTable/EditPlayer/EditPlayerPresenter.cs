@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Linq;
-using Nxlk.Bool;
-using Nxlk.LINQ;
 using Nxlk.ReactiveUIToolkit;
 using Nxlk.UIToolkit;
 using Nxlk.UniRx;
@@ -14,42 +11,35 @@ namespace BloodClockTower.Game
     public class EditPlayerPresenter : DisposableObject, IPresenter
     {
         private readonly EditPlayerView _view;
-        private readonly GameTableViewModel _gameTableViewModel;
-
+        private readonly EditPlayerViewModel _viewModel;
         private IDisposable _selectedPlayerSubscription = Disposable.Empty;
-        private readonly ReactiveProperty<bool> _isEditing;
-        private readonly ReactiveProperty<OneOf<PlayerViewModel, None>> _selectedPlayer;
 
-        public EditPlayerPresenter(EditPlayerView view, GameTableViewModel gameTableViewModel)
+        public EditPlayerPresenter(EditPlayerView view, EditPlayerViewModel viewModel)
         {
             _view = view;
-            _gameTableViewModel = gameTableViewModel;
-            _isEditing = new ReactiveProperty<bool>(false).AddTo(disposables);
-            _selectedPlayer = new ReactiveProperty<OneOf<PlayerViewModel, None>>(new None()).AddTo(
-                disposables
-            );
+            _viewModel = viewModel;
         }
 
         public void Initialize()
         {
-            _gameTableViewModel.Clicked.Subscribe(SelectPlayer).AddTo(disposables);
-            _view.EndEditingButton.SubscribeOnClick(ResetSelectedPlayer).AddTo(disposables);
             _view
-                .StartEditingButton.SubscribeOnClick(() => _isEditing.Value = true)
+                .EndEditingButton.SubscribeOnClick(_viewModel.ResetSelectedPlayer)
                 .AddTo(disposables);
-            _view
-                .EndEditingButton.SubscribeOnClick(() => _isEditing.Value = false)
-                .AddTo(disposables);
+            _view.StartEditingButton.SubscribeOnClick(_viewModel.StartEditing).AddTo(disposables);
+            _view.EndEditingButton.SubscribeOnClick(_viewModel.EndEditing).AddTo(disposables);
             _view
                 .NameInputField.ObserveText()
-                .Subscribe(OnNameInputFieldChanged)
+                .Subscribe(_viewModel.ChangeSelectedPlayerName)
                 .AddTo(disposables);
-            _isEditing.BindToVisible(_view.EndEditingButton).AddTo(disposables);
-            _isEditing.InverseBool().BindToVisible(_view.StartEditingButton).AddTo(disposables);
+            _viewModel.IsEditing.BindToVisible(_view.EndEditingButton).AddTo(disposables);
+            _viewModel
+                .IsEditing.InverseBool()
+                .BindToVisible(_view.StartEditingButton)
+                .AddTo(disposables);
             Observable
                 .CombineLatest(
-                    _isEditing,
-                    _selectedPlayer,
+                    _viewModel.IsEditing,
+                    _viewModel.SelectedPlayer,
                     (isEditing, selectedPlayer) => isEditing && selectedPlayer.IsT0
                 )
                 .BindToVisible(_view.NameInputField)
@@ -57,15 +47,15 @@ namespace BloodClockTower.Game
 
             Observable
                 .CombineLatest(
-                    _isEditing,
-                    _selectedPlayer,
+                    _viewModel.IsEditing,
+                    _viewModel.SelectedPlayer,
                     (isEditing, selectedPlayer) => (isSelected: isEditing, selectedPlayer)
                 )
                 .Subscribe(tuple => SubscribeOnKillButtons(tuple.isSelected, tuple.selectedPlayer))
                 .AddTo(disposables);
 
-            _selectedPlayer
-                .Subscribe(
+            _viewModel
+                .SelectedPlayer.Subscribe(
                     selectedPlayer =>
                         _view.NameInputField.SetValueWithoutNotify(
                             selectedPlayer.Match(player => player.Name.Value.Value, none => "None")
@@ -73,22 +63,10 @@ namespace BloodClockTower.Game
                 )
                 .AddTo(disposables);
             _view
-                .KillPlayerButton.SubscribeOnClick(
-                    () =>
-                        _selectedPlayer.Value.Switch(
-                            player => player.Kill(),
-                            none => throw new InvalidOperationException()
-                        )
-                )
+                .KillPlayerButton.SubscribeOnClick(_viewModel.KillSelectedPlayer)
                 .AddTo(disposables);
             _view
-                .RevivePlayerButton.SubscribeOnClick(
-                    () =>
-                        _selectedPlayer.Value.Switch(
-                            player => player.Revive(),
-                            none => throw new InvalidOperationException()
-                        )
-                )
+                .RevivePlayerButton.SubscribeOnClick(_viewModel.ReviveSelectedPlayer)
                 .AddTo(disposables);
         }
 
@@ -105,11 +83,9 @@ namespace BloodClockTower.Game
                 HideButtons();
                 return;
             }
-            selectedPlayer.IsAlive.BindToVisible(_view.KillPlayerButton).AddTo(disposables);
-            selectedPlayer
-                .IsAlive.InverseBool()
-                .BindToVisible(_view.RevivePlayerButton)
-                .AddTo(disposables);
+            var d1 = selectedPlayer.IsAlive.BindToVisible(_view.KillPlayerButton);
+            var d2 = selectedPlayer.IsAlive.InverseBool().BindToVisible(_view.RevivePlayerButton);
+            _selectedPlayerSubscription = StableCompositeDisposable.Create(d1, d2);
 
             return;
             void HideButtons()
@@ -117,29 +93,6 @@ namespace BloodClockTower.Game
                 _view.KillPlayerButton.Hide();
                 _view.RevivePlayerButton.Hide();
             }
-        }
-
-        private void ResetSelectedPlayer()
-        {
-            _selectedPlayer.Value.Switch(player => player.Deselect(), none => { });
-            _selectedPlayer.Value = new None();
-        }
-
-        private void OnNameInputFieldChanged(string newName)
-        {
-            _selectedPlayer.Value.Switch(
-                model => model.ChangeName(newName),
-                none => throw new ArgumentNullException()
-            );
-        }
-
-        private void SelectPlayer(PlayerViewModel model)
-        {
-            if (!_isEditing.Value)
-                return;
-            _selectedPlayer.Value.Switch(player => player.Deselect(), none => { });
-            _selectedPlayer.Value = model;
-            _selectedPlayer.Value.Switch(player => player.Select(), none => { });
         }
     }
 }

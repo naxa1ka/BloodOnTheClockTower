@@ -42,6 +42,9 @@ namespace BloodClockTower.Game
             )
                 .AddTo(disposables)
                 .AddTo(_initializables);
+            var editPlayerViewModel = new EditPlayerViewModel(gameTableViewModel)
+                .AddTo(_initializables)
+                .AddTo(disposables);
 
             new GameTablePresenter(
                 new GameTableView(_safetyUiDocument),
@@ -52,7 +55,7 @@ namespace BloodClockTower.Game
                 .AddTo(disposables)
                 .AddTo(_presenters);
 
-            new EditPlayerPresenter(new EditPlayerView(_safetyUiDocument), gameTableViewModel)
+            new EditPlayerPresenter(new EditPlayerView(_safetyUiDocument), editPlayerViewModel)
                 .AddTo(disposables)
                 .AddTo(_presenters);
 
