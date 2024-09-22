@@ -8,8 +8,6 @@ namespace BloodClockTower.Game
 {
     public class PlayerViewModel : DisposableObject
     {
-     
-
         private readonly ReactiveProperty<Vector3> _position;
         private readonly ReactiveProperty<float> _iconSize;
         private readonly ReactiveProperty<bool> _isSelected;
@@ -38,7 +36,7 @@ namespace BloodClockTower.Game
             _role = new ReactiveProperty<VoteRole>(VoteRole.Default).AddTo(disposables);
             _clicked = new Subject<Unit>().AddTo(disposables);
         }
-        
+
         public void Kill() => Player.Kill();
 
         public void Revive() => Player.Revive();

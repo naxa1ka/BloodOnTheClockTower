@@ -16,12 +16,8 @@ namespace BloodClockTower.Game
         {
             var playerViewModels = players.ToList();
             _votingRound = new VotingRound(
-                playerViewModels
-                    .Single(model => model.Role.Value.IsInitiator)
-                    .Player,
-                playerViewModels
-                    .Single(model => model.Role.Value.IsNominee)
-                    .Player,
+                playerViewModels.Single(model => model.Role.Value.IsInitiator).Player,
+                playerViewModels.Single(model => model.Role.Value.IsNominee).Player,
                 playerViewModels
                     .Where(playerViewModel => playerViewModel.IsParticipant)
                     .Select(playerViewModel => playerViewModel.Player)

@@ -46,7 +46,9 @@ namespace BloodClockTower.Game
 
         private void UpdateLabel()
         {
-            _view.VotingHistoryLabel.text = new VotingRoundsPerNight(_viewModel.VotingRounds).ToString();
+            _view.VotingHistoryLabel.text = new VotingRoundsPerNight(
+                _viewModel.VotingRounds
+            ).ToString();
         }
     }
 }

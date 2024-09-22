@@ -7,7 +7,7 @@ namespace BloodClockTower.Game
         IVotingRound DeepClone();
         IPlayer Initiator { get; }
         IPlayer Nominee { get; }
-        IReadOnlyCollection<IPlayer> Participants { get;  }
+        IReadOnlyCollection<IPlayer> Participants { get; }
         IReadOnlyCollection<IPlayer> IgnoredParticipants { get; }
     }
 }

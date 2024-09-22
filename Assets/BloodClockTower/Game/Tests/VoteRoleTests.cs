@@ -1,6 +1,6 @@
-﻿using FluentAssertions;
+﻿using System.Collections.Generic;
+using FluentAssertions;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace BloodClockTower.Game.Tests
 {
@@ -17,8 +17,13 @@ namespace BloodClockTower.Game.Tests
                     {
                         foreach (var isParticipant in bools)
                         {
-                            yield return new TestCaseData(isInitiator, isNominee, isParticipant)
-                                .SetName($"Initiator:{isInitiator}, Nominee:{isNominee}, Participant:{isParticipant}");
+                            yield return new TestCaseData(
+                                isInitiator,
+                                isNominee,
+                                isParticipant
+                            ).SetName(
+                                $"Initiator:{isInitiator}, Nominee:{isNominee}, Participant:{isParticipant}"
+                            );
                         }
                     }
                 }
@@ -27,7 +32,10 @@ namespace BloodClockTower.Game.Tests
 
         [Test, TestCaseSource(nameof(BooleanCombinations))]
         public void WhenIsIgnored_ThenReturnTrueOnlyWhenAllPropertiesAreFalse(
-            bool isInitiator, bool isNominee, bool isParticipant)
+            bool isInitiator,
+            bool isNominee,
+            bool isParticipant
+        )
         {
             // Arrange
             var voteRole = new VoteRole(isInitiator, isNominee, isParticipant);
@@ -41,14 +49,17 @@ namespace BloodClockTower.Game.Tests
 
         [Test, TestCaseSource(nameof(BooleanCombinations))]
         public void WhenMarkInitiator_ThenInitiatorIsTrue(
-            bool isInitiator, bool isNominee, bool isParticipant)
+            bool isInitiator,
+            bool isNominee,
+            bool isParticipant
+        )
         {
             // Arrange
             var voteRole = new VoteRole(isInitiator, isNominee, isParticipant);
-            
+
             // Act
             var newVoteRole = voteRole.MarkInitiator;
-            
+
             // Assert
             newVoteRole.IsInitiator.Should().BeTrue();
             newVoteRole.IsNominee.Should().Be(isNominee);
@@ -57,14 +68,17 @@ namespace BloodClockTower.Game.Tests
 
         [Test, TestCaseSource(nameof(BooleanCombinations))]
         public void WhenUnmarkInitiator_ThenInitiatorIsFalse(
-            bool isInitiator, bool isNominee, bool isParticipant)
+            bool isInitiator,
+            bool isNominee,
+            bool isParticipant
+        )
         {
             // Arrange
             var voteRole = new VoteRole(isInitiator, isNominee, isParticipant);
-            
+
             // Act
             var newVoteRole = voteRole.UnmarkInitiator;
-            
+
             // Assert
             newVoteRole.IsInitiator.Should().BeFalse();
             newVoteRole.IsNominee.Should().Be(isNominee);
@@ -73,14 +87,17 @@ namespace BloodClockTower.Game.Tests
 
         [Test, TestCaseSource(nameof(BooleanCombinations))]
         public void WhenMarkNominee_ThenNomineeIsTrue(
-            bool isInitiator, bool isNominee, bool isParticipant)
+            bool isInitiator,
+            bool isNominee,
+            bool isParticipant
+        )
         {
             // Arrange
             var voteRole = new VoteRole(isInitiator, isNominee, isParticipant);
-            
+
             // Act
             var newVoteRole = voteRole.MarkNominee;
-            
+
             // Assert
             newVoteRole.IsNominee.Should().BeTrue();
             newVoteRole.IsInitiator.Should().Be(isInitiator);
@@ -89,14 +106,17 @@ namespace BloodClockTower.Game.Tests
 
         [Test, TestCaseSource(nameof(BooleanCombinations))]
         public void WhenUnmarkNominee_ThenNomineeIsFalse(
-            bool isInitiator, bool isNominee, bool isParticipant)
+            bool isInitiator,
+            bool isNominee,
+            bool isParticipant
+        )
         {
             // Arrange
             var voteRole = new VoteRole(isInitiator, isNominee, isParticipant);
-            
+
             // Act
             var newVoteRole = voteRole.UnmarkNominee;
-            
+
             // Assert
             newVoteRole.IsNominee.Should().BeFalse();
             newVoteRole.IsInitiator.Should().Be(isInitiator);
@@ -105,14 +125,17 @@ namespace BloodClockTower.Game.Tests
 
         [Test, TestCaseSource(nameof(BooleanCombinations))]
         public void WhenMarkParticipant_ThenParticipantIsTrue(
-            bool isInitiator, bool isNominee, bool isParticipant)
+            bool isInitiator,
+            bool isNominee,
+            bool isParticipant
+        )
         {
             // Arrange
             var voteRole = new VoteRole(isInitiator, isNominee, isParticipant);
-            
+
             // Act
             var newVoteRole = voteRole.MarkParticipant;
-            
+
             // Assert
             newVoteRole.IsParticipant.Should().BeTrue();
             newVoteRole.IsInitiator.Should().Be(isInitiator);
@@ -121,14 +144,17 @@ namespace BloodClockTower.Game.Tests
 
         [Test, TestCaseSource(nameof(BooleanCombinations))]
         public void WhenUnmarkParticipant_ThenParticipantIsFalse(
-            bool isInitiator, bool isNominee, bool isParticipant)
+            bool isInitiator,
+            bool isNominee,
+            bool isParticipant
+        )
         {
             // Arrange
             var voteRole = new VoteRole(isInitiator, isNominee, isParticipant);
-            
+
             // Act
             var newVoteRole = voteRole.UnmarkParticipant;
-            
+
             // Assert
             newVoteRole.IsParticipant.Should().BeFalse();
             newVoteRole.IsInitiator.Should().Be(isInitiator);

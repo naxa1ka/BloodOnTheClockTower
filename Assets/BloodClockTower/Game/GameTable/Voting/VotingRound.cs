@@ -7,8 +7,8 @@ namespace BloodClockTower.Game
         IPlayer Initiator,
         IPlayer Nominee,
         IReadOnlyCollection<IPlayer> Participants,
-        IReadOnlyCollection<IPlayer> IgnoredParticipants)
-        : IVotingRound
+        IReadOnlyCollection<IPlayer> IgnoredParticipants
+    ) : IVotingRound
     {
         public override string ToString()
         {

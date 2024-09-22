@@ -2,15 +2,13 @@
 
 namespace Nxlk.UIToolkit
 {
-    public class EmptyButton : Button 
+    public class EmptyButton : Button
     {
         #region UXML
 
         public new class UxmlFactory : UxmlFactory<EmptyButton, UxmlTraits> { }
 
-        public new class UxmlTraits : Button.UxmlTraits
-        {
-        }
+        public new class UxmlTraits : Button.UxmlTraits { }
 
         public EmptyButton()
         {

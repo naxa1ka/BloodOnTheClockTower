@@ -243,7 +243,7 @@
 //             var player = Substitute.For<IPlayer>();
 //             player.Name.Returns(new ReactiveProperty<PlayerName>(PlayerName.From(name)));
 //             player.IsAlive.Returns(new ReactiveProperty<bool>(true));
-//             
+//
 //             var playerViewModel = new PlayerViewModel(player);
 //             if (isInitiator)
 //                 playerViewModel.MarkInitiator();
