@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="container" class="flex-row align-items-center justify-content-center flex-fill" style="background-image: url(&quot;project://database/Assets/BloodClockTower/Sprites/placeholder-label.png?fileID=2800000&amp;guid=abe6151e66d95cd4086b5ebb54c37c96&amp;type=3#placeholder-label&quot;); height: 128px; max-height: 128px; min-height: 128px;">
+        <Nxlk.UIToolkit.EmptyButton name="prev-night-button" class="button-empty" style="margin-left: 128px;">
+            <ui:VisualElement name="icon" class="ic-chevron-fill ic-xl rotate-180 ting-eggshell ic" />
+        </Nxlk.UIToolkit.EmptyButton>
+        <ui:Label text="Label" name="night-count-label" class="flex-fill font-semi-bold text-eggshell fs-2" style="color: rgb(255, 255, 255); font-size: 64px; -unity-text-align: upper-center;" />
+        <Nxlk.UIToolkit.EmptyButton name="next-night-button" class="button-empty" style="margin-right: 128px;">
+            <ui:VisualElement name="icon" class="ic-chevron-fill ic-xl ting-eggshell ic" />
+        </Nxlk.UIToolkit.EmptyButton>
+    </ui:VisualElement>
+</ui:UXML>

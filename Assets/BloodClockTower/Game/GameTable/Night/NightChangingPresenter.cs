@@ -18,7 +18,7 @@ namespace BloodClockTower.Game
 
         public void Initialize()
         {
-            _view.HeaderLabel.text = $"Night: {_game.CurrentNight.Value.Number}";
+            _view.NightCountLabel.text = $"Night: {_game.CurrentNight.Value.Number}";
             _view
                 .NextNightButton.SubscribeOnClick(() => _game.NextNightOrStartNewNight())
                 .AddTo(disposables);
