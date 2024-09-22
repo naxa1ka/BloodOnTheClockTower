@@ -10,6 +10,7 @@ namespace BloodClockTower.Game
         public Button ResetInitiatorButton { get; private set; }
         public Button ResetNomineeButton { get; private set; }
         public Label StateLabel { get; private set; }
+        public VisualElement StateLabelContainer { get; private set; }
 
         public VotingSystemView(SafetyUiDocument uiDocument)
         {
@@ -18,6 +19,7 @@ namespace BloodClockTower.Game
             ResetInitiatorButton = uiDocument.Q<Button>("reset-initiator-button");
             ResetNomineeButton = uiDocument.Q<Button>("reset-nominee-button");
             StateLabel = uiDocument.Q<Label>("state-label");
+            StateLabelContainer = uiDocument.Q<VisualElement>("state-label-container");
         }
     }
 }

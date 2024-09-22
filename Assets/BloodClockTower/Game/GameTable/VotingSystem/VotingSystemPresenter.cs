@@ -50,9 +50,6 @@ namespace BloodClockTower.Game
             _view.StateLabel.text = stateLabelText;
         }
 
-        private void UpdateLabelVisibility(State state)
-        {
-            _view.StateLabel.SetVisible(state != State.Idle);
-        }
+        private void UpdateLabelVisibility(State state) => _view.StateLabelContainer.SetVisible(state != State.Idle);
     }
 }

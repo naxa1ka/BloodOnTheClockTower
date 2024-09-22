@@ -5,6 +5,7 @@
         <ui:Instance template="VotingHistory" class="flex-fill" />
     </ui:VisualElement>
     <ui:VisualElement name="root" style="-unity-background-image-tint-color: rgb(186, 186, 186); flex-grow: 10; background-image: resource(&apos;bg1&apos;);">
+        <ui:VisualElement name="margin" class="margin-top" />
         <ui:VisualElement name="header" style="flex-grow: 1; flex-direction: column;">
             <ui:Instance template="NightControl" />
             <ui:TextField picking-mode="Ignore" label="Write name" value="filler text" name="name-input-field" class="hide text-field" style="color: rgb(174, 43, 176); font-size: 36px;" />
@@ -14,10 +15,9 @@
         </ui:VisualElement>
         <ui:VisualElement name="footer" style="flex-grow: 4;">
             <ui:VisualElement name="buttons-container" style="flex-grow: 1; flex-direction: row; align-items: center; position: absolute; bottom: 0; width: 100%;">
-                <ui:Toggle label="Enable renaming" name="edit-toggle" style="font-size: 36px; color: rgb(138, 43, 226); display: none;" />
                 <ui:VisualElement name="voting" style="flex-grow: 1;">
-                    <ui:VisualElement name="label-container" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/BloodClockTower/Sprites/placeholder-label.png?fileID=2800000&amp;guid=abe6151e66d95cd4086b5ebb54c37c96&amp;type=3#placeholder-label&quot;); justify-content: center;">
-                        <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="state-label" style="color: rgb(255, 255, 255); font-size: 64px; -unity-text-align: upper-center;" />
+                    <ui:VisualElement name="state-label-container" class="flex-row align-items-center justify-content-center flex-fill" style="background-image: url(&quot;project://database/Assets/BloodClockTower/Sprites/placeholder-label.png?fileID=2800000&amp;guid=abe6151e66d95cd4086b5ebb54c37c96&amp;type=3#placeholder-label&quot;); height: 128px; max-height: 128px; min-height: 128px;">
+                        <ui:Label text="Label" name="state-label" class="flex-fill font-semi-bold text-eggshell fs-2" style="color: rgb(255, 255, 255); font-size: 64px; -unity-text-align: upper-center;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="buttons" style="flex-grow: 1; flex-direction: row; height: 256px; max-height: 256px;">
                         <ui:Button name="start-voting-button" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/BloodClockTower/Sprites/vote-button.png?fileID=2800000&amp;guid=a2255aa4af6b04145ba8469aa82ce93b&amp;type=3#vote-button&quot;); max-width: 256px; max-height: 256px; width: 256px; height: 256px; background-color: rgba(188, 188, 188, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />
