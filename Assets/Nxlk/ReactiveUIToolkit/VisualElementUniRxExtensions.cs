@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 using Nxlk.UIToolkit;
+using Nxlk.UniRx;
 using UniRx;
 using UnityEngine.UIElements;
 
@@ -24,6 +25,12 @@ namespace Nxlk.ReactiveUIToolkit
         )
         {
             return source.Subscribe(visualElement.SetVisible);
+        }
+
+        [MustUseReturnValue]
+        public static IObservable<Unit> ObserveBlur(this VisualElement visualElement)
+        {
+            return visualElement.RegisterCallbackAsObservable<BlurEvent>().ToUnitObservable();
         }
     }
 }
