@@ -7,13 +7,11 @@ namespace BloodClockTower.Game
     {
         private GameScope _gameScope = null!;
 
-        public void Construct(
-            ViewFactory<PlayerIconView> playerIconViewFactory,
-            SafetyUiDocument safetyUiDocument,
-            int playersAmount
-        )
+        public void Construct(ViewFactory<PlayerIconView> playerIconViewFactory,
+            SafetyUiDocument safetyUiDocument,UIToolkitEventSystem uiToolkitEventSystem,
+            int playersAmount)
         {
-            _gameScope = new GameScope(playerIconViewFactory, safetyUiDocument, playersAmount);
+            _gameScope = new GameScope(playerIconViewFactory, safetyUiDocument, uiToolkitEventSystem, playersAmount);
         }
 
         private void Start() => _gameScope.Initialize();

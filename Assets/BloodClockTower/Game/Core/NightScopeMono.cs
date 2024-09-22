@@ -12,10 +12,10 @@ namespace BloodClockTower.Game
             ViewFactory<PlayerIconView> playerIconViewFactory,
             SafetyUiDocument safetyUiDocument,
             Game game,
-            Night night
+            Night night, UIToolkitEventSystem uiToolkitEventSystem
         )
         {
-            _scope = new NightScope(playerIconViewFactory, safetyUiDocument, game, night);
+            _scope = new NightScope(playerIconViewFactory, safetyUiDocument, game, night, uiToolkitEventSystem);
             _scope.Compose();
         }
 

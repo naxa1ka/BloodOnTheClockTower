@@ -3,6 +3,7 @@ using Nxlk.UIToolkit;
 using Nxlk.UniRx;
 using UniRx;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace BloodClockTower.Game
 {
@@ -12,18 +13,21 @@ namespace BloodClockTower.Game
         private readonly VotingHistoryViewModel _viewModel;
         private readonly VotingSystemViewModel _votingSystemViewModel;
         private readonly EditPlayerViewModel _editPlayerViewModel;
+        private readonly UIToolkitEventSystem _uiToolkitEventSystem;
 
         public VotingHistoryPresenter(
             VotingHistoryView view,
             VotingHistoryViewModel viewModel,
             VotingSystemViewModel votingSystemViewModel,
-            EditPlayerViewModel editPlayerViewModel
+            EditPlayerViewModel editPlayerViewModel,
+            UIToolkitEventSystem uiToolkitEventSystem
         )
         {
             _view = view;
             _viewModel = viewModel;
             _votingSystemViewModel = votingSystemViewModel;
             _editPlayerViewModel = editPlayerViewModel;
+            _uiToolkitEventSystem = uiToolkitEventSystem;
         }
 
         public void Initialize()
@@ -56,6 +60,7 @@ namespace BloodClockTower.Game
                 .EditNoteVotingHistoryButton.SubscribeOnClick(() =>
                 {
                     _viewModel.StartEditingNote();
+                    _uiToolkitEventSystem.SelectEventSystem();
                     _view.NoteInputField.Focus();
                 })
                 .AddTo(disposables);

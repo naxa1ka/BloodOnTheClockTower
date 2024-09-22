@@ -14,16 +14,19 @@ namespace BloodClockTower.Game
         private readonly Game _game;
         private readonly ViewFactory<PlayerIconView> _playerIconViewFactory;
         private readonly SafetyUiDocument _safetyUiDocument;
+        private readonly UIToolkitEventSystem _uiToolkitEventSystem;
         private OneOf<NightScopeMono, None> _nightScope = new None();
 
         public GameScope(
             ViewFactory<PlayerIconView> playerIconViewFactory,
             SafetyUiDocument safetyUiDocument,
+            UIToolkitEventSystem uiToolkitEventSystem,
             int playersAmount
         )
         {
             _safetyUiDocument = safetyUiDocument;
             _playerIconViewFactory = playerIconViewFactory;
+            _uiToolkitEventSystem = uiToolkitEventSystem;
             _game = new Game(playersAmount).AddTo(disposables);
 
             Disposable.Create(DisposeNight).AddTo(disposables);
@@ -42,7 +45,8 @@ namespace BloodClockTower.Game
                         _playerIconViewFactory,
                         _safetyUiDocument,
                         _game,
-                        night
+                        night,
+                        _uiToolkitEventSystem
                     );
 
                     _nightScope = nightScopeMono;

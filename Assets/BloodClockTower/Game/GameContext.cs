@@ -7,5 +7,8 @@ namespace BloodClockTower.Game
     {
         [field: SerializeField]
         public UIDocument UIDocument { get; private set; } = null!;
+
+        [field: SerializeField]
+        public PanelSettings PanelSettings { get; private set; } = null!;
     }
 }

@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <UIDocument>k__BackingField: {fileID: 1617197938}
+  <PanelSettings>k__BackingField: {fileID: 11400000, guid: 6e5e8d8f3b6786e4c9f5aed5ad8e6c9e, type: 2}
 --- !u!4 &875475491
 Transform:
   m_ObjectHideFlags: 0
