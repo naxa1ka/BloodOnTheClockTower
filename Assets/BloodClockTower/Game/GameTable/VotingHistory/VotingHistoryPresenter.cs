@@ -2,6 +2,7 @@
 using Nxlk.UIToolkit;
 using Nxlk.UniRx;
 using UniRx;
+using UnityEngine;
 
 namespace BloodClockTower.Game
 {
@@ -43,6 +44,10 @@ namespace BloodClockTower.Game
             _viewModel.IsVisible.BindToVisible(_view.VotingHistoryContainer).AddTo(disposables);
             _view.OpenVotingHistoryButton.SubscribeOnClick(_viewModel.Show).AddTo(disposables);
             _view.CloseVotingHistoryButton.SubscribeOnClick(_viewModel.Hide).AddTo(disposables);
+            new EscapeObservable()
+                .Where(_ => _viewModel.IsVisible.Value)
+                .Subscribe(_viewModel.Hide)
+                .AddTo(disposables);
             _viewModel
                 .IsVisible.WhereTrue()
                 .Subscribe(() => _view.VotingHistoryLabel.text = _viewModel.VotingRounds.ToString())
