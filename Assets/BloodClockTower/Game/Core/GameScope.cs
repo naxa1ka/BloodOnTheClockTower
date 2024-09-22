@@ -1,4 +1,5 @@
-﻿using Nxlk.UIToolkit;
+﻿using System;
+using Nxlk.UIToolkit;
 using Nxlk.UniRx;
 using OneOf;
 using OneOf.Types;
@@ -50,6 +51,17 @@ namespace BloodClockTower.Game
         }
 
         private void DisposeNight() =>
-            _nightScope.Switch(scope => Object.Destroy(scope.gameObject), none => { });
+            _nightScope.Switch(scope =>
+            {
+                try
+                {
+                    Object.Destroy(scope.gameObject);
+                }
+                catch (Exception exception)
+                {
+                    if (exception is not MissingReferenceException)
+                        throw;
+                }
+            }, none => { });
     }
 }
