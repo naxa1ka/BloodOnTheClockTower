@@ -11,11 +11,17 @@ namespace BloodClockTower.Game
     {
         private readonly VotingSystemView _view;
         private readonly VotingSystemViewModel _model;
+        private readonly EditPlayerViewModel _editPlayerViewModel;
 
-        public VotingSystemPresenter(VotingSystemView view, VotingSystemViewModel model)
+        public VotingSystemPresenter(
+            VotingSystemView view,
+            VotingSystemViewModel model,
+            EditPlayerViewModel editPlayerViewModel
+        )
         {
             _view = view;
             _model = model;
+            _editPlayerViewModel = editPlayerViewModel;
         }
 
         public void Initialize()
@@ -24,18 +30,36 @@ namespace BloodClockTower.Game
             _view.EndVotingButton.SubscribeOnClick(_model.EndVoting).AddTo(disposables);
             _view.ResetInitiatorButton.SubscribeOnClick(_model.ResetInitiator).AddTo(disposables);
             _view.ResetNomineeButton.SubscribeOnClick(_model.ResetNominee).AddTo(disposables);
-            _model.CurrentState.Subscribe(UpdateLabel).AddTo(disposables);
-            _model.CurrentState.Subscribe(UpdateLabelVisibility).AddTo(disposables);
-            _model.CurrentState.Subscribe(UpdateButtonsVisibility).AddTo(disposables);
+            _model
+                .CurrentState.CombineLatest(
+                    _editPlayerViewModel.IsEditing,
+                    (state, isPlayerEditing) => (state, isPlayerEditing)
+                )
+                .Subscribe(tuple => Update(tuple.state, tuple.isPlayerEditing))
+                .AddTo(disposables);
         }
 
-        private void UpdateButtonsVisibility(State state)
+        private void Update(State state, bool isPlayerEditing)
         {
-            _view.EndVotingButton.SetVisible(state != State.Idle);
-            _view.StartVotingButton.SetVisible(state == State.Idle);
-            _view.ResetInitiatorButton.SetVisible(state == State.ChoosingNominee);
-            _view.ResetNomineeButton.SetVisible(state == State.ChoosingParticipant);
+            UpdateButtonsVisibility(state, isPlayerEditing);
+            UpdateLabelVisibility(state, isPlayerEditing);
+            UpdateLabel(state);
         }
+
+        private void UpdateButtonsVisibility(State state, bool isPlayerEditing)
+        {
+            _view.EndVotingButton.SetVisible(!isPlayerEditing && state != State.Idle);
+            _view.StartVotingButton.SetVisible(!isPlayerEditing && state == State.Idle);
+            _view.ResetInitiatorButton.SetVisible(
+                !isPlayerEditing && state == State.ChoosingNominee
+            );
+            _view.ResetNomineeButton.SetVisible(
+                !isPlayerEditing && state == State.ChoosingParticipant
+            );
+        }
+
+        private void UpdateLabelVisibility(State state, bool isPlayerEditing) =>
+            _view.StateLabelContainer.SetVisible(!isPlayerEditing && state != State.Idle);
 
         private void UpdateLabel(State state)
         {
@@ -49,7 +73,5 @@ namespace BloodClockTower.Game
             };
             _view.StateLabel.text = stateLabelText;
         }
-
-        private void UpdateLabelVisibility(State state) => _view.StateLabelContainer.SetVisible(state != State.Idle);
     }
 }

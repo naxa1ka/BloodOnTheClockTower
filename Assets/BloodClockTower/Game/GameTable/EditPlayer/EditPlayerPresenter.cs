@@ -12,12 +12,18 @@ namespace BloodClockTower.Game
     {
         private readonly EditPlayerView _view;
         private readonly EditPlayerViewModel _viewModel;
+        private readonly VotingSystemViewModel _votingSystemViewModel;
         private IDisposable _selectedPlayerSubscription = Disposable.Empty;
 
-        public EditPlayerPresenter(EditPlayerView view, EditPlayerViewModel viewModel)
+        public EditPlayerPresenter(
+            EditPlayerView view,
+            EditPlayerViewModel viewModel,
+            VotingSystemViewModel votingSystemViewModel
+        )
         {
             _view = view;
             _viewModel = viewModel;
+            _votingSystemViewModel = votingSystemViewModel;
         }
 
         public void Initialize()
@@ -27,13 +33,27 @@ namespace BloodClockTower.Game
                 .AddTo(disposables);
             _view.StartEditingButton.SubscribeOnClick(_viewModel.StartEditing).AddTo(disposables);
             _view.EndEditingButton.SubscribeOnClick(_viewModel.EndEditing).AddTo(disposables);
+            var isVotingAsObservable = _votingSystemViewModel.CurrentState.Select(
+                state => state != VotingSystemViewModel.State.Idle
+            );
             _view
                 .NameInputField.ObserveText()
                 .Subscribe(_viewModel.ChangeSelectedPlayerName)
                 .AddTo(disposables);
-            _viewModel.IsEditing.BindToVisible(_view.EndEditingButton).AddTo(disposables);
-            _viewModel
-                .IsEditing.InverseBool()
+            Observable
+                .CombineLatest(
+                    _viewModel.IsEditing,
+                    isVotingAsObservable,
+                    (isEditing, isVoting) => isEditing && !isVoting
+                )
+                .BindToVisible(_view.EndEditingButton)
+                .AddTo(disposables);
+            Observable
+                .CombineLatest(
+                    _viewModel.IsEditing.InverseBool(),
+                    isVotingAsObservable,
+                    (isEditing, isVoting) => isEditing && !isVoting
+                )
                 .BindToVisible(_view.StartEditingButton)
                 .AddTo(disposables);
             Observable

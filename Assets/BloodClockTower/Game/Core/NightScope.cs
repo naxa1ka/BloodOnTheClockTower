@@ -55,7 +55,7 @@ namespace BloodClockTower.Game
                 .AddTo(disposables)
                 .AddTo(_presenters);
 
-            new EditPlayerPresenter(new EditPlayerView(_safetyUiDocument), editPlayerViewModel)
+            new EditPlayerPresenter(new EditPlayerView(_safetyUiDocument), editPlayerViewModel, votingSystemViewModel)
                 .AddTo(disposables)
                 .AddTo(_presenters);
 
@@ -66,14 +66,16 @@ namespace BloodClockTower.Game
             new VotingHistoryPresenter(
                 new VotingHistoryView(_safetyUiDocument),
                 votingHistoryViewModel,
-                votingSystemViewModel
+                votingSystemViewModel,
+                editPlayerViewModel
             )
                 .AddTo(disposables)
                 .AddTo(_presenters);
 
             new VotingSystemPresenter(
                 new VotingSystemView(_safetyUiDocument),
-                votingSystemViewModel
+                votingSystemViewModel,
+                editPlayerViewModel
             )
                 .AddTo(disposables)
                 .AddTo(_presenters);

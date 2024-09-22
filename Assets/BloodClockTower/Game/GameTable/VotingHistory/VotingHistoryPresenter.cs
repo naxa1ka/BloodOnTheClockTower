@@ -10,16 +10,19 @@ namespace BloodClockTower.Game
         private readonly VotingHistoryView _view;
         private readonly VotingHistoryViewModel _viewModel;
         private readonly VotingSystemViewModel _votingSystemViewModel;
+        private readonly EditPlayerViewModel _editPlayerViewModel;
 
         public VotingHistoryPresenter(
             VotingHistoryView view,
             VotingHistoryViewModel viewModel,
-            VotingSystemViewModel votingSystemViewModel
+            VotingSystemViewModel votingSystemViewModel,
+            EditPlayerViewModel editPlayerViewModel
         )
         {
             _view = view;
             _viewModel = viewModel;
             _votingSystemViewModel = votingSystemViewModel;
+            _editPlayerViewModel = editPlayerViewModel;
         }
 
         public void Initialize()
@@ -29,8 +32,11 @@ namespace BloodClockTower.Game
                 .CombineLatest(
                     _viewModel.VotingRounds.ObserveCountChangedWithCount(),
                     _votingSystemViewModel.CurrentState,
-                    (votingRoundsCount, state) =>
-                        votingRoundsCount > 0 && state == VotingSystemViewModel.State.Idle
+                    _editPlayerViewModel.IsEditing,
+                    (votingRoundsCount, state, isEditingPlayer) =>
+                        votingRoundsCount > 0
+                        && state == VotingSystemViewModel.State.Idle
+                        && !isEditingPlayer
                 )
                 .BindToVisible(_view.OpenVotingHistoryButton)
                 .AddTo(disposables);
