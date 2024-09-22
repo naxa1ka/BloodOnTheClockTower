@@ -19,11 +19,11 @@ namespace BloodClockTower.Game
         public IReadOnlyReactiveProperty<Vector3> Position => _position;
         public IReadOnlyReactiveProperty<bool> IsSelected => _isSelected;
         public IReadOnlyReactiveProperty<float> IconSize => _iconSize;
-        public IReactiveProperty<VoteRole> Role => _role;
+        public IReadOnlyReactiveProperty<VoteRole> Role => _role;
         public IReadOnlyReactiveProperty<PlayerName> Name => Player.Name;
         public IReadOnlyReactiveProperty<bool> IsAlive => Player.IsAlive;
         public IObservable<Unit> Clicked => _clicked;
-        public bool IsParticipant => _role.Value.IsInitiator;
+        public bool IsParticipant => _role.Value.IsParticipant;
         public bool IsNominee => _role.Value.IsNominee;
         public bool IsInitiator => _role.Value.IsInitiator;
         public bool IsIgnoredParticipant => _role.Value.IsIgnored;

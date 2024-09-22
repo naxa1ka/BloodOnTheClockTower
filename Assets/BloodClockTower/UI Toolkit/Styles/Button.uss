@@ -1,0 +1,303 @@
+.button {
+    height: var(--button-height);
+    min-height: var(--button-height);
+    min-width: var(--button-width);
+    border-radius: var(--button-border-radius);
+    font-size: var(--button-font-size);
+    transition-duration: var(--button-transition-duration);
+    -unity-font-definition: var(--button-font-definition);
+    transition-property: background-color, color;
+    -unity-text-align: middle-center;
+    flex-direction: row-reverse;
+}
+
+.button-empty {
+    background-color: rgba(0,0,0,0);
+    border-width: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.button-empty > .unity-button:focus {
+    background-color: rgba(0,0,0,0);
+}
+
+.button-empty > .unity-button:hover {
+    background-color: rgba(0,0,0,0);
+}
+
+
+.button .unity-text-element {
+    font-size: var(--base-font-size-middle);
+}
+
+.button__square {
+    height: var(--button-height);
+    width: var(--button-width);
+    align-items: center;
+    justify-content: center;
+}
+
+.button__bg-black {
+    background-color: var(--black);
+}
+
+.button__bg-black:hover {
+    background-color: var(--black-hover);
+}
+
+.button__bg-black:active {
+    background-color: var(--black-active);
+}
+
+.button__bg-gray {
+    background-color: var(--gray);
+}
+
+.button__bg-gray:hover {
+    background-color: var(--gray-hover);
+}
+
+.button__bg-gray:active {
+    background-color: var(--gray-active);
+}
+
+.button__bg-white {
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.button__bg-white:hover {
+    background-color: var(--white-hover);
+}
+
+.button__bg-white:active {
+    background-color: var(--white-active);
+}
+
+.button__bg-red {
+    background-color: var(--red);
+}
+
+.button__bg-red:hover {
+    background-color: var(--red-hover);
+}
+
+.button__bg-red:active {
+    background-color: var(--red-active);
+}
+
+.button__bg-coral {
+    background-color: var(--coral);
+}
+
+.button__bg-coral:hover {
+    background-color: var(--coral-hover);
+}
+
+.button__bg-coral:active {
+    background-color: var(--coral-active);
+}
+
+.button__bg-orange {
+    background-color: var(--orange);
+}
+
+.button__bg-orange:hover {
+    background-color: var(--orange-hover);
+}
+
+.button__bg-orange:active {
+    background-color: var(--orange-active);
+}
+
+.button__bg-yellow {
+    background-color: var(--yellow);
+}
+
+.button__bg-yellow:hover {
+    background-color: var(--yellow-hover);
+}
+
+.button__bg-yellow:active {
+    background-color: var(--yellow-active);
+}
+
+.button__bg-green {
+    background-color: var(--green);
+}
+
+.button__bg-green:hover {
+    background-color: var(--green-hover);
+}
+
+.button__bg-green:active {
+    background-color: var(--green-active);
+}
+
+.button__bg-mint {
+    background-color: var(--mint);
+}
+
+.button__bg-mint:hover {
+    background-color: var(--mint-hover);
+}
+
+.button__bg-mint:active {
+    background-color: var(--mint-active);
+}
+
+.button__bg-teal {
+    background-color: var(--teal);
+}
+
+.button__bg-teal:hover {
+    background-color: var(--teal-hover);
+}
+
+.button__bg-teal:active {
+    background-color: var(--teal-active);
+}
+
+.button__bg-cyan {
+    background-color: var(--cyan);
+}
+
+.button__bg-cyan:hover {
+    background-color: var(--cyan-hover);
+}
+
+.button__bg-cyan:active {
+    background-color: var(--cyan-active);
+}
+
+.button__bg-blue {
+    background-color: var(--blue);
+}
+
+.button__bg-blue:hover {
+    background-color: var(--blue-hover);
+}
+
+.button__bg-blue:active {
+    background-color: var(--blue-active);
+}
+
+.button__bg-indigo {
+    background-color: var(--indigo);
+}
+
+.button__bg-indigo:hover {
+    background-color: var(--indigo-hover);
+}
+
+.button__bg-indigo:active {
+    background-color: var(--indigo-active);
+}
+
+.button__bg-purple {
+    background-color: var(--purple);
+}
+
+.button__bg-purple:hover {
+    background-color: var(--purple-hover);
+}
+
+.button__bg-purple:active {
+    background-color: var(--purple-active);
+}
+
+.button__bg-pink {
+    background-color: var(--pink);
+}
+
+.button__bg-pink:hover {
+    background-color: var(--pink-hover);
+}
+
+.button__bg-pink:active {
+    background-color: var(--pink-active);
+}
+
+.button__bg-brown {
+    background-color: var(--brown);
+}
+
+.button__bg-brown:hover {
+    background-color: var(--brown-hover);
+}
+
+.button__bg-brown:active {
+    background-color: var(--brown-active);
+}
+
+.button__bg-light-gray {
+    background-color: var(--light-gray);
+}
+
+.button__bg-light-gray:hover {
+    background-color: var(--gray-hover);
+}
+
+.button__bg-light-gray:active {
+    background-color: var(--gray-active);
+}
+
+.button__bg-dark-gray {
+    background-color: var(--dark-gray);
+}
+
+.button__bg-dark-gray:hover {
+    background-color: var(--gray-hover);
+}
+
+.button__bg-dark-gray:active {
+    background-color: var(--gray-active);
+}
+
+.button__bg-deep-gray {
+    background-color: var(--deep-gray);
+}
+
+.button__bg-deep-gray:hover {
+    background-color: var(--gray-hover);
+}
+
+.button__bg-deep-gray:active {
+    background-color: var(--gray-active);
+}
+
+.button__bg-transparent {
+    background-color: var(--transparent);
+}
+
+.button__bg-transparent:hover {
+    background-color: var(--white-transparent-hover);
+}
+
+.button__bg-transparent:active {
+    background-color: var(--white-transparent-active);
+}
+
+.button.bg-transparent {
+    background-color: var(--transparent);
+}
+
+.button__label-orange {
+    color: var(--orange);
+}
+
+.button__label-orange:hover {
+    color: var(--orange-hover);
+}
+
+.button__label-orange:active {
+    color: var(--orange-active);
+}
+
+.button__keyboard {
+    height: var(--button-keyboard-size);
+    width: var(--button-keyboard-size);
+    min-height: var(--button-keyboard-size);
+    min-width: var(--button-keyboard-size);
+}

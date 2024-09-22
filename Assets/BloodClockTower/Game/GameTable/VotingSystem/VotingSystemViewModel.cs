@@ -3,8 +3,6 @@ using System.Linq;
 using Nxlk.Bool;
 using Nxlk.UniRx;
 using UniRx;
-using static BloodClockTower.Game.PlayerViewModel;
-using CollectionExtensions = Nxlk.LINQ.CollectionExtensions;
 
 namespace BloodClockTower.Game
 {
@@ -34,12 +32,6 @@ namespace BloodClockTower.Game
             _gameTableViewModel.Players.SingleOrDefault(player => player.IsNominee);
 
         private PlayerViewModel Nominee => NomineeOrDefault ?? throw new NullReferenceException();
-
-        private bool AnyParticipant =>
-            _gameTableViewModel.Players.Any(player => player.IsParticipant);
-
-        public bool CanEndVoting =>
-            InitiatorOrDefault != null && NomineeOrDefault != null && AnyParticipant;
         public IReadOnlyReactiveProperty<State> CurrentState => _currentState;
 
         public VotingSystemViewModel(
@@ -93,7 +85,7 @@ namespace BloodClockTower.Game
 
         public void EndVoting()
         {
-            if (CanEndVoting)
+            if (InitiatorOrDefault != null && NomineeOrDefault != null)
             {
                 _votingHistoryViewModel.Add(
                     new VotingRoundFromViewModelPlayers(_gameTableViewModel.Players)

@@ -6,7 +6,8 @@
         "UnityEditor.TestRunner",
         "BCT.Game",
         "Nxlk.UniRx",
-        "UniRx"
+        "UniRx",
+        "Nxlk.Bool"
     ],
     "includePlatforms": [
         "Editor"
@@ -17,7 +18,8 @@
     "precompiledReferences": [
         "nunit.framework.dll",
         "NSubstitute.dll",
-        "FluentAssertions.dll"
+        "FluentAssertions.dll",
+        "ValueOf.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

@@ -1,0 +1,157 @@
+.hide {
+    display: none;
+    visibility: hidden;
+}
+
+.animatable {
+    transition-duration: var(--animation-transition-duration);
+    transition-delay: var(--animation-transition-delay);
+    transition-timing-function: var(--animation-transition-timing-function);
+}
+
+.animatable.translate {
+    transition-property: translate;
+}
+
+.animatable.ic-scaled .ic {
+    transition-property: scale;
+    transition-timing-function: ease-in-out-bounce;
+    transition-duration: 0.15s;
+}
+
+.hide.animatable {
+    opacity: 1;
+    display: flex;
+    visibility: visible;
+}
+
+.hide.animatable.faded {
+    transition-property: opacity;
+    opacity: 0;
+    display: none;
+    visibility: hidden;
+}
+
+.hide.animatable.ic-scaled {
+    display: none;
+    visibility: hidden;
+}
+
+.hide.animatable.ic-scaled .ic {
+    scale: 1.35 1.35;
+}
+
+.hide.animatable.shift-left {
+    translate: -100% 0;
+}
+
+.hide.animatable.shift-right {
+    translate: 100% 0;
+}
+
+.hide.animatable.shift-top {
+    translate: 0 -100%;
+}
+
+.hide.animatable.shift-bottom {
+    translate: 0 100%;
+}
+
+.hide.animatable.width-zero {
+    transition-property: width;
+    width: 0;
+}
+
+.empty-space {
+    width: var(--base-margin);
+    height: var(--base-margin);
+}
+
+.warning .label {
+    color: var(--orange);
+}
+
+.warning .button {
+    background-color: var(--orange);
+    color: var(--white);
+}
+
+.warning.label {
+    color: var(--orange);
+}
+
+.warning.button {
+    background-color: var(--orange);
+    color: var(--white);
+}
+
+.error .label {
+    color: var(--red);
+}
+
+.error .button {
+    background-color: var(--red);
+    color: var(--white);
+}
+
+.error.label {
+    color: var(--red);
+}
+
+.error.button {
+    background-color: var(--red);
+    color: var(--white);
+}
+
+:disabled.button {
+    background-color: var(--deep-gray);
+    color: var(--gray);
+}
+
+:disabled.button * {
+    -unity-background-image-tint-color: var(--gray);
+    color: var(--gray);
+}
+
+:disabled.button__bg-transparent {
+    background-color: var(--transparent);
+}
+
+:disabled.settings-navigation-bar__trailing {
+    display: none;
+    visibility: hidden;
+}
+
+:disabled.input-field {
+    opacity: var(--input-field-disabled-opacity);
+}
+
+:disabled.input-field:hover .input-field__input {
+    border-color: var(--light-gray);
+}
+
+:disabled.search-input-field {
+    display: none;
+    visibility: hidden;
+}
+
+:disabled.slider {
+    opacity: var(--base-opacity-disabled);
+}
+
+:disabled.slide-toggle {
+    opacity: var(--base-opacity-disabled);
+}
+
+:disabled.clickable-container {
+    opacity: var(--base-opacity-disabled);
+}
+
+:disabled#item-of-category-container {
+    opacity: 1.0;
+}
+
+:disabled {
+    transition-property: none;
+    opacity: 1.0;
+}

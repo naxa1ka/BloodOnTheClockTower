@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using Nxlk.Bool;
-using Nxlk.LINQ;
-using Nxlk.ReactiveUIToolkit;
+﻿using Nxlk.ReactiveUIToolkit;
 using Nxlk.UIToolkit;
 using Nxlk.UniRx;
 using UniRx;

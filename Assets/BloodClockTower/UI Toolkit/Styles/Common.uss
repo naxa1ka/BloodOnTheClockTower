@@ -1,0 +1,311 @@
+:root {
+    --black: rgb(18, 18, 18);
+    --black-hover: rgb(24, 24, 24);
+    --black-active: rgb(16, 16, 16);
+    --gray: rgb(69, 70, 72);
+    --gray-hover: rgb(62, 63, 64);
+    --gray-active: rgb(55, 56, 57);
+    --white: rgb(255, 255, 255);
+    --white-hover: rgb(229, 229, 229);
+    --white-active: rgb(204, 204, 204);
+    --red: rgb(255, 59, 48);
+    --red-hover: rgb(229, 53, 43);
+    --red-active: rgb(204, 47, 38);
+    --coral: rgb(224, 71, 27);
+    --coral-hover: rgb(227, 89, 49);
+    --coral-active: rgb(201, 63, 24);
+    --orange: rgb(255, 149, 0);
+    --orange-hover: rgb(229, 134, 0);
+    --orange-active: rgb(204, 119, 0);
+    --yellow: rgb(255, 214, 10);
+    --yellow-hover: rgb(255, 218, 34);
+    --yellow-active: rgb(229, 192, 9);
+    --green: rgb(48, 209, 88);
+    --green-hover: rgb(68, 213, 104);
+    --green-active: rgb(43, 188, 79);
+    --mint: rgb(102, 212, 207);
+    --mint-hover: rgb(117, 216, 211);
+    --mint-active: rgb(91, 190, 186);
+    --teal: rgb(64, 200, 224);
+    --teal-hover: rgb(83, 205, 227);
+    --teal-active: rgb(57, 180, 201);
+    --cyan: rgb(100, 210, 255);
+    --sand: rgb(208, 189, 152);
+    --dark-brown: rgb(45, 43, 41);
+    --eggshell: rgb(245, 243, 230);
+    --cyan-hover: rgb(115, 214, 255);
+    --cyan-active: rgb(90, 189, 229);
+    --blue: rgb(10, 132, 255);
+    --blue-hover: rgb(34, 144, 255);
+    --blue-active: rgb(9, 118, 229);
+    --indigo: rgb(94, 92, 230);
+    --indigo-hover: rgb(110, 108, 232);
+    --indigo-active: rgb(84, 82, 207);
+    --purple: rgb(191, 90, 242);
+    --purple-hover: rgb(197, 106, 243);
+    --purple-active: rgb(171, 81, 217);
+    --pink: rgb(255, 55, 95);
+    --pink-hover: rgb(255, 75, 111);
+    --pink-active: rgb(229, 49, 85);
+    --brown: rgb(172, 142, 104);
+    --brown-hover: rgb(180, 153, 119);
+    --brown-active: rgb(154, 127, 93);
+}
+
+:root {
+    --font-semi-bold: resource('Fonts/CinzelDecorative_Bold');
+    --font-medium: resource('Fonts/CinzelDecorative_Black');
+    --font-regular: resource('Fonts/CinzelDecorative_Regular');
+}
+
+:root {
+    --white-transparent: rgba(255, 255, 255, 0.1);
+    --white-transparent-half: rgba(255, 255, 255, 0.05);
+    --white-transparent-hover: rgba(255, 255, 255, 0.001);
+    --white-transparent-active: rgba(255, 255, 255, 0.02);
+}
+
+:root {
+    --light-black: rgb(35, 35, 35);
+    --dark-black: rgb(28, 28, 28);
+    --deep-black: rgb(14, 14, 14);
+    --highlight-gray: rgb(142, 142, 147);
+    --light-gray: rgb(99, 99, 102);
+    --mid-gray: rgb(57, 57, 60);
+    --dark-gray: rgb(49, 49, 52);
+    --deep-gray: rgb(44, 44, 46);
+    --deep-red: rgb(199, 59, 48);
+    --deep-blue: rgb(10, 99, 212);
+    --deep-green: rgb(33, 170, 70);
+    --deep-orange: rgb(189, 114, 10);
+    --transparent: rgba(0, 0, 0, 0);
+    --gray-transparent: rgba(142, 142, 147, 0.05);
+    --black-transparent: rgba(18, 18, 18, 0.9);
+    --red-transparent: rgba(255, 59, 48, 0.05);
+    --blue-transparent: rgba(10, 132, 255, 0.05);
+    --green-transparent: rgba(48, 209, 88, 0.05);
+    --orange-transparent: rgba(255, 149, 0, 0.05);
+    --brown-transparent: rgba(172, 142, 104, 0.05);
+    --indigo-transparent: rgba(94, 92, 230, 0.05);
+    --red-error: rgba(255, 59, 48, 0.25);
+    --red-selection: rgba(255, 59, 48, 0.4);
+    --orange-selection: rgba(255, 149, 0, 0.4);
+}
+
+:root {
+    --base-size-extra-small: 40px;
+    --base-size-small: 48px;
+    --base-size-middle: 64px;
+    --base-size-large: 88px;
+    --base-size-extra-large: 128px;
+    --base-size-extra-large-double: 256px;
+    --base-icon-size-extra-small: 24px;
+    --base-icon-size-small: 28px;
+    --base-icon-size-middle: 32px;
+    --base-icon-size-large: 36px;
+    --base-icon-size-extra-large: 48px;
+    --base-border-radius: 12px;
+    --base-border-radius-half: 8px;
+    --base-font-size-extra-small: 18px;
+    --base-font-size-small: 22px;
+    --base-font-size-middle: 38px;
+    --base-font-size-large: 42px;
+    --base-margin-double: 32px;
+    --base-margin: 16px;
+    --base-margin-half: 8px;
+    --base-margin-quarter: 4px;
+    --base-padding-double: 32px;
+    --base-padding: 16px;
+    --base-padding-half: 8px;
+    --base-padding-quarter: 4px;
+    --base-line-height: 1px;
+    --base-panel-size-middle: 416px;
+    --base-panel-size-large: 608px;
+    --base-opacity-disabled: 0.3;
+}
+
+:root {
+    --animation-transition-duration: 0.25s;
+    --animation-transition-delay: 0s;
+    --animation-transition-timing-function: ease-in-out-sine;
+}
+
+
+:root {
+    --button-height: var(--base-size-middle);
+    --button-width: var(--base-size-middle);
+    --button-border-radius: var(--base-border-radius);
+    --button-font-size: var(--base-font-size-middle);
+    --button-font-definition: var(--font-medium);
+    --button-transition-duration: var(--animation-transition-duration);
+    --button-keyboard-size: 64px;
+}
+
+:root {
+    --input-field-error-cursor-color: var(--red);
+    --input-field-selection-error-color: var(--red-selection);
+    --input-field-cursor-color: var(--orange);
+    --input-field-selection-color: var(--orange-selection);
+    --input-field-label-color: var(--highlight-gray);
+    --input-field-label-background-color-x: var(--deep-red);
+    --input-field-label-background-color-y: var(--deep-green);
+    --input-field-label-background-color-z: var(--deep-blue);
+    --input-field-input-background-color: var(--gray);
+    --input-field-input-border-color: var(--light-gray);
+    --input-field-input-hover-border-color: var(--highlight-gray);
+    --input-field-input-focus-border-color: var(--orange);
+    --input-field-label-error-color: var(--red);
+    --input-field-input-error-border-color: var(--red);
+    --input-field-input-error-background-color: var(--red-error);
+    --input-field-input-error-color: var(--white);
+    --input-filed-input-color: var(--white);
+    --input-filed-input-preview-color: var(--highlight-gray);
+    --input-filed-input-keyboard-checked-focus-color: var(--white);
+    --input-field-input-font-size: var(--base-font-size-middle);
+    --input-field-label-font-size: var(--base-font-size-middle);
+    --input-field-label-font-definition: var(--font-regular);
+    --input-field-height: var(--base-size-middle);
+    --input-field-label-margin-bottom: var(--base-margin-half);
+    --input-filed-input-border-radius: var(--base-border-radius-half);
+    --input-filed-input-padding-left: var(--base-padding-half);
+    --input-filed-input-padding-left-half: var(--base-padding-quarter);
+    --input-filed-input-border-width: var(--base-line-height);
+    --input-field-disabled-opacity: var(--base-opacity-disabled);
+}
+
+
+
+:root {
+    --icon-native-robotics-fill: resource('Icons/IC_Native-robotics_Fill');
+    --icon-check-fill: resource('Icons/IC_Check_Fill');
+    --icon-minus-fill: resource('Icons/IC_Minus_Fill');
+    --icon-plus-fill: resource('Icons/IC_Plus_Fill');
+    --icon-plus-circle-fill: resource('Icons/IC_Plus-circle_Fill');
+    --icon-cross-fill: resource('Icons/IC_Cross_Fill');
+    --icon-connections-fill: resource('Icons/IC_Connections_Fill');
+    --icon-chevron-fill: resource('Icons/IC_Chevron_Fill');
+    --icon-arrow-fill: resource('Icons/IC_Arrow_Fill');
+    --icon-arrow-long-fill: resource('Icons/IC_Arrow-long_Fill');
+    --icon-align-fill: resource('Icons/IC_Align_Fill');
+    --icon-box-face-fill: resource('Icons/IC_Box-face_Fill');
+    --icon-magic-stick-fill: resource('Icons/IC_Magic-stick_Fill');
+    --icon-rotate-fill: resource('Icons/IC_Rotate_Fill');
+    --icon-trash-fill: resource('Icons/IC_Trash_Fill');
+    --icon-clear-fill: resource('Icons/IC_Clear_Fill');
+    --icon-home-fill: resource('Icons/IC_Home_Fill');
+    --icon-play-fill: resource('Icons/IC_Play_Fill');
+    --icon-pause-fill: resource('Icons/IC_Pause_Fill');
+    --icon-stop-fill: resource('Icons/IC_Stop_Fill');
+    --icon-speed-fill: resource('Icons/IC_Speed_Fill');
+    --icon-list-fill: resource('Icons/IC_List_Fill');
+    --icon-rocket-fill: resource('Icons/IC_Rocket_Fill');
+    --icon-rocket-active-fill: resource('Icons/IC_Rocket-active_Fill');
+    --icon-gear-fill: resource('Icons/IC_Gear_Fill');
+    --icon-free-drive-fill: resource('Icons/IC_Free-drive_Fill');
+    --icon-hide-ui-fill: resource('Icons/IC_Hide-ui_Fill');
+    --icon-exclamation-triangle-fill: resource('Icons/IC_Exclamation-triangle_Fill');
+    --icon-stripes-tile-fill: resource('Icons/IC_Stripes-tile_Fill');
+    --icon-pallet-fill: resource('Icons/IC_Pallet_Fill');
+    --icon-locked-fill: resource('Icons/IC_Locked_Fill');
+    --icon-unlocked-fill: resource('Icons/IC_Unlocked_Fill');
+    --icon-hourglass-fill: resource('Icons/IC_Hourglass_Fill');
+    --icon-turtle-fill: resource('Icons/IC_Turtle_Fill');
+    --icon-hare-fill: resource('Icons/IC_Hare_Fill');
+    --icon-edit-fill: resource('Icons/IC_Edit_Fill');
+    --icon-done-fill: resource('Icons/IC_Done_Fill');
+    --icon-eraser-fill: resource('Icons/IC_Eraser_Fill');
+    --icon-return-fill: resource('Icons/IC_Return_Fill');
+    --icon-backspace-fill: resource('Icons/IC_Backspace_Fill');
+    --icon-clear-all-fill: resource('Icons/IC_Clear-all_Fill');
+    --icon-pointer-fill: resource('Icons/IC_Pointer_Fill');
+    --icon-capslock-fill: resource('Icons/IC_Capslock_Fill');
+    --icon-shift-on-fill: resource('Icons/IC_Shift-on_Fill');
+    --icon-shift-off-fill: resource('Icons/IC_Shift-off_Fill');
+    --icon-search-fill: resource('Icons/IC_Search_Fill');
+    --icon-search-fail-fill: resource('Icons/IC_Search-fail_Fill');
+    --icon-placeholder-fill: resource('Icons/IC_Placeholder_Fill');
+    --icon-column-fill: resource('Icons/IC_Column_Fill');
+    --icon-robot-fill: resource('Icons/IC_Robot_Fill');
+    --icon-instruction-fill: resource('Icons/IC_Instruction_Fill');
+    --icon-connection-fill: resource('Icons/IC_Connection_Fill');
+    --icon-interface-fill: resource('Icons/IC_Interface_Fill');
+    --icon-obstacle-fill: resource('Icons/IC_Obstacle_Fill');
+    --icon-users-fill: resource('Icons/IC_Users_Fill');
+    --icon-gripper-open-fill: resource('Icons/IC_Gripper-open_Fill');
+    --icon-gripper-close-fill: resource('Icons/IC_Gripper-close_Fill');
+    --icon-equipment-fill: resource('Icons/IC_Equipment_Fill');
+    --icon-storage-fill: resource('Icons/IC_Storage_Fill');
+    --icon-zoom-in-fill: resource('Icons/IC_Zoom-in_Fill');
+    --icon-zoom-out-fill: resource('Icons/IC_Zoom-out_Fill');
+    --icon-focus-fill: resource('Icons/IC_Focus_Fill');
+    --icon-space-fill: resource('Icons/IC_Space_Fill');
+    --icon-warning-fill: resource('Icons/IC_Warning_Fill');
+    --icon-asterisk-fill: resource('Icons/IC_Asterisk_Fill');
+    --icon-eye-fill: resource('Icons/IC_Eye_Fill');
+    --icon-eye-slash-fill: resource('Icons/IC_Eye-slash_Fill');
+    --icon-stripes-fill: resource('Icons/IC_Stripes_Fill');
+    --icon-exclamation-sign-fill: resource('Icons/IC_Exclamation-sign_Fill');
+    --icon-journal-error-fill: resource('Icons/IC_Journal-error_Fill');
+    --icon-journal-warning-fill: resource('Icons/IC_Journal-warning_Fill');
+    --icon-journal-info-fill: resource('Icons/IC_Journal-info_Fill');
+    --icon-journal-check-fill: resource('Icons/IC_Journal-check_Fill');
+    --icon-journal-check-all-fill: resource('Icons/IC_Journal-check-all_Fill');
+    --icon-journal-fill: resource('Icons/IC_Journal_Fill');
+    --icon-journal-empty-fill: resource('Icons/IC_Journal-empty_Fill');
+    --icon-statistics-fill: resource('Icons/IC_Statistics_Fill');
+    --icon-layout-fill: resource('Icons/IC_Layout_Fill');
+    --icon-presets-fill: resource('Icons/IC_Presets_Fill');
+    --icon-jog-fill: resource('Icons/IC_Jog_Fill');
+    --icon-datahub-fill: resource('Icons/IC_Datahub_Fill');
+    --icon-velocity-fill: resource('Icons/IC_Velocity_Fill');
+    --icon-copy-fill: resource('Icons/IC_Copy_Fill');
+    --icon-import-fill: resource('Icons/IC_Import_Fill');
+    --icon-export-fill: resource('Icons/IC_Export_Fill');
+    --icon-move-item-vertical-fill: resource('Icons/IC_Move-item-vertical_Fill');
+    --icon-units-count-fill: resource('Icons/IC_Units-count_Fill');
+    --icon-units-weight-fill: resource('Icons/IC_Units-weight_Fill');
+    --icon-units-layer-fill: resource('Icons/IC_Layer-count_Fill');
+}
+
+:root {
+    --icon-reflect-mirror-color: resource('Icons/IC_Reflect-mirror_Color');
+    --icon-reflect-color: resource('Icons/IC_Reflect_Color');
+    --icon-reflect-disabled-color: resource('Icons/IC_Reflect-disabled_Color');
+    --icon-speed-x2-color: resource('Icons/IC_Speed-x2_Color');
+    --icon-speed-x4-color: resource('Icons/IC_Speed-x4_Color');
+    --icon-speed-x8-color: resource('Icons/IC_Speed-x8_Color');
+    --icon-free-drive-active-color: resource('Icons/IC_Free-drive-active_Color');
+    --icon-3d-color: resource('Icons/IC_3D_Color');
+    --icon-ar-color: resource('Icons/IC_AR_Color');
+    --icon-ar-placement-on-color: resource('Icons/IC_AR-placement-on_Color');
+    --icon-ar-placement-off-color: resource('Icons/IC_AR-placement-off_Color');
+    --icon-stopwatch-color: resource('Icons/IC_Stopwatch_Color');
+    --icon-success-color: resource('Icons/IC_Success_Color');
+    --icon-error-color: resource('Icons/IC_Error_Color');
+    --icon-info-color: resource('Icons/IC_Info_Color');
+    --icon-warning-color: resource('Icons/IC_Warning_Color');
+    --icon-plus-color: resource('Icons/IC_Plus_Color');
+    --icon-minus-color: resource('Icons/IC_Minus_Color');
+}
+
+:root {
+    --icon-russian-lang: resource('Icons/IC_Russian_Lang');
+    --icon-spanish-lang: resource('Icons/IC_Spanish_Lang');
+    --icon-catalan-lang: resource('Icons/IC_Catalan_Lang');
+    --icon-basque-lang: resource('Icons/IC_Basque_Lang');
+    --icon-italian-lang: resource('Icons/IC_Italian_Lang');
+    --icon-french-lang: resource('Icons/IC_French_Lang');
+    --icon-english-lang: resource('Icons/IC_English_Lang');
+    --icon-polish-lang: resource('Icons/IC_Polish_Lang');
+    --icon-czech-lang: resource('Icons/IC_Czech_Lang');
+    --icon-danish-lang: resource('Icons/IC_Danish_Lang');
+    --icon-finnish-lang: resource('Icons/IC_Finnish_Lang');
+    --icon-norwegian-lang: resource('Icons/IC_Norwegian_Lang');
+    --icon-swedish-lang: resource('Icons/IC_Swedish_Lang');
+    --icon-hebrew-lang: resource('Icons/IC_Hebrew_Lang');
+    --icon-slovenian-lang: resource('Icons/IC_Slovenian_Lang');
+    --icon-croatian-lang: resource('Icons/IC_Croatian_Lang');
+    --icon-deutsch-lang: resource('Icons/IC_Deutsch_Lang');
+    --icon-dutch-lang: resource('Icons/IC_Dutch_Lang');
+    --icon-hungarian-lang: resource('Icons/IC_Hungarian_Lang');
+}

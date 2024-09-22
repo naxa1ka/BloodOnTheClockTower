@@ -1,0 +1,70 @@
+.input-field {
+    --unity-cursor-color: var(--input-field-cursor-color);
+    --unity-selection-color: var(--input-field-selection-color);
+}
+
+.input-field__label {
+    color: var(--input-field-label-color);
+    margin-bottom: var(--input-field-label-margin-bottom);
+    font-size: var(--input-field-label-font-size);
+    align-self: flex-start;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.input-field__input {
+    background-color: var(--input-field-input-background-color);
+    border-color: var(--input-field-input-border-color);
+    border-radius: var(--input-filed-input-border-radius);
+    border-width: var(--input-filed-input-border-width);
+    height: var(--input-field-height);
+    justify-content: center;
+}
+
+.input-field__input-preview {
+    color: var(--input-filed-input-preview-color);
+    height: 100%;
+    position: absolute;
+}
+
+.input-field__input {
+    color: var(--input-filed-input-color);
+    font-size: var(--input-field-input-font-size);
+    padding-left: var(--input-filed-input-padding-left);
+    text-overflow: ellipsis;
+    -unity-text-overflow-position: middle;
+    -unity-text-align: middle-left;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.input-field--disabled {
+    opacity: var(--input-field-disabled-opacity);
+}
+
+.input-field:hover .input-field__input {
+    border-color: var(--input-field-input-hover-border-color);
+}
+
+.input-field--checked-focus-keyboard .input-field__input {
+    color: var(--input-filed-input-keyboard-checked-focus-color);
+}
+
+.input-field--checked-focus-keyboard:focus .input-field__input {
+    opacity: 0.5;
+}
+
+.input-field--focus-by-keyboard .input-field__input {
+    border-color: var(--input-field-input-focus-border-color);
+}
+
+.input-field--error {
+    --unity-cursor-color: var(--input-field-error-cursor-color);
+    --unity-selection-color: var(--input-field-selection-error-color);
+}
+
+.input-field--error > .input-field__input {
+    background-color: var(--input-field-input-error-background-color);
+    border-color: var(--input-field-input-error-border-color);
+    color: var(--input-field-input-error-color);
+}
