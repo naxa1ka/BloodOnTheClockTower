@@ -53,7 +53,11 @@ namespace BloodClockTower.Game
                 .Subscribe(() => _view.VotingHistoryLabel.text = _viewModel.VotingRounds.ToString())
                 .AddTo(disposables);
             _view
-                .EditNoteVotingHistoryButton.SubscribeOnClick(_viewModel.StartEditingNote)
+                .EditNoteVotingHistoryButton.SubscribeOnClick(() =>
+                {
+                    _viewModel.StartEditingNote();
+                    _view.NoteInputField.Focus();
+                })
                 .AddTo(disposables);
             _view
                 .DoneNoteVotingHistoryButton.SubscribeOnClick(_viewModel.EndEditingNote)
