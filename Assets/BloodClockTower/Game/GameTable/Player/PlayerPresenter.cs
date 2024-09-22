@@ -1,12 +1,10 @@
-﻿using Nxlk.LINQ;
-using Nxlk.ReactiveUIToolkit;
+﻿using Nxlk.ReactiveUIToolkit;
 using Nxlk.UIToolkit;
 using Nxlk.UniRx;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UIElements;
 using PointerManipulator = Nxlk.UIToolkit.PointerManipulator;
-using VoteRole = BloodClockTower.Game.PlayerViewModel.VoteRole;
 
 namespace BloodClockTower.Game
 {
