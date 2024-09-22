@@ -6,17 +6,14 @@
                 <ui:VisualElement name="icon" class="ic-chevron-fill ic-xl rotate-180 ting-eggshell ic" />
             </Nxlk.UIToolkit.EmptyButton>
             <ui:VisualElement name="header-label-container" class="align-items-center flex-fill">
-                <ui:Label text="Voting history" name="header-label" class="fs-1 font-semi-bold text-eggshell" />
+                <Nxlk.UIToolkit.MultiLabel text="Voting history" name="header-label">
+                    <ui:Label text="Voting history" name="header-label-0" class="fs-1 font-semi-bold text-eggshell fw-bold" />
+                    <ui:Label text="Voting history" name="header-label-1" class="fs-1 font-semi-bold text-eggshell fw-bold" style="position: absolute; text-shadow: 4px 4px 0 rgb(191, 90, 242);" />
+                    <ui:Label text="Voting history" name="header-label-2" class="fs-1 font-semi-bold text-eggshell fw-bold" style="position: absolute; text-shadow: 2px 2px 0 rgb(84, 7, 123);" />
+                </Nxlk.UIToolkit.MultiLabel>
             </ui:VisualElement>
-            <Nxlk.UIToolkit.EmptyButton name="edit-note-voting-history-button" class="btn-ic-xl button-icon-container">
-                <ui:VisualElement name="icon" class="ic-xl ting-eggshell ic ic-edit-fill" />
-            </Nxlk.UIToolkit.EmptyButton>
-            <Nxlk.UIToolkit.EmptyButton name="done-note-voting-history-button" class="btn-ic-xl button-icon-container">
-                <ui:VisualElement name="icon" class="ic-xl ting-eggshell ic ic-done-fill" />
-            </Nxlk.UIToolkit.EmptyButton>
         </ui:VisualElement>
-        <ui:TextField picking-mode="Ignore" value="filler text" name="note-input-field" class="font-regular m-md p-0 fs-2 text-white input-field-note input-field-note-dark-brown" />
-        <ui:Label tabindex="-1" name="note-label" class="text-wrap font-regular m-md p-0 fs-2 text-white" text="Lorem Ipsum has been the industry&amp;apos;s standard dummy text ever since the 1500s, when an unknown printer took" />
-        <ui:Label tabindex="-1" name="voting-history-label" class="text-wrap font-regular m-md p-0 fs-2 text-white flex-fill" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum&#10;" />
+        <ui:TextField picking-mode="Ignore" value="filler text" name="note-input-field" class="font-regular m-md p-0 text-white input-field-note input-field-note-dark-brown fs-1 fw-bold" />
+        <ui:Label tabindex="-1" name="voting-history-label" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum&#10;" class="text-wrap font-regular m-md p-0 fs-2 text-white flex-fill" />
     </ui:VisualElement>
 </ui:UXML>

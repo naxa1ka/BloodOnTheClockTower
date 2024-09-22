@@ -52,34 +52,10 @@ namespace BloodClockTower.Game
                 .IsVisible.WhereTrue()
                 .Subscribe(() => _view.VotingHistoryLabel.text = _viewModel.VotingRounds.ToString())
                 .AddTo(disposables);
-            _view
-                .EditNoteVotingHistoryButton.SubscribeOnClick(() =>
-                {
-                    _viewModel.StartEditingNote();
-                    _view.NoteInputField.Focus();
-                })
-                .AddTo(disposables);
-            _view
-                .DoneNoteVotingHistoryButton.SubscribeOnClick(_viewModel.EndEditingNote)
-                .AddTo(disposables);
-            _viewModel
-                .IsEditingNote.InverseBool()
-                .BindToVisible(_view.EditNoteVotingHistoryButton)
-                .AddTo(disposables);
-            _viewModel
-                .IsEditingNote.InverseBool()
-                .BindToVisible(_view.NoteLabel)
-                .AddTo(disposables);
-            _viewModel
-                .IsEditingNote.BindToVisible(_view.DoneNoteVotingHistoryButton)
-                .AddTo(disposables);
-            _viewModel.IsEditingNote.BindToVisible(_view.NoteInputField).AddTo(disposables);
+            _view.NoteInputField.ObserveBlur().Subscribe(_viewModel.EndEditingNote).AddTo(disposables);
             _view.NoteInputField.ObserveText().Subscribe(_viewModel.ChangeNote).AddTo(disposables);
             _viewModel
                 .VotingRounds.Note.Subscribe(_view.NoteInputField.SetValueWithoutNotify)
-                .AddTo(disposables);
-            _viewModel
-                .VotingRounds.Note.Subscribe(note => _view.NoteLabel.text = note)
                 .AddTo(disposables);
         }
     }

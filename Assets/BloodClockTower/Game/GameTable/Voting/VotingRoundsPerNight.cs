@@ -8,19 +8,19 @@ namespace BloodClockTower.Game
 {
     public class VotingRoundsPerNight : DisposableObject
     {
-        private const string EmptyNote = "Empty note";
-        
+        private const string EmptyNote = "Enter note: ";
+
         private readonly ReactiveProperty<string> _note;
         private readonly ReactiveCollection<IVotingRound> _votingRounds;
 
-        private IEnumerable<IPlayer> ParticipantsOverall => _votingRounds
-            .SelectMany(round => round.Participants)
-            .Distinct();
-        private IEnumerable<IPlayer> IgnoredParticipantsOverall => _votingRounds
-            .SelectMany(round => round.IgnoredParticipants)
-            .Except(ParticipantsOverall)
-            .Distinct();
-        
+        private IEnumerable<IPlayer> ParticipantsOverall =>
+            _votingRounds.SelectMany(round => round.Participants).Distinct();
+        private IEnumerable<IPlayer> IgnoredParticipantsOverall =>
+            _votingRounds
+                .SelectMany(round => round.IgnoredParticipants)
+                .Except(ParticipantsOverall)
+                .Distinct();
+
         public IReadOnlyReactiveProperty<string> Note => _note;
 
         public static VotingRoundsPerNight Empty => new(Enumerable.Empty<IVotingRound>());
@@ -31,18 +31,19 @@ namespace BloodClockTower.Game
             _votingRounds = new ReactiveCollection<IVotingRound>(votingRounds).AddTo(disposables);
         }
 
-        public IObservable<int> ObserveCountChangedWithCount() => _votingRounds.ObserveCountChangedWithCount();
+        public IObservable<int> ObserveCountChangedWithCount() =>
+            _votingRounds.ObserveCountChangedWithCount();
 
         public void Add(IVotingRound votingRound) => _votingRounds.Add(votingRound);
 
         public void SetDefaultNoteIfItIsEmpty()
         {
-            if (string.IsNullOrEmpty(_note.Value)) 
+            if (string.IsNullOrEmpty(_note.Value))
                 _note.Value = EmptyNote;
         }
-        
+
         public void ChangeNote(string note) => _note.Value = note;
-        
+
         public override string ToString()
         {
             return $"{RoundsAsString()}\n\n{IgnoredParticipantsOverallToString()}{ParticipantsOverallToString()}";
@@ -59,17 +60,24 @@ namespace BloodClockTower.Game
             {
                 if (!IgnoredParticipantsOverall.Any())
                     return string.Empty;
-                return $"<b>Overall ignored</b>: {string.Join(", ", ToString(IgnoredParticipantsOverall))}\n";
+                return $"<b>Overall ignored</b>: {ToString(IgnoredParticipantsOverall)}\n";
             }
 
-            string ParticipantsOverallToString() =>
-                $"<b>Overall voted</b>: {string.Join(", ", ToString(ParticipantsOverall))}";
+            string ParticipantsOverallToString()
+            {
+                if (!IgnoredParticipantsOverall.Any())
+                    return string.Empty;
+                return $"<b>Overall voted</b>: {ToString(ParticipantsOverall)}";
+            }
         }
 
         private string ToString(IVotingRound round)
         {
-            return $"{round.Initiator.Name.Value} -> {round.Nominee.Name.Value}"
-                + $"\n<b>Voted</b>: {string.Join(", ", ToString(round.Participants))}";
+            var initiatorNominee = $"{round.Initiator.Name.Value} -> {round.Nominee.Name.Value}";
+            if (!round.Participants.Any())
+                return initiatorNominee;
+            var participants = $"\n<b>Voted</b>: {ToString(round.Participants)}";
+            return initiatorNominee + participants;
         }
 
         private string ToString(IEnumerable<IPlayer> players) =>
