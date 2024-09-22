@@ -1,38 +1,35 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using Nxlk.UniRx;
 using UniRx;
 
 namespace BloodClockTower.Game
 {
-    public class Night
+    public class Night : DisposableObject
     {
         private readonly ReactiveCollection<IPlayer> _players;
-        private readonly ReactiveCollection<IVotingRound> _votingRounds;
         private readonly ReactiveCollection<INote> _notes;
+        
         public int Number { get; }
-
-        public IReadOnlyReactiveCollection<IVotingRound> VotingRounds => _votingRounds;
+        public VotingRoundsPerNight VotingRounds { get; }
         public IReadOnlyReactiveCollection<INote> Notes => _notes;
         public IReadOnlyReactiveCollection<IPlayer> Players => _players;
 
-        public Night()
-            : this(Enumerable.Empty<IPlayer>()) { }
-
         public Night(IEnumerable<IPlayer> players)
-            : this(1, players, Enumerable.Empty<IVotingRound>(), Enumerable.Empty<INote>()) { }
+            : this(1, players, VotingRoundsPerNight.Empty, Enumerable.Empty<INote>()) { }
 
-        public Night(
+        private Night(
             int number,
             IEnumerable<IPlayer> players,
-            IEnumerable<IVotingRound> votingRounds,
+            VotingRoundsPerNight votingRounds,
             IEnumerable<INote> notes
         )
         {
             Number = number;
-            _players = new ReactiveCollection<IPlayer>(players);
-            _votingRounds = new ReactiveCollection<IVotingRound>(votingRounds);
-            _notes = new ReactiveCollection<INote>(notes);
+            VotingRounds = votingRounds.AddTo(disposables);
+            _players = new ReactiveCollection<IPlayer>(players).AddTo(disposables);
+            _notes = new ReactiveCollection<INote>(notes).AddTo(disposables);
         }
 
         [Pure]
@@ -41,11 +38,9 @@ namespace BloodClockTower.Game
             return new Night(
                 Number + 1,
                 _players.Select(x => x.DeepClone()),
-                Enumerable.Empty<IVotingRound>(),
+                VotingRoundsPerNight.Empty, 
                 Enumerable.Empty<INote>()
             );
         }
-
-        public void Add(IVotingRound votingRound) => _votingRounds.Add(votingRound);
     }
 }

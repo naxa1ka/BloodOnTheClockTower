@@ -11,21 +11,10 @@
     flex-direction: row-reverse;
 }
 
-.button-empty {
-    background-color: rgba(0,0,0,0);
-    border-width: 0;
-    margin: 0;
-    padding: 0;
+.button-icon-container {
+    justify-content: center;
+    align-items: center;
 }
-
-.button-empty > .unity-button:focus {
-    background-color: rgba(0,0,0,0);
-}
-
-.button-empty > .unity-button:hover {
-    background-color: rgba(0,0,0,0);
-}
-
 
 .button .unity-text-element {
     font-size: var(--base-font-size-middle);

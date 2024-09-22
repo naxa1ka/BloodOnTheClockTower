@@ -19,8 +19,9 @@ namespace BloodClockTower.Game
             var firstNight = new Night(
                 Enumerable.Repeat(0, playersAmount).Select(x => new Player())
             );
-            _currentNight = new ReactiveProperty<Night>(firstNight);
+            _currentNight = new ReactiveProperty<Night>(firstNight).AddTo(disposables);
             _nights.Add(firstNight);
+            Disposable.Create(() => _nights.ForEach(night => night.Dispose())).AddTo(disposables);
         }
 
         public void StartNewNight()

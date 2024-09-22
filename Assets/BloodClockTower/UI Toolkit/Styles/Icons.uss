@@ -27,6 +27,11 @@
     width: var(--base-icon-size-extra-large);
 }
 
+.btn-ic-xl {
+    height: var(--base-button-icon-size-extra-large);
+    width: var(--base-button-icon-size-extra-large);
+}
+
 .ic-native-robotics-fill {
     background-image: var(--icon-native-robotics-fill);
 }

@@ -41,20 +41,37 @@ namespace BloodClockTower.Game
                 .BindToVisible(_view.OpenVotingHistoryButton)
                 .AddTo(disposables);
             _viewModel.IsVisible.BindToVisible(_view.VotingHistoryContainer).AddTo(disposables);
-            _view
-                .OpenVotingHistoryButton.SubscribeOnClick(() => _viewModel.Show())
+            _view.OpenVotingHistoryButton.SubscribeOnClick(_viewModel.Show).AddTo(disposables);
+            _view.CloseVotingHistoryButton.SubscribeOnClick(_viewModel.Hide).AddTo(disposables);
+            _viewModel
+                .IsVisible.WhereTrue()
+                .Subscribe(() => _view.VotingHistoryLabel.text = _viewModel.VotingRounds.ToString())
                 .AddTo(disposables);
             _view
-                .CloseVotingHistoryButton.SubscribeOnClick(() => _viewModel.Hide())
+                .EditNoteVotingHistoryButton.SubscribeOnClick(_viewModel.StartEditingNote)
                 .AddTo(disposables);
-            _viewModel.IsVisible.WhereTrue().Subscribe(UpdateLabel).AddTo(disposables);
-        }
-
-        private void UpdateLabel()
-        {
-            _view.VotingHistoryLabel.text = new VotingRoundsPerNight(
-                _viewModel.VotingRounds
-            ).ToString();
+            _view
+                .DoneNoteVotingHistoryButton.SubscribeOnClick(_viewModel.EndEditingNote)
+                .AddTo(disposables);
+            _viewModel
+                .IsEditingNote.InverseBool()
+                .BindToVisible(_view.EditNoteVotingHistoryButton)
+                .AddTo(disposables);
+            _viewModel
+                .IsEditingNote.InverseBool()
+                .BindToVisible(_view.NoteLabel)
+                .AddTo(disposables);
+            _viewModel
+                .IsEditingNote.BindToVisible(_view.DoneNoteVotingHistoryButton)
+                .AddTo(disposables);
+            _viewModel.IsEditingNote.BindToVisible(_view.NoteInputField).AddTo(disposables);
+            _view.NoteInputField.ObserveText().Subscribe(_viewModel.ChangeNote).AddTo(disposables);
+            _viewModel
+                .VotingRounds.Note.Subscribe(_view.NoteInputField.SetValueWithoutNotify)
+                .AddTo(disposables);
+            _viewModel
+                .VotingRounds.Note.Subscribe(note => _view.NoteLabel.text = note)
+                .AddTo(disposables);
         }
     }
 }

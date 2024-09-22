@@ -68,3 +68,19 @@
     border-color: var(--input-field-input-error-border-color);
     color: var(--input-field-input-error-color);
 }
+
+.input-field-note {
+    
+}
+
+.input-field-note-dark-brown #unity-text-input
+{
+    background-color: var(--dark-brown);
+}
+
+.input-field-note #unity-text-input
+{
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+}

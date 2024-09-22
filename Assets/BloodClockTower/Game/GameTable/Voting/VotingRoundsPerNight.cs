@@ -1,28 +1,48 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Nxlk.UniRx;
+using UniRx;
 
 namespace BloodClockTower.Game
 {
-    public class VotingRoundsPerNight
+    public class VotingRoundsPerNight : DisposableObject
     {
-        private readonly IReadOnlyCollection<IVotingRound> _votingRounds;
-        public IReadOnlyCollection<IPlayer> ParticipantsOverall { get; }
-        public IReadOnlyCollection<IPlayer> IgnoredParticipantsOverall { get; }
+        private const string EmptyNote = "Empty note";
+        
+        private readonly ReactiveProperty<string> _note;
+        private readonly ReactiveCollection<IVotingRound> _votingRounds;
+
+        private IEnumerable<IPlayer> ParticipantsOverall => _votingRounds
+            .SelectMany(round => round.Participants)
+            .Distinct();
+        private IEnumerable<IPlayer> IgnoredParticipantsOverall => _votingRounds
+            .SelectMany(round => round.IgnoredParticipants)
+            .Except(ParticipantsOverall)
+            .Distinct();
+        
+        public IReadOnlyReactiveProperty<string> Note => _note;
+
+        public static VotingRoundsPerNight Empty => new(Enumerable.Empty<IVotingRound>());
 
         public VotingRoundsPerNight(IEnumerable<IVotingRound> votingRounds)
         {
-            _votingRounds = votingRounds.ToList();
-            ParticipantsOverall = _votingRounds
-                .SelectMany(round => round.Participants)
-                .Distinct()
-                .ToList();
-            IgnoredParticipantsOverall = _votingRounds
-                .SelectMany(round => round.IgnoredParticipants)
-                .Except(ParticipantsOverall)
-                .Distinct()
-                .ToList();
+            _note = new ReactiveProperty<string>(EmptyNote).AddTo(disposables);
+            _votingRounds = new ReactiveCollection<IVotingRound>(votingRounds).AddTo(disposables);
         }
 
+        public IObservable<int> ObserveCountChangedWithCount() => _votingRounds.ObserveCountChangedWithCount();
+
+        public void Add(IVotingRound votingRound) => _votingRounds.Add(votingRound);
+
+        public void SetDefaultNoteIfItIsEmpty()
+        {
+            if (string.IsNullOrEmpty(_note.Value)) 
+                _note.Value = EmptyNote;
+        }
+        
+        public void ChangeNote(string note) => _note.Value = note;
+        
         public override string ToString()
         {
             return $"{RoundsAsString()}\n\n{IgnoredParticipantsOverallToString()}{ParticipantsOverallToString()}";
@@ -37,7 +57,7 @@ namespace BloodClockTower.Game
 
             string IgnoredParticipantsOverallToString()
             {
-                if (IgnoredParticipantsOverall.Count == 0)
+                if (!IgnoredParticipantsOverall.Any())
                     return string.Empty;
                 return $"<b>Overall ignored</b>: {string.Join(", ", ToString(IgnoredParticipantsOverall))}\n";
             }

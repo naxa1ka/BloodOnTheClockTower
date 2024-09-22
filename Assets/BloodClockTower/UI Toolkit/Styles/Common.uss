@@ -104,6 +104,7 @@
     --base-icon-size-middle: 32px;
     --base-icon-size-large: 36px;
     --base-icon-size-extra-large: 48px;
+    --base-button-icon-size-extra-large: 64px;
     --base-border-radius: 12px;
     --base-border-radius-half: 8px;
     --base-font-size-extra-small: 18px;
