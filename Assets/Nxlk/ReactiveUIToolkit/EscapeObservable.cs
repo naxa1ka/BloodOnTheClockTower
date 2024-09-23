@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Nxlk.ReactiveUIToolkit
 {
-    public class  : IObservable<Unit>
+    public class EscapeObservable : IObservable<Unit>
     {
         // ReSharper disable once InconsistentNaming
         private static readonly Lazy<IObservable<Unit>> instance =
