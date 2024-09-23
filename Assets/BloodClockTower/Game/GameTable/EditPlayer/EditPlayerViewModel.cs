@@ -1,7 +1,7 @@
 ﻿using System;
 using Nxlk.UniRx;
-using OneOf.Types;
 using OneOf;
+using OneOf.Types;
 using UniRx;
 
 namespace BloodClockTower.Game
@@ -12,9 +12,10 @@ namespace BloodClockTower.Game
 
         private readonly ReactiveProperty<bool> _isEditing;
         private readonly ReactiveProperty<OneOf<PlayerViewModel, None>> _selectedPlayer;
-        
+
         public IReadOnlyReactiveProperty<bool> IsEditing => _isEditing;
-        public IReadOnlyReactiveProperty<OneOf<PlayerViewModel, None>> SelectedPlayer => _selectedPlayer;
+        public IReadOnlyReactiveProperty<OneOf<PlayerViewModel, None>> SelectedPlayer =>
+            _selectedPlayer;
 
         public EditPlayerViewModel(GameTableViewModel gameTableViewModel)
         {

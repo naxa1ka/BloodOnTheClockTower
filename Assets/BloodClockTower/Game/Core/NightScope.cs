@@ -55,7 +55,11 @@ namespace BloodClockTower.Game
                 .AddTo(disposables)
                 .AddTo(_presenters);
 
-            new EditPlayerPresenter(new EditPlayerView(_safetyUiDocument), editPlayerViewModel, votingSystemViewModel)
+            new EditPlayerPresenter(
+                new EditPlayerView(_safetyUiDocument),
+                editPlayerViewModel,
+                votingSystemViewModel
+            )
                 .AddTo(disposables)
                 .AddTo(_presenters);
 

@@ -10,7 +10,7 @@ namespace BloodClockTower.Game
     {
         private readonly ReactiveCollection<IPlayer> _players;
         private readonly ReactiveCollection<INote> _notes;
-        
+
         public int Number { get; }
         public VotingRoundsPerNight VotingRounds { get; }
         public IReadOnlyReactiveCollection<INote> Notes => _notes;
@@ -38,7 +38,7 @@ namespace BloodClockTower.Game
             return new Night(
                 Number + 1,
                 _players.Select(x => x.DeepClone()),
-                VotingRoundsPerNight.Empty, 
+                VotingRoundsPerNight.Empty,
                 Enumerable.Empty<INote>()
             );
         }

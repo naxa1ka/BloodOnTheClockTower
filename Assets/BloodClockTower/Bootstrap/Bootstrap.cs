@@ -54,19 +54,21 @@ namespace BloodClockTower.Bootstrap
         {
             foreach (var disposable in _disposables)
                 disposable.Dispose();
-            _gameScope.Switch(scope =>
-            {
-                try
+            _gameScope.Switch(
+                scope =>
                 {
-                    Object.Destroy(scope.gameObject);
-                }
-                catch (Exception exception)
-                {
-                    if (exception is not MissingReferenceException)
-                        throw;
-                }
-               
-            }, none => { });
+                    try
+                    {
+                        Object.Destroy(scope.gameObject);
+                    }
+                    catch (Exception exception)
+                    {
+                        if (exception is not MissingReferenceException)
+                            throw;
+                    }
+                },
+                none => { }
+            );
         }
     }
 }

@@ -51,17 +51,20 @@ namespace BloodClockTower.Game
         }
 
         private void DisposeNight() =>
-            _nightScope.Switch(scope =>
-            {
-                try
+            _nightScope.Switch(
+                scope =>
                 {
-                    Object.Destroy(scope.gameObject);
-                }
-                catch (Exception exception)
-                {
-                    if (exception is not MissingReferenceException)
-                        throw;
-                }
-            }, none => { });
+                    try
+                    {
+                        Object.Destroy(scope.gameObject);
+                    }
+                    catch (Exception exception)
+                    {
+                        if (exception is not MissingReferenceException)
+                            throw;
+                    }
+                },
+                none => { }
+            );
     }
 }

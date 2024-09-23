@@ -10,7 +10,7 @@ namespace BloodClockTower.Game
 
         public VotingRoundsPerNight VotingRounds => _night.VotingRounds;
         public IReadOnlyReactiveProperty<bool> IsVisible => _isVisible;
-        
+
         public VotingHistoryViewModel(Night night)
         {
             _night = night;
@@ -20,7 +20,7 @@ namespace BloodClockTower.Game
         public void Initialize() { }
 
         public void Show() => _isVisible.Value = true;
-        
+
         public void EndEditingNote() => _night.VotingRounds.SetDefaultNoteIfItIsEmpty();
 
         public void Hide()

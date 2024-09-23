@@ -10,7 +10,7 @@ namespace BloodClockTower.Game
         public VisualElement VotingHistoryContainer { get; private set; }
         public Label VotingHistoryLabel { get; private set; }
         public TextField NoteInputField { get; private set; }
-        
+
         public VotingHistoryView(SafetyUiDocument uiDocument)
         {
             CloseVotingHistoryButton = uiDocument.Q<Button>("close-voting-history-button");
