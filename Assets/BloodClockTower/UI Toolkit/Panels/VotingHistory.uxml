@@ -13,7 +13,7 @@
                 </Nxlk.UIToolkit.MultiLabel>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:TextField picking-mode="Ignore" value="filler text" name="note-input-field" class="font-regular m-md p-0 text-white input-field-note input-field-note-dark-brown fs-1 fw-bold" />
+        <ui:TextField picking-mode="Ignore" value="filler text" name="note-input-field" label="Note:" class="font-regular m-md p-0 text-white input-field-note input-field-note-dark-brown fs-1 fw-bold" />
         <ui:Label tabindex="-1" name="voting-history-label" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum&#10;" class="text-wrap font-regular m-md p-0 fs-2 text-white flex-fill" />
     </ui:VisualElement>
 </ui:UXML>
