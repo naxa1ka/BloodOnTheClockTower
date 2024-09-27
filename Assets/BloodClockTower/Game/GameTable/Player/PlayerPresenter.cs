@@ -19,47 +19,55 @@ namespace BloodClockTower.Game
         {
             _viewModel = viewModel;
             _view = view;
-            Disposable.Create(() => _view.Container.RemoveFromHierarchy()).AddTo(disposables);
+            _view.Container.RemoveFromHierarchyAsDisposable().AddTo(disposables);
         }
 
         public void Initialize()
         {
             _viewModel
-                .Name.Subscribe(name => _view.NameLabel.SetValueWithoutNotify(name.ToString()))
+                .Name.Select(playerName => playerName.ToString())
+                .Subscribe(_view.NameLabel.SetValueWithoutNotify)
+                .AddTo(disposables);
+            _viewModel.Position.BindToTransformPosition(_view.Container).AddTo(disposables);
+            _viewModel
+                .IconSize.Select(size => size / InitialSize)
+                .Select(scaledSize => new Vector3(scaledSize, scaledSize, 0))
+                .BindToTransformScale(_view.Container)
                 .AddTo(disposables);
             _viewModel
-                .Position.Subscribe(newPosition => _view.Container.transform.position = newPosition)
-                .AddTo(disposables);
-            _viewModel
-                .IconSize.Subscribe(size =>
-                {
-                    var scaledSize = size / InitialSize;
-                    _view.Container.transform.scale = new Vector3(scaledSize, scaledSize, 0);
-                })
-                .AddTo(disposables);
-            _viewModel
-                .IsSelected.Subscribe(
-                    isSelected =>
-                        _view.Icon.style.unityBackgroundImageTintColor = new StyleColor(
-                            isSelected ? Color.yellow : Color.white
-                        )
-                )
+                .IsSelected.Select(isSelected => isSelected ? Color.yellow : Color.white)
+                .BindToImageTintColor(_view.Icon)
                 .AddTo(disposables);
             _view
                 .Container.AddManipulatorWithDispose(
                     new PointerManipulator(onDown: _ => _viewModel.Click())
                 )
                 .AddTo(disposables);
-            _viewModel.Role.Subscribe(OnRoleChanged).AddTo(disposables);
+            _viewModel
+                .Role.Select(voteRole => voteRole.IsParticipant)
+                .BindToVisible(_view.BorderInner)
+                .AddTo(disposables);
+            _viewModel
+                .Role.Select(voteRole => voteRole.IsInitiator)
+                .BindToVisible(_view.ArrowsInitiator)
+                .AddTo(disposables);
+            _viewModel
+                .Role.Select(voteRole => voteRole.IsNominee)
+                .BindToVisible(_view.ArrowsNominee)
+                .AddTo(disposables);
+            _viewModel
+                .Role.Select(voteRole => voteRole.IsInitiator || voteRole.IsNominee)
+                .BindToVisible(_view.BorderOuter)
+                .AddTo(disposables);
             _viewModel.IsAlive.InverseBool().BindToVisible(_view.KilledBorder).AddTo(disposables);
-        }
-
-        private void OnRoleChanged(VoteRole voteRole)
-        {
-            _view.BorderInner.SetVisible(voteRole.IsParticipant);
-            _view.ArrowsInitiator.SetVisible(voteRole.IsInitiator);
-            _view.ArrowsNominee.SetVisible(voteRole.IsNominee);
-            _view.BorderOuter.SetVisible(voteRole.IsInitiator || voteRole.IsNominee);
+            Observable
+                .CombineLatest(
+                    _viewModel.IsAlive,
+                    _viewModel.HasGhostlyVote,
+                    (isAlive, hasGhostlyVote) => !isAlive && hasGhostlyVote
+                )
+                .BindToVisible(_view.GhostlyVoteIcon)
+                .AddTo(disposables);
         }
     }
 }

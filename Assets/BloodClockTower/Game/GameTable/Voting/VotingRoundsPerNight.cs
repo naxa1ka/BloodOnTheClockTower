@@ -13,9 +13,9 @@ namespace BloodClockTower.Game
         private readonly ReactiveProperty<string> _note;
         private readonly ReactiveCollection<IVotingRound> _votingRounds;
 
-        private IEnumerable<IPlayer> ParticipantsOverall =>
+        private IEnumerable<IPlayerStatus> ParticipantsOverall =>
             _votingRounds.SelectMany(round => round.Participants).Distinct();
-        private IEnumerable<IPlayer> IgnoredParticipantsOverall =>
+        private IEnumerable<IPlayerStatus> IgnoredParticipantsOverall =>
             _votingRounds
                 .SelectMany(round => round.IgnoredParticipants)
                 .Except(ParticipantsOverall)
@@ -80,7 +80,7 @@ namespace BloodClockTower.Game
             return initiatorNominee + participants;
         }
 
-        private string ToString(IEnumerable<IPlayer> players) =>
+        private string ToString(IEnumerable<IPlayerStatus> players) =>
             string.Join(", ", players.Select(x => x.Name.Value));
     }
 }

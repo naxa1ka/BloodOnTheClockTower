@@ -20,14 +20,15 @@ namespace BloodClockTower.Game
         public IReadOnlyReactiveProperty<VoteRole> Role => _role;
         public IReadOnlyReactiveProperty<PlayerName> Name => Player.Name;
         public IReadOnlyReactiveProperty<bool> IsAlive => Player.IsAlive;
+        public IReadOnlyReactiveProperty<bool> HasGhostlyVote => Player.HasGhostlyVote;
         public IObservable<Unit> Clicked => _clicked;
         public bool IsParticipant => _role.Value.IsParticipant;
         public bool IsNominee => _role.Value.IsNominee;
         public bool IsInitiator => _role.Value.IsInitiator;
         public bool IsIgnoredParticipant => _role.Value.IsIgnored;
-        public IPlayer Player { get; }
+        public IPlayerStatus Player { get; }
 
-        public PlayerViewModel(IPlayer player)
+        public PlayerViewModel(IPlayerStatus player)
         {
             Player = player;
             _position = new ReactiveProperty<Vector3>(Vector3.zero).AddTo(disposables);
@@ -38,8 +39,6 @@ namespace BloodClockTower.Game
         }
 
         public void Kill() => Player.Kill();
-
-        public void Revive() => Player.Revive();
 
         public void ChangeName(string name) => Player.ChangeName(name);
 
@@ -53,11 +52,21 @@ namespace BloodClockTower.Game
 
         public void SetSize(float iconSize) => _iconSize.Value = iconSize;
 
-        public void MarkInitiator() => _role.Value = _role.Value.MarkInitiator;
+        public void MarkInitiator()
+        {
+            if (!Player.IsAlive.Value)
+                throw new ArgumentOutOfRangeException();
+            _role.Value = _role.Value.MarkInitiator;
+        }
 
         public void UnmarkInitiator() => _role.Value = _role.Value.UnmarkInitiator;
 
-        public void MarkNominee() => _role.Value = _role.Value.MarkNominee;
+        public void MarkNominee()
+        {
+            if (!Player.IsAlive.Value)
+                throw new ArgumentOutOfRangeException();
+            _role.Value = _role.Value.MarkNominee;
+        }
 
         public void UnmarkNominee() => _role.Value = _role.Value.UnmarkNominee;
 
@@ -66,5 +75,12 @@ namespace BloodClockTower.Game
         public void UnmarkParticipant() => _role.Value = _role.Value.UnmarkParticipant;
 
         public void ClearMark() => _role.Value = VoteRole.Default;
+
+        public void EndVoting()
+        {
+            if (IsParticipant && !IsAlive.Value) 
+                Player.UseGhostlyVoice();
+            ClearMark();
+        }
     }
 }

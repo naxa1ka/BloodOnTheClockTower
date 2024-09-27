@@ -49,14 +49,6 @@ namespace BloodClockTower.Game
             );
         }
 
-        public void ReviveSelectedPlayer()
-        {
-            _selectedPlayer.Value.Switch(
-                player => player.Revive(),
-                none => throw new InvalidOperationException()
-            );
-        }
-
         public void KillSelectedPlayer()
         {
             _selectedPlayer.Value.Switch(

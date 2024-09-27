@@ -12,7 +12,7 @@ namespace BloodClockTower.Game
         private readonly Night _night;
 
         private readonly ReactiveCollection<PlayerViewModel> _players;
-        private readonly Dictionary<IPlayer, PlayerViewModel> _playerViewModelMapping;
+        private readonly Dictionary<IPlayerStatus, PlayerViewModel> _playerViewModelMapping;
         private readonly Dictionary<PlayerViewModel, IDisposable> _playerSubscriptions;
         private readonly Subject<PlayerViewModel> _clickedPlayerSubject;
 
@@ -24,7 +24,7 @@ namespace BloodClockTower.Game
             _night = night;
             _players = new ReactiveCollection<PlayerViewModel>().AddTo(disposables);
             _clickedPlayerSubject = new Subject<PlayerViewModel>().AddTo(disposables);
-            _playerViewModelMapping = new Dictionary<IPlayer, PlayerViewModel>();
+            _playerViewModelMapping = new Dictionary<IPlayerStatus, PlayerViewModel>();
             _playerSubscriptions = new Dictionary<PlayerViewModel, IDisposable>();
         }
 
@@ -34,7 +34,7 @@ namespace BloodClockTower.Game
             _night.Players.ObserveRemoveItem().Subscribe(RemovePlayer).AddTo(disposables);
         }
 
-        private void AddPlayer(IPlayer player)
+        private void AddPlayer(IPlayerStatus player)
         {
             var playerViewModel = new PlayerViewModel(player);
             _playerViewModelMapping[player] = playerViewModel;
@@ -49,7 +49,7 @@ namespace BloodClockTower.Game
             );
         }
 
-        private void RemovePlayer(IPlayer player)
+        private void RemovePlayer(IPlayerStatus player)
         {
             var playerViewModel = _playerViewModelMapping[player];
             _playerSubscriptions[playerViewModel].Dispose();
