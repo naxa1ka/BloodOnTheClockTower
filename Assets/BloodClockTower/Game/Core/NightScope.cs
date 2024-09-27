@@ -45,6 +45,9 @@ namespace BloodClockTower.Game
             var editPlayerViewModel = new EditPlayerViewModel(gameTableViewModel)
                 .AddTo(_initializables)
                 .AddTo(disposables);
+            var playerNotesViewModel = new PlayerNotesViewModel(_game, editPlayerViewModel)
+                .AddTo(disposables)
+                .AddTo(_initializables);
 
             new GameTablePresenter(
                 new GameTableView(_safetyUiDocument),
@@ -70,6 +73,15 @@ namespace BloodClockTower.Game
             new VotingHistoryPresenter(
                 new VotingHistoryView(_safetyUiDocument),
                 votingHistoryViewModel,
+                votingSystemViewModel,
+                editPlayerViewModel
+            )
+                .AddTo(disposables)
+                .AddTo(_presenters);
+
+            new PlayerNotesPresenter(
+                new PlayerNotesView(_safetyUiDocument),
+                playerNotesViewModel,
                 votingSystemViewModel,
                 editPlayerViewModel
             )

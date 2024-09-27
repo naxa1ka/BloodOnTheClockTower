@@ -8,8 +8,11 @@ namespace BloodClockTower.Game
         IReadOnlyReactiveProperty<PlayerName> Name { get; }
         IReadOnlyReactiveProperty<bool> IsAlive { get; }
         IReadOnlyReactiveProperty<bool> HasGhostlyVote { get; }
+        IReadOnlyReactiveProperty<string> Note { get; }
+        IPlayer Original { get; }
 
         void ChangeName(string name);
+        void ChangeNote(string note);
         void Kill();
         void UseGhostlyVoice();
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Nxlk.Bool;
+using Nxlk.LINQ;
 using Nxlk.UniRx;
 using UniRx;
 
@@ -24,6 +25,20 @@ namespace BloodClockTower.Game
             _currentNight = new ReactiveProperty<Night>(firstNight).AddTo(disposables);
             _nights.Add(firstNight);
             Disposable.Create(() => _nights.ForEach(night => night.Dispose())).AddTo(disposables);
+        }
+
+        public string GetNotes(IPlayer player)
+        {
+            return string.Join(
+                "\n",
+                _nights.Except(_currentNight.Value).Select(night =>
+                {
+                    var playerStatus = night.Players.Single(
+                        playerStatus => playerStatus.Original == player
+                    );
+                    return $"Night {night.Number}:\n {playerStatus.Note.Value}";
+                })
+            );
         }
 
         public void StartNewNight()
