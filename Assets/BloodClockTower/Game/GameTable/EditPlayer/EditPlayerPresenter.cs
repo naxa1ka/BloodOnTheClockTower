@@ -85,9 +85,6 @@ namespace BloodClockTower.Game
             _view
                 .KillPlayerButton.SubscribeOnClick(_viewModel.KillSelectedPlayer)
                 .AddTo(disposables);
-            _view
-                .RevivePlayerButton.SubscribeOnClick(_viewModel.ReviveSelectedPlayer)
-                .AddTo(disposables);
         }
 
         private void SubscribeOnKillButtons(bool isEditing, OneOf<PlayerViewModel, None> player)
@@ -103,15 +100,12 @@ namespace BloodClockTower.Game
                 HideButtons();
                 return;
             }
-            var d1 = selectedPlayer.IsAlive.BindToVisible(_view.KillPlayerButton);
-            var d2 = selectedPlayer.IsAlive.InverseBool().BindToVisible(_view.RevivePlayerButton);
-            _selectedPlayerSubscription = StableCompositeDisposable.Create(d1, d2);
+            _selectedPlayerSubscription = selectedPlayer.IsAlive.BindToVisible(_view.KillPlayerButton);
 
             return;
             void HideButtons()
             {
                 _view.KillPlayerButton.Hide();
-                _view.RevivePlayerButton.Hide();
             }
         }
     }

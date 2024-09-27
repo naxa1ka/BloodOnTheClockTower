@@ -7,10 +7,10 @@ namespace BloodClockTower.Game
     {
         private readonly VotingRound _votingRound;
 
-        public IPlayer Initiator => _votingRound.Initiator;
-        public IPlayer Nominee => _votingRound.Nominee;
-        public IReadOnlyCollection<IPlayer> Participants => _votingRound.Participants;
-        public IReadOnlyCollection<IPlayer> IgnoredParticipants => _votingRound.IgnoredParticipants;
+        public IPlayerStatus Initiator => _votingRound.Initiator;
+        public IPlayerStatus Nominee => _votingRound.Nominee;
+        public IReadOnlyCollection<IPlayerStatus> Participants => _votingRound.Participants;
+        public IReadOnlyCollection<IPlayerStatus> IgnoredParticipants => _votingRound.IgnoredParticipants;
 
         public VotingRoundFromViewModelPlayers(IEnumerable<PlayerViewModel> players)
         {

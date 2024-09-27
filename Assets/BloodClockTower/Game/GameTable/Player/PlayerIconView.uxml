@@ -10,5 +10,8 @@
             <ui:Label tabindex="-1" text="Ilia" name="name-label-0" class="font-regular" style="color: rgb(255, 254, 255); -unity-text-outline-color: rgb(6, 4, 7); font-size: 32px; text-shadow: 0.5px 0.5px 1px rgb(216, 55, 246); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 0; padding-right: 0; padding-top: 0; padding-left: 0; position: absolute;" />
             <ui:Label tabindex="-1" text="Ilia" name="name-label-1" class="font-regular" style="color: rgb(255, 254, 255); -unity-text-outline-color: rgb(6, 4, 7); font-size: 32px; text-shadow: -0.5px -0.5px 1px rgb(108, 29, 155); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 0; padding-right: 0; padding-top: 0; padding-left: 0;" />
         </Nxlk.UIToolkit.MultiLabel>
+        <ui:VisualElement name="ghostly-vote-icon" style="position: absolute; top: 0; right: 0; background-color: rgb(255, 255, 255); width: 40px; height: 40px; justify-content: center; align-items: center; border-top-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;">
+            <ui:Label tabindex="-1" text="G*" parse-escape-sequences="true" display-tooltip-when-elided="true" class="font-regular fs-3 m-0 p-0" style="-unity-font-style: bold;" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

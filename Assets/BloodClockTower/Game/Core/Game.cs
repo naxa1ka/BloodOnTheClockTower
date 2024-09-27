@@ -10,15 +10,17 @@ namespace BloodClockTower.Game
     public class Game : DisposableObject
     {
         private readonly List<Night> _nights = new();
+        private readonly List<IPlayer> _players = new();
         private readonly ReactiveProperty<Night> _currentNight;
+
         private int CurrentNightListIndex => CurrentNight.Value.Number - 1;
         public IReadOnlyReactiveProperty<Night> CurrentNight => _currentNight;
 
         public Game(int playersAmount)
         {
-            var firstNight = new Night(
-                Enumerable.Repeat(0, playersAmount).Select(x => new Player())
-            );
+            for (var i = 0; i < playersAmount; i++)
+                _players.Add(new Player($"player-{i}"));
+            var firstNight = new Night(_players.Select(player => new PlayerStatus(player)));
             _currentNight = new ReactiveProperty<Night>(firstNight).AddTo(disposables);
             _nights.Add(firstNight);
             Disposable.Create(() => _nights.ForEach(night => night.Dispose())).AddTo(disposables);

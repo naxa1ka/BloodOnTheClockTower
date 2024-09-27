@@ -4,10 +4,10 @@ using System.Linq;
 namespace BloodClockTower.Game
 {
     public record VotingRound(
-        IPlayer Initiator,
-        IPlayer Nominee,
-        IReadOnlyCollection<IPlayer> Participants,
-        IReadOnlyCollection<IPlayer> IgnoredParticipants
+        IPlayerStatus Initiator,
+        IPlayerStatus Nominee,
+        IReadOnlyCollection<IPlayerStatus> Participants,
+        IReadOnlyCollection<IPlayerStatus> IgnoredParticipants
     ) : IVotingRound
     {
         public override string ToString()

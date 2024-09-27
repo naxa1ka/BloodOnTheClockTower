@@ -85,15 +85,22 @@ namespace BloodClockTower.Game
 
         public void EndVoting()
         {
-            if (InitiatorOrDefault != null && NomineeOrDefault != null)
-            {
-                _votingHistoryViewModel.Add(
-                    new VotingRoundFromViewModelPlayers(_gameTableViewModel.Players)
-                );
-            }
-
-            foreach (var player in _gameTableViewModel.Players)
-                player.ClearMark();
+            var hasEnoughParticipants = InitiatorOrDefault != null && NomineeOrDefault != null;
+            hasEnoughParticipants.Switch(
+                () =>
+                {
+                    _votingHistoryViewModel.Add(
+                        new VotingRoundFromViewModelPlayers(_gameTableViewModel.Players)
+                    );
+                    foreach (var playerViewModel in _gameTableViewModel.Players)
+                        playerViewModel.EndVoting();
+                },
+                () =>
+                {
+                    foreach (var player in _gameTableViewModel.Players)
+                        player.ClearMark();
+                }
+            );
             _currentState.Value = State.Idle;
         }
 

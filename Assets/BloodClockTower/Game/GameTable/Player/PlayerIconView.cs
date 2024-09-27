@@ -12,6 +12,7 @@ namespace BloodClockTower.Game
         public VisualElement BorderOuter { get; }
         public VisualElement ArrowsNominee { get; }
         public VisualElement ArrowsInitiator { get; }
+        public VisualElement GhostlyVoteIcon { get; }
         public MultiLabel NameLabel { get; }
 
         public PlayerIconView(VisualElement visualElement)
@@ -23,6 +24,7 @@ namespace BloodClockTower.Game
             BorderOuter = visualElement.Q("border-outer");
             ArrowsNominee = visualElement.Q("arrows-nominee");
             ArrowsInitiator = visualElement.Q("arrows-initiator");
+            GhostlyVoteIcon = visualElement.Q("ghostly-vote-icon");
             NameLabel = visualElement.Q<MultiLabel>("name-label");
         }
     }

@@ -9,7 +9,7 @@ namespace BloodClockTower.Game
 
     public class Note : INote
     {
-        public Note(IPlayer player, string note) { }
+        public Note(IPlayerStatus player, string note) { }
 
         public INote DeepClone()
         {
