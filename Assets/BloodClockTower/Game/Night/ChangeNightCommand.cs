@@ -38,6 +38,9 @@ namespace BloodClockTower.Game
                     builder
                         .Register<EditPlayerViewModel>(Lifetime.Singleton)
                         .AsImplementedInterfaces();
+                    builder
+                        .Register<PlayerNotesViewModel>(Lifetime.Singleton)
+                        .AsImplementedInterfaces();
 
                     builder
                         .Register<GameTableView>(Lifetime.Singleton)
@@ -78,6 +81,14 @@ namespace BloodClockTower.Game
                         .WithParameter<ISafetyUiDocument>(_gameUiDocument);
                     builder
                         .Register<VotingSystemPresenter>(Lifetime.Singleton)
+                        .AsImplementedInterfaces();
+
+                    builder
+                        .Register<PlayerNotesView>(Lifetime.Singleton)
+                        .AsImplementedInterfaces()
+                        .WithParameter<ISafetyUiDocument>(_gameUiDocument);
+                    builder
+                        .Register<PlayerNotesPresenter>(Lifetime.Singleton)
                         .AsImplementedInterfaces();
                 })
                 .ReAttach(_contextDisposable)

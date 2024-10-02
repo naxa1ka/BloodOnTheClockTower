@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace BloodClockTower.Game
 {
-    public class PlayerNotesView
+    public class PlayerNotesView : IPlayerNotesView
     {
         public VisualElement PlayerNotesContainer { get; private set; }
         public Button OpenPlayerNotesButton { get; private set; }
@@ -12,7 +12,7 @@ namespace BloodClockTower.Game
         public MultiLabel PlayerHeaderLabel { get; private set; }
         public TextField NoteInputField { get; private set; }
 
-        public PlayerNotesView(SafetyUiDocument uiDocument)
+        public PlayerNotesView(ISafetyUiDocument uiDocument)
         {
             PlayerNotesContainer = uiDocument.Q<VisualElement>("player-notes-container");
             OpenPlayerNotesButton = uiDocument.Q<Button>("open-player-notes-button");

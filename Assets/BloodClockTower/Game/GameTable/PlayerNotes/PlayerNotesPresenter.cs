@@ -7,16 +7,16 @@ namespace BloodClockTower.Game
 {
     public class PlayerNotesPresenter : DisposableObject, IPresenter
     {
-        private readonly PlayerNotesView _view;
-        private readonly PlayerNotesViewModel _viewModel;
-        private readonly VotingSystemViewModel _votingSystemViewModel;
-        private readonly EditPlayerViewModel _editPlayerViewModel;
+        private readonly IPlayerNotesView _view;
+        private readonly IPlayerNotesViewModel _viewModel;
+        private readonly IVotingSystemViewModel _votingSystemViewModel;
+        private readonly IEditPlayerViewModel _editPlayerViewModel;
 
         public PlayerNotesPresenter(
-            PlayerNotesView view,
-            PlayerNotesViewModel viewModel,
-            VotingSystemViewModel votingSystemViewModel,
-            EditPlayerViewModel editPlayerViewModel
+            IPlayerNotesView view,
+            IPlayerNotesViewModel viewModel,
+            IVotingSystemViewModel votingSystemViewModel,
+            IEditPlayerViewModel editPlayerViewModel
         )
         {
             _view = view;
@@ -34,7 +34,7 @@ namespace BloodClockTower.Game
                     _editPlayerViewModel.IsEditing,
                     _editPlayerViewModel.SelectedPlayer,
                     (state, isEditingPlayer, selectedPlayer) =>
-                        state == VotingSystemViewModel.State.Idle
+                        state == VotingSystemState.Idle
                         && isEditingPlayer
                         && selectedPlayer.IsT0
                 )

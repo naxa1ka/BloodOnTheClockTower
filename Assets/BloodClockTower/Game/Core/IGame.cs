@@ -11,5 +11,6 @@ namespace BloodClockTower.Game
         void NextNightOrStartNewNight();
         void NextNight();
         void PreviousNight();
+        string GetNotes(IPlayer player);
     }
 }
