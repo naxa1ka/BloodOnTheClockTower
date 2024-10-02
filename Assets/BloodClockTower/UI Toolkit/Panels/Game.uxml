@@ -1,9 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="VotingHistory" src="project://database/Assets/BloodClockTower/UI%20Toolkit/Panels/VotingHistory.uxml?fileID=9197481963319205126&amp;guid=58e1637b8fee9a14986c2f57d59503b1&amp;type=3#VotingHistory" />
     <ui:Template name="NightControl" src="project://database/Assets/BloodClockTower/UI%20Toolkit/Panels/NightControl.uxml?fileID=9197481963319205126&amp;guid=b347e47b924fda84f85f23f75e864b96&amp;type=3#NightControl" />
-    <ui:VisualElement name="voting-history-container" class="hide" style="flex-grow: 1; background-color: rgb(0, 0, 0); position: relative; width: 100%; height: 100%; max-height: 100%; min-height: 100%; max-width: 100%; min-width: 100px;">
-        <ui:Instance template="VotingHistory" class="flex-fill" />
-    </ui:VisualElement>
+    <ui:Template name="VotingHistory" src="project://database/Assets/BloodClockTower/UI%20Toolkit/Panels/VotingHistory.uxml?fileID=9197481963319205126&amp;guid=58e1637b8fee9a14986c2f57d59503b1&amp;type=3#VotingHistory" />
+    <ui:Template name="PlayerNotes" src="project://database/Assets/BloodClockTower/UI%20Toolkit/Panels/PlayerNotes.uxml?fileID=9197481963319205126&amp;guid=a96c7f33389ecde449212d43fbf091e9&amp;type=3#PlayerNotes" />
     <ui:VisualElement name="root" style="-unity-background-image-tint-color: rgb(186, 186, 186); flex-grow: 10; background-image: resource(&apos;bg1&apos;);">
         <ui:VisualElement name="margin" class="margin-top" />
         <ui:VisualElement name="header" style="flex-grow: 1; flex-direction: column;">
@@ -28,9 +26,16 @@
                         <ui:Button name="end-editing-button" parse-escape-sequences="true" display-tooltip-when-elided="true" class="hide" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/BloodClockTower/Sprites/end-editing-button.png?fileID=2800000&amp;guid=a5c03668083dc6840924fa29fb96ecc2&amp;type=3#end-editing-button&quot;); max-width: 256px; max-height: 256px; width: 256px; height: 256px; background-color: rgba(188, 188, 188, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />
                         <ui:Button name="kill-player-button" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/BloodClockTower/Sprites/kill-player-button.png?fileID=2800000&amp;guid=1e8cf12ef2559bb41982dc28f57b34b6&amp;type=3#kill-player-button&quot;); max-width: 256px; max-height: 256px; width: 256px; height: 256px; background-color: rgba(188, 188, 188, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />
                         <ui:Button name="open-voting-history-button" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/BloodClockTower/Sprites/vote-history-button.png?fileID=2800000&amp;guid=ebbc1d33c117e154e9b1c453a4889b44&amp;type=3#vote-history-button&quot;); max-width: 256px; max-height: 256px; width: 256px; height: 256px; background-color: rgba(188, 188, 188, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />
+                        <ui:Button name="open-player-notes-button" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/BloodClockTower/Sprites/player-notes-button.png?fileID=2800000&amp;guid=fa6b3a57c2f4b0040be845498cb67988&amp;type=3#player-notes-button&quot;); max-width: 256px; max-height: 256px; width: 256px; height: 256px; background-color: rgba(188, 188, 188, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="voting-history-container" class="hide" style="flex-grow: 1; background-color: rgb(0, 0, 0); width: 100%; height: 100%; max-height: 100%; min-height: 100%; max-width: 100%; min-width: 100px;">
+        <ui:Instance template="VotingHistory" class="flex-fill" />
+    </ui:VisualElement>
+    <ui:VisualElement name="player-notes-container" class="hide" style="flex-grow: 1; background-color: rgb(0, 0, 0); width: 100%; height: 100%; max-height: 100%; min-height: 100%; max-width: 100%; min-width: 100px;">
+        <ui:Instance template="PlayerNotes" class="flex-fill" />
     </ui:VisualElement>
 </ui:UXML>

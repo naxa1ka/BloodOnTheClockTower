@@ -42,6 +42,8 @@ namespace BloodClockTower.Game
 
         public void ChangeName(string name) => Player.ChangeName(name);
 
+        public void ChangeNote(string note) => Player.ChangeNote(note);
+
         public void SetPosition(Vector3 position) => _position.Value = position;
 
         public void Click() => _clicked.OnNext(Unit.Default);
