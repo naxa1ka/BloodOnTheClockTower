@@ -1,17 +1,18 @@
 ﻿using System;
 using FluentAssertions;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace BloodClockTower.Game.Tests
 {
     public class GameTests
     {
-        private Game _game;
+        private IGame _game;
 
         [SetUp]
         public void SetUp()
         {
-            _game = new Game(1);
+            _game = new Game(GamePlayersAmount.From(1), Substitute.For<IChangeNightCommand>());
         }
 
         [Test]

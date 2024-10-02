@@ -1,17 +1,18 @@
-﻿using Nxlk.UniRx;
+﻿using Nxlk.Initialization;
+using Nxlk.UniRx;
 using UniRx;
 
 namespace BloodClockTower.Game
 {
-    public class VotingHistoryViewModel : DisposableObject, IInitializable
+    public class VotingHistoryViewModel : DisposableObject, IInitializable, IVotingHistoryViewModel
     {
-        private readonly Night _night;
+        private readonly INight _night;
         private readonly ReactiveProperty<bool> _isVisible;
 
         public VotingRoundsPerNight VotingRounds => _night.VotingRounds;
         public IReadOnlyReactiveProperty<bool> IsVisible => _isVisible;
 
-        public VotingHistoryViewModel(Night night)
+        public VotingHistoryViewModel(INight night)
         {
             _night = night;
             _isVisible = new ReactiveProperty<bool>(false).AddTo(disposables);

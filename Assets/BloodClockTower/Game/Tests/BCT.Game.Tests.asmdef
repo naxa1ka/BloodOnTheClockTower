@@ -7,7 +7,9 @@
         "BCT.Game",
         "Nxlk.UniRx",
         "UniRx",
-        "Nxlk.Bool"
+        "Nxlk.Bool",
+        "VContainer",
+        "Nxlk.Initialization"
     ],
     "includePlatforms": [
         "Editor"

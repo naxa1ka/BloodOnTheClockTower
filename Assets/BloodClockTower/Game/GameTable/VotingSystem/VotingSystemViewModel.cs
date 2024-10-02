@@ -1,26 +1,17 @@
 ﻿using System;
 using System.Linq;
 using Nxlk.Bool;
+using Nxlk.Initialization;
 using Nxlk.UniRx;
 using UniRx;
 
 namespace BloodClockTower.Game
 {
-    public class VotingSystemViewModel : DisposableObject, IInitializable
+    public class VotingSystemViewModel : DisposableObject, IInitializable, IVotingSystemViewModel
     {
-        private readonly GameTableViewModel _gameTableViewModel;
-        private readonly VotingHistoryViewModel _votingHistoryViewModel;
-
-        public enum State
-        {
-            None,
-            Idle,
-            ChoosingInitiator,
-            ChoosingNominee,
-            ChoosingParticipant,
-        }
-
-        private readonly ReactiveProperty<State> _currentState;
+        private readonly IGameTableViewModel _gameTableViewModel;
+        private readonly IVotingHistoryViewModel _votingHistoryViewModel;
+        private readonly ReactiveProperty<VotingSystemState> _currentState;
 
         private PlayerViewModel? InitiatorOrDefault =>
             _gameTableViewModel.Players.SingleOrDefault(player => player.IsInitiator);
@@ -32,16 +23,16 @@ namespace BloodClockTower.Game
             _gameTableViewModel.Players.SingleOrDefault(player => player.IsNominee);
 
         private PlayerViewModel Nominee => NomineeOrDefault ?? throw new NullReferenceException();
-        public IReadOnlyReactiveProperty<State> CurrentState => _currentState;
+        public IReadOnlyReactiveProperty<VotingSystemState> CurrentState => _currentState;
 
         public VotingSystemViewModel(
-            GameTableViewModel gameTableViewModel,
-            VotingHistoryViewModel votingHistoryViewModel
+            IGameTableViewModel gameTableViewModel,
+            IVotingHistoryViewModel votingHistoryViewModel
         )
         {
             _gameTableViewModel = gameTableViewModel;
             _votingHistoryViewModel = votingHistoryViewModel;
-            _currentState = new ReactiveProperty<State>(State.Idle).AddTo(disposables);
+            _currentState = new ReactiveProperty<VotingSystemState>(VotingSystemState.Idle).AddTo(disposables);
         }
 
         public void Initialize()
@@ -53,26 +44,26 @@ namespace BloodClockTower.Game
         {
             switch (CurrentState.Value)
             {
-                case State.Idle:
+                case VotingSystemState.Idle:
                     return;
-                case State.ChoosingInitiator:
+                case VotingSystemState.ChoosingInitiator:
                 {
-                    _currentState.Value = State.ChoosingNominee;
+                    _currentState.Value = VotingSystemState.ChoosingNominee;
                     player.MarkInitiator();
                     return;
                 }
-                case State.ChoosingNominee:
+                case VotingSystemState.ChoosingNominee:
                 {
-                    _currentState.Value = State.ChoosingParticipant;
+                    _currentState.Value = VotingSystemState.ChoosingParticipant;
                     player.MarkNominee();
                     return;
                 }
-                case State.ChoosingParticipant:
+                case VotingSystemState.ChoosingParticipant:
                 {
                     player.IsParticipant.Switch(player.UnmarkParticipant, player.MarkParticipant);
                     return;
                 }
-                case State.None:
+                case VotingSystemState.None:
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -80,7 +71,7 @@ namespace BloodClockTower.Game
 
         public void StartVoting()
         {
-            _currentState.Value = State.ChoosingInitiator;
+            _currentState.Value = VotingSystemState.ChoosingInitiator;
         }
 
         public void EndVoting()
@@ -101,19 +92,19 @@ namespace BloodClockTower.Game
                         player.ClearMark();
                 }
             );
-            _currentState.Value = State.Idle;
+            _currentState.Value = VotingSystemState.Idle;
         }
 
         public void ResetInitiator()
         {
             Initiator.UnmarkInitiator();
-            _currentState.Value = State.ChoosingInitiator;
+            _currentState.Value = VotingSystemState.ChoosingInitiator;
         }
 
         public void ResetNominee()
         {
             Nominee.UnmarkNominee();
-            _currentState.Value = State.ChoosingNominee;
+            _currentState.Value = VotingSystemState.ChoosingNominee;
         }
     }
 }

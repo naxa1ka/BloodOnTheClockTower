@@ -7,10 +7,10 @@ namespace BloodClockTower.Game
 {
     public class NightChangingPresenter : DisposableObject, IPresenter
     {
-        private readonly NightChangingView _view;
-        private readonly Game _game;
+        private readonly INightChangingView _view;
+        private readonly IGame _game;
 
-        public NightChangingPresenter(NightChangingView view, Game game)
+        public NightChangingPresenter(INightChangingView view, IGame game)
         {
             _view = view;
             _game = game;

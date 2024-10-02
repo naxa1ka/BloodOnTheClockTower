@@ -8,16 +8,16 @@ namespace BloodClockTower.Game
 {
     public class VotingHistoryPresenter : DisposableObject, IPresenter
     {
-        private readonly VotingHistoryView _view;
-        private readonly VotingHistoryViewModel _viewModel;
-        private readonly VotingSystemViewModel _votingSystemViewModel;
-        private readonly EditPlayerViewModel _editPlayerViewModel;
+        private readonly IVotingHistoryView _view;
+        private readonly IVotingHistoryViewModel _viewModel;
+        private readonly IVotingSystemViewModel _votingSystemViewModel;
+        private readonly IEditPlayerViewModel _editPlayerViewModel;
 
         public VotingHistoryPresenter(
-            VotingHistoryView view,
-            VotingHistoryViewModel viewModel,
-            VotingSystemViewModel votingSystemViewModel,
-            EditPlayerViewModel editPlayerViewModel
+            IVotingHistoryView view,
+            IVotingHistoryViewModel viewModel,
+            IVotingSystemViewModel votingSystemViewModel,
+            IEditPlayerViewModel editPlayerViewModel
         )
         {
             _view = view;
@@ -35,24 +35,25 @@ namespace BloodClockTower.Game
                     _votingSystemViewModel.CurrentState,
                     _editPlayerViewModel.IsEditing,
                     (votingRoundsCount, state, isEditingPlayer) =>
-                        votingRoundsCount > 0
-                        && state == VotingSystemViewModel.State.Idle
-                        && !isEditingPlayer
+                        votingRoundsCount > 0 && state == VotingSystemState.Idle && !isEditingPlayer
                 )
                 .BindToVisible(_view.OpenVotingHistoryButton)
                 .AddTo(disposables);
             _viewModel.IsVisible.BindToVisible(_view.VotingHistoryContainer).AddTo(disposables);
             _view.OpenVotingHistoryButton.SubscribeOnClick(_viewModel.Show).AddTo(disposables);
             _view.CloseVotingHistoryButton.SubscribeOnClick(_viewModel.Hide).AddTo(disposables);
-            EscapeObservable.Instance
-                .Where(_ => _viewModel.IsVisible.Value)
+            EscapeObservable
+                .Instance.Where(_ => _viewModel.IsVisible.Value)
                 .Subscribe(_viewModel.Hide)
                 .AddTo(disposables);
             _viewModel
                 .IsVisible.WhereTrue()
                 .Subscribe(() => _view.VotingHistoryLabel.text = _viewModel.VotingRounds.ToString())
                 .AddTo(disposables);
-            _view.NoteInputField.ObserveBlur().Subscribe(_viewModel.EndEditingNote).AddTo(disposables);
+            _view
+                .NoteInputField.ObserveBlur()
+                .Subscribe(_viewModel.EndEditingNote)
+                .AddTo(disposables);
             _view.NoteInputField.ObserveText().Subscribe(_viewModel.ChangeNote).AddTo(disposables);
             _viewModel
                 .VotingRounds.Note.Subscribe(_view.NoteInputField.SetValueWithoutNotify)

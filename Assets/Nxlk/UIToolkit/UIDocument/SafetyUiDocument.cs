@@ -3,11 +3,11 @@ using UnityEngine.UIElements;
 
 namespace Nxlk.UIToolkit
 {
-    public class SafetyUiDocument
+    public class SafetyUiDocument : ISafetyUiDocument
     {
         private readonly Lazy<VisualElement> _root;
 
-        public VisualElement Root => _root.Value;
+        private VisualElement Root => _root.Value;
 
         public SafetyUiDocument(UIDocument uiDocument)
         {

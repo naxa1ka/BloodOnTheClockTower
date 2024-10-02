@@ -10,15 +10,15 @@ namespace BloodClockTower.Game
 {
     public class EditPlayerPresenter : DisposableObject, IPresenter
     {
-        private readonly EditPlayerView _view;
-        private readonly EditPlayerViewModel _viewModel;
-        private readonly VotingSystemViewModel _votingSystemViewModel;
+        private readonly IEditPlayerView _view;
+        private readonly IEditPlayerViewModel _viewModel;
+        private readonly IVotingSystemViewModel _votingSystemViewModel;
         private IDisposable _selectedPlayerSubscription = Disposable.Empty;
 
         public EditPlayerPresenter(
-            EditPlayerView view,
-            EditPlayerViewModel viewModel,
-            VotingSystemViewModel votingSystemViewModel
+            IEditPlayerView view,
+            IEditPlayerViewModel viewModel,
+            IVotingSystemViewModel votingSystemViewModel
         )
         {
             _view = view;
@@ -34,7 +34,7 @@ namespace BloodClockTower.Game
             _view.StartEditingButton.SubscribeOnClick(_viewModel.StartEditing).AddTo(disposables);
             _view.EndEditingButton.SubscribeOnClick(_viewModel.EndEditing).AddTo(disposables);
             var isVotingAsObservable = _votingSystemViewModel.CurrentState.Select(
-                state => state != VotingSystemViewModel.State.Idle
+                state => state != VotingSystemState.Idle
             );
             _view
                 .NameInputField.ObserveText()

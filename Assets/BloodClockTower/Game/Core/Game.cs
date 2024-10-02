@@ -3,30 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using Nxlk.Bool;
 using Nxlk.LINQ;
+using Nxlk.Initialization;
 using Nxlk.UniRx;
 using UniRx;
 
 namespace BloodClockTower.Game
 {
-    public class Game : DisposableObject
+    public class Game : DisposableObject, IInitializable, IGame
     {
-        private readonly List<Night> _nights = new();
+        private readonly List<INight> _nights = new();
         private readonly List<IPlayer> _players = new();
-        private readonly ReactiveProperty<Night> _currentNight;
+        private readonly ReactiveProperty<INight> _currentNight;
+        private readonly IChangeNightCommand _changeNightCommand;
 
         private int CurrentNightListIndex => CurrentNight.Value.Number - 1;
-        public IReadOnlyReactiveProperty<Night> CurrentNight => _currentNight;
+        public IReadOnlyReactiveProperty<INight> CurrentNight => _currentNight;
 
-        public Game(int playersAmount)
+        public Game(GamePlayersAmount playersAmount, IChangeNightCommand changeNightCommand)
         {
-            for (var i = 0; i < playersAmount; i++)
+            _changeNightCommand = changeNightCommand;
+            for (var i = 0; i < playersAmount.Value; i++)
                 _players.Add(new Player($"player-{i}"));
             var firstNight = new Night(_players.Select(player => new PlayerStatus(player)));
-            _currentNight = new ReactiveProperty<Night>(firstNight).AddTo(disposables);
+            _currentNight = new ReactiveProperty<INight>(firstNight).AddTo(disposables);
             _nights.Add(firstNight);
             Disposable.Create(() => _nights.ForEach(night => night.Dispose())).AddTo(disposables);
         }
 
+        public void Initialize()
+        {
+            _changeNightCommand.Execute(_currentNight.Value);
+        }
+        
         public string GetNotes(IPlayer player)
         {
             return string.Join(
@@ -44,7 +52,7 @@ namespace BloodClockTower.Game
         public void StartNewNight()
         {
             var nextNight = CurrentNight.Value.NextNight();
-            _currentNight.Value = nextNight;
+            SetNight(nextNight);
             _nights.Add(nextNight);
         }
 
@@ -61,14 +69,20 @@ namespace BloodClockTower.Game
         {
             if (IsLastNight())
                 throw new InvalidOperationException();
-            _currentNight.Value = _nights[CurrentNightListIndex + 1];
+            SetNight(_nights[CurrentNightListIndex + 1]);
         }
 
         public void PreviousNight()
         {
             if (IsFirstNight())
                 throw new InvalidOperationException();
-            _currentNight.Value = _nights[CurrentNightListIndex - 1];
+            SetNight(_nights[CurrentNightListIndex - 1]);
+        }
+
+        private void SetNight(INight night)
+        {
+            _currentNight.Value = night;
+            _changeNightCommand.Execute(night);
         }
     }
 }

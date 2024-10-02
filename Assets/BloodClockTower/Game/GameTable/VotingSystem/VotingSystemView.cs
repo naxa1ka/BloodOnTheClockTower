@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace BloodClockTower.Game
 {
-    public class VotingSystemView
+    public class VotingSystemView : IVotingSystemView
     {
         public Button StartVotingButton { get; private set; }
         public Button EndVotingButton { get; private set; }
@@ -12,7 +12,7 @@ namespace BloodClockTower.Game
         public Label StateLabel { get; private set; }
         public VisualElement StateLabelContainer { get; private set; }
 
-        public VotingSystemView(SafetyUiDocument uiDocument)
+        public VotingSystemView(ISafetyUiDocument uiDocument)
         {
             StartVotingButton = uiDocument.Q<Button>("start-voting-button");
             EndVotingButton = uiDocument.Q<Button>("end-voting-button");

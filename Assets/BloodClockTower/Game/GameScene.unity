@@ -151,7 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b0fb568486845359431b29a14037a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <UIDocument>k__BackingField: {fileID: 1617197938}
+  <UIDocument>k__BackingField:
+    _uiDocument: {fileID: 1617197938}
 --- !u!4 &875475491
 Transform:
   m_ObjectHideFlags: 0

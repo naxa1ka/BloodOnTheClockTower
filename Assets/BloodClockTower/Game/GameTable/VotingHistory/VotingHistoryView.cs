@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace BloodClockTower.Game
 {
-    public class VotingHistoryView
+    public class VotingHistoryView : IVotingHistoryView
     {
         public VisualElement VotingHistoryContainer { get; private set; }
         public Button OpenVotingHistoryButton { get; private set; }
@@ -11,7 +11,7 @@ namespace BloodClockTower.Game
         public Label VotingHistoryLabel { get; private set; }
         public TextField NoteInputField { get; private set; }
 
-        public VotingHistoryView(SafetyUiDocument uiDocument)
+        public VotingHistoryView(ISafetyUiDocument uiDocument)
         {
             OpenVotingHistoryButton = uiDocument.Q<Button>("open-voting-history-button");
             VotingHistoryContainer = uiDocument.Q<VisualElement>("voting-history-container");
