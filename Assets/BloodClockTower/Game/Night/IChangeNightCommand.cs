@@ -2,6 +2,6 @@
 {
     public interface IChangeNightCommand
     {
-        void Execute(Night night);
+        void Execute(INight night);
     }
 }

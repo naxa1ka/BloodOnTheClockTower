@@ -9,14 +9,14 @@ namespace BloodClockTower.Game
 {
     public class VotingSystemPresenter : DisposableObject, IPresenter
     {
-        private readonly VotingSystemView _view;
-        private readonly VotingSystemViewModel _model;
-        private readonly EditPlayerViewModel _editPlayerViewModel;
+        private readonly IVotingSystemView _view;
+        private readonly IVotingSystemViewModel _model;
+        private readonly IEditPlayerViewModel _editPlayerViewModel;
 
         public VotingSystemPresenter(
-            VotingSystemView view,
-            VotingSystemViewModel model,
-            EditPlayerViewModel editPlayerViewModel
+            IVotingSystemView view,
+            IVotingSystemViewModel model,
+            IEditPlayerViewModel editPlayerViewModel
         )
         {
             _view = view;
@@ -39,37 +39,37 @@ namespace BloodClockTower.Game
                 .AddTo(disposables);
         }
 
-        private void Update(State state, bool isPlayerEditing)
+        private void Update(VotingSystemState votingSystemState, bool isPlayerEditing)
         {
-            UpdateButtonsVisibility(state, isPlayerEditing);
-            UpdateLabelVisibility(state, isPlayerEditing);
-            UpdateLabel(state);
+            UpdateButtonsVisibility(votingSystemState, isPlayerEditing);
+            UpdateLabelVisibility(votingSystemState, isPlayerEditing);
+            UpdateLabel(votingSystemState);
         }
 
-        private void UpdateButtonsVisibility(State state, bool isPlayerEditing)
+        private void UpdateButtonsVisibility(VotingSystemState votingSystemState, bool isPlayerEditing)
         {
-            _view.EndVotingButton.SetVisible(!isPlayerEditing && state != State.Idle);
-            _view.StartVotingButton.SetVisible(!isPlayerEditing && state == State.Idle);
+            _view.EndVotingButton.SetVisible(!isPlayerEditing && votingSystemState != VotingSystemState.Idle);
+            _view.StartVotingButton.SetVisible(!isPlayerEditing && votingSystemState == VotingSystemState.Idle);
             _view.ResetInitiatorButton.SetVisible(
-                !isPlayerEditing && state == State.ChoosingNominee
+                !isPlayerEditing && votingSystemState == VotingSystemState.ChoosingNominee
             );
             _view.ResetNomineeButton.SetVisible(
-                !isPlayerEditing && state == State.ChoosingParticipant
+                !isPlayerEditing && votingSystemState == VotingSystemState.ChoosingParticipant
             );
         }
 
-        private void UpdateLabelVisibility(State state, bool isPlayerEditing) =>
-            _view.StateLabelContainer.SetVisible(!isPlayerEditing && state != State.Idle);
+        private void UpdateLabelVisibility(VotingSystemState votingSystemState, bool isPlayerEditing) =>
+            _view.StateLabelContainer.SetVisible(!isPlayerEditing && votingSystemState != VotingSystemState.Idle);
 
-        private void UpdateLabel(State state)
+        private void UpdateLabel(VotingSystemState votingSystemState)
         {
-            var stateLabelText = state switch
+            var stateLabelText = votingSystemState switch
             {
-                State.Idle => "Idle",
-                State.ChoosingInitiator => "Choose initiator",
-                State.ChoosingNominee => "Choose nominee",
-                State.ChoosingParticipant => "Choose participant",
-                _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
+                VotingSystemState.Idle => "Idle",
+                VotingSystemState.ChoosingInitiator => "Choose initiator",
+                VotingSystemState.ChoosingNominee => "Choose nominee",
+                VotingSystemState.ChoosingParticipant => "Choose participant",
+                _ => throw new ArgumentOutOfRangeException(nameof(votingSystemState), votingSystemState, null)
             };
             _view.StateLabel.text = stateLabelText;
         }

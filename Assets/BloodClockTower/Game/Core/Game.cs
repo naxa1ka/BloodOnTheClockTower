@@ -8,15 +8,15 @@ using UniRx;
 
 namespace BloodClockTower.Game
 {
-    public class Game : DisposableObject, IInitializable
+    public class Game : DisposableObject, IInitializable, IGame
     {
-        private readonly List<Night> _nights = new();
+        private readonly List<INight> _nights = new();
         private readonly List<IPlayer> _players = new();
-        private readonly ReactiveProperty<Night> _currentNight;
+        private readonly ReactiveProperty<INight> _currentNight;
         private readonly IChangeNightCommand _changeNightCommand;
 
         private int CurrentNightListIndex => CurrentNight.Value.Number - 1;
-        public IReadOnlyReactiveProperty<Night> CurrentNight => _currentNight;
+        public IReadOnlyReactiveProperty<INight> CurrentNight => _currentNight;
 
         public Game(GamePlayersAmount playersAmount, IChangeNightCommand changeNightCommand)
         {
@@ -24,7 +24,7 @@ namespace BloodClockTower.Game
             for (var i = 0; i < playersAmount.Value; i++)
                 _players.Add(new Player($"player-{i}"));
             var firstNight = new Night(_players.Select(player => new PlayerStatus(player)));
-            _currentNight = new ReactiveProperty<Night>(firstNight).AddTo(disposables);
+            _currentNight = new ReactiveProperty<INight>(firstNight).AddTo(disposables);
             _nights.Add(firstNight);
             Disposable.Create(() => _nights.ForEach(night => night.Dispose())).AddTo(disposables);
         }
@@ -33,7 +33,7 @@ namespace BloodClockTower.Game
         {
             _changeNightCommand.Execute(_currentNight.Value);
         }
-        
+
         public void StartNewNight()
         {
             var nextNight = CurrentNight.Value.NextNight();
@@ -64,7 +64,7 @@ namespace BloodClockTower.Game
             SetNight(_nights[CurrentNightListIndex - 1]);
         }
 
-        private void SetNight(Night night)
+        private void SetNight(INight night)
         {
             _currentNight.Value = night;
             _changeNightCommand.Execute(night);

@@ -2,8 +2,5 @@
 
 namespace BloodClockTower.Game
 {
-    public class GamePlayersAmount : ValueOf<int, GamePlayersAmount>
-    {
-        
-    }
+    public class GamePlayersAmount : ValueOf<int, GamePlayersAmount> { }
 }

@@ -13,21 +13,21 @@ namespace BloodClockTower.Game
 {
     public class GameTablePresenter : DisposableObject, IPresenter
     {
-        private readonly GameTableView _view;
-        private readonly GameTableViewModel _viewModel;
+        private readonly IGameTableView _view;
+        private readonly IGameTableViewModel _viewModel;
         private readonly IViewFactory<PlayerIconView> _playerIconViewFactory;
         private readonly Dictionary<
             PlayerViewModel,
             IDisposable
         > _playerViewModelDisposablesMapping;
 
-        private readonly VotingHistoryViewModel _votingHistoryViewModel;
+        private readonly IVotingHistoryViewModel _votingHistoryViewModel;
 
         public GameTablePresenter(
-            GameTableView view,
-            GameTableViewModel viewModel,
+            IGameTableView view,
+            IGameTableViewModel viewModel,
             IViewFactory<PlayerIconView> playerIconViewFactory,
-            VotingHistoryViewModel votingHistoryViewModel
+            IVotingHistoryViewModel votingHistoryViewModel
         )
         {
             _view = view;

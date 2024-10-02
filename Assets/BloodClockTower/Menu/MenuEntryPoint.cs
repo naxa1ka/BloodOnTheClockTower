@@ -24,14 +24,17 @@ namespace BloodClockTower.Menu
             var menuContext = await _menuScene.Load();
             _menuScope
                 .CreateChild(builder => DependencyRegistration(builder, menuContext))
-                .AddTo(disposables).name="MenuEntryPointLifetimeScope";
+                .AddTo(disposables)
+                .name = "MenuEntryPointLifetimeScope";
         }
 
         private void DependencyRegistration(IContainerBuilder builder, MenuContext menuContext)
         {
-            builder.Register<MenuView>(Lifetime.Singleton);
+            builder
+                .Register<MenuView>(Lifetime.Singleton)
+                .AsImplementedInterfaces()
+                .WithParameter<ISafetyUiDocument>(menuContext.UIDocument);
             builder.Register<MenuPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterInstance(menuContext.UIDocument.ToSafetyUiDocument());
         }
     }
 }

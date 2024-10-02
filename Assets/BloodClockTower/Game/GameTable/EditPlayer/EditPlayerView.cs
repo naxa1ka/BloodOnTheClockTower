@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace BloodClockTower.Game
 {
-    public class EditPlayerView
+    public class EditPlayerView : IEditPlayerView
     {
         public Button StartEditingButton { get; private set; }
         public Button EndEditingButton { get; private set; }

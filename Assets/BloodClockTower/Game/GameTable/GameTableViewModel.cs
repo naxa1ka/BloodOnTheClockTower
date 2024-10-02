@@ -8,9 +8,9 @@ using CollectionExtensions = Nxlk.LINQ.CollectionExtensions;
 
 namespace BloodClockTower.Game
 {
-    public class GameTableViewModel : DisposableObject, IInitializable
+    public class GameTableViewModel : DisposableObject, IInitializable, IGameTableViewModel
     {
-        private readonly Night _night;
+        private readonly INight _night;
 
         private readonly ReactiveCollection<PlayerViewModel> _players;
         private readonly Dictionary<IPlayerStatus, PlayerViewModel> _playerViewModelMapping;
@@ -20,7 +20,7 @@ namespace BloodClockTower.Game
         public IReadOnlyReactiveCollection<PlayerViewModel> Players => _players;
         public IObservable<PlayerViewModel> Clicked => _clickedPlayerSubject;
 
-        public GameTableViewModel(Night night)
+        public GameTableViewModel(INight night)
         {
             _night = night;
             _players = new ReactiveCollection<PlayerViewModel>().AddTo(disposables);

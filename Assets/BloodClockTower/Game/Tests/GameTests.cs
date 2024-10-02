@@ -7,7 +7,7 @@ namespace BloodClockTower.Game.Tests
 {
     public class GameTests
     {
-        private Game _game;
+        private IGame _game;
 
         [SetUp]
         public void SetUp()

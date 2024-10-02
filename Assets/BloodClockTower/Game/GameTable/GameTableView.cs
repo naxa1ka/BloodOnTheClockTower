@@ -4,7 +4,7 @@ using Button = UnityEngine.UIElements.Button;
 
 namespace BloodClockTower.Game
 {
-    public class GameTableView
+    public class GameTableView : IGameTableView
     {
         public VisualElement Root { get; private set; }
         public VisualElement Board { get; private set; }

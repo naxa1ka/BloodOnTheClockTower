@@ -307,7 +307,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dcae5de85b44d7a97f3f9826dafadb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <UIDocument>k__BackingField: {fileID: 578376335}
+  <UIDocument>k__BackingField:
+    _uiDocument: {fileID: 578376335}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

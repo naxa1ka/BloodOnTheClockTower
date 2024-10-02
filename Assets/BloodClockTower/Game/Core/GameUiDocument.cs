@@ -4,8 +4,5 @@ using Nxlk.UIToolkit;
 namespace BloodClockTower.Game
 {
     [Serializable]
-    public class GameUiDocument : SerializableSafetyUiDocument
-    {
-        
-    }
+    public class GameUiDocument : SerializableSafetyUiDocument { }
 }

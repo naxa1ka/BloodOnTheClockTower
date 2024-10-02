@@ -19,7 +19,7 @@ namespace BloodClockTower.Game
             _contextDisposable = new ContextDisposable().AddTo(disposables);
         }
 
-        public void Execute(Night night)
+        public void Execute(INight night)
         {
             _lifetimeScope
                 .CreateChild(builder =>
@@ -28,24 +28,20 @@ namespace BloodClockTower.Game
 
                     builder
                         .Register<GameTableViewModel>(Lifetime.Singleton)
-                        .AsImplementedInterfaces()
-                        .AsSelf();
+                        .AsImplementedInterfaces();
                     builder
                         .Register<VotingHistoryViewModel>(Lifetime.Singleton)
-                        .AsImplementedInterfaces()
-                        .AsSelf();
+                        .AsImplementedInterfaces();
                     builder
                         .Register<VotingSystemViewModel>(Lifetime.Singleton)
-                        .AsImplementedInterfaces()
-                        .AsSelf();
+                        .AsImplementedInterfaces();
                     builder
                         .Register<EditPlayerViewModel>(Lifetime.Singleton)
-                        .AsImplementedInterfaces()
-                        .AsSelf();
+                        .AsImplementedInterfaces();
 
                     builder
                         .Register<GameTableView>(Lifetime.Singleton)
-                        .AsSelf()
+                        .AsImplementedInterfaces()
                         .WithParameter<ISafetyUiDocument>(_gameUiDocument);
                     builder
                         .Register<GameTablePresenter>(Lifetime.Singleton)
@@ -53,7 +49,7 @@ namespace BloodClockTower.Game
 
                     builder
                         .Register<EditPlayerView>(Lifetime.Singleton)
-                        .AsSelf()
+                        .AsImplementedInterfaces()
                         .WithParameter<ISafetyUiDocument>(_gameUiDocument);
 
                     builder
@@ -62,7 +58,7 @@ namespace BloodClockTower.Game
 
                     builder
                         .Register<NightChangingView>(Lifetime.Singleton)
-                        .AsSelf()
+                        .AsImplementedInterfaces()
                         .WithParameter<ISafetyUiDocument>(_gameUiDocument);
                     builder
                         .Register<NightChangingPresenter>(Lifetime.Singleton)
@@ -70,7 +66,7 @@ namespace BloodClockTower.Game
 
                     builder
                         .Register<VotingHistoryView>(Lifetime.Singleton)
-                        .AsSelf()
+                        .AsImplementedInterfaces()
                         .WithParameter<ISafetyUiDocument>(_gameUiDocument);
                     builder
                         .Register<VotingHistoryPresenter>(Lifetime.Singleton)
@@ -78,7 +74,7 @@ namespace BloodClockTower.Game
 
                     builder
                         .Register<VotingSystemView>(Lifetime.Singleton)
-                        .AsSelf()
+                        .AsImplementedInterfaces()
                         .WithParameter<ISafetyUiDocument>(_gameUiDocument);
                     builder
                         .Register<VotingSystemPresenter>(Lifetime.Singleton)

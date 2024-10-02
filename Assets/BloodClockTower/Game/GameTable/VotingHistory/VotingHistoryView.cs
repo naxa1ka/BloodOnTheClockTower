@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace BloodClockTower.Game
 {
-    public class VotingHistoryView
+    public class VotingHistoryView : IVotingHistoryView
     {
         public Button CloseVotingHistoryButton { get; private set; }
         public Button OpenVotingHistoryButton { get; private set; }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using Nxlk.UniRx;
@@ -6,7 +7,16 @@ using UniRx;
 
 namespace BloodClockTower.Game
 {
-    public class Night : DisposableObject
+    public interface INight : IDisposable
+    {
+        int Number { get; }
+        VotingRoundsPerNight VotingRounds { get; }
+        IReadOnlyReactiveCollection<INote> Notes { get; }
+        IReadOnlyReactiveCollection<IPlayerStatus> Players { get; }
+        INight NextNight();
+    }
+
+    public class Night : DisposableObject, INight
     {
         private readonly ReactiveCollection<IPlayerStatus> _players;
         private readonly ReactiveCollection<INote> _notes;
@@ -33,7 +43,7 @@ namespace BloodClockTower.Game
         }
 
         [Pure]
-        public Night NextNight()
+        public INight NextNight()
         {
             return new Night(
                 Number + 1,

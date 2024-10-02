@@ -1,5 +1,4 @@
 ﻿using BloodClockTower.Game;
-using Cysharp.Threading.Tasks;
 using Nxlk.LINQ;
 using Nxlk.ReactiveUIToolkit;
 using Nxlk.UIToolkit;
@@ -9,10 +8,10 @@ namespace BloodClockTower.Menu
 {
     public class MenuPresenter : DisposableObject, IPresenter
     {
-        private readonly MenuView _view;
+        private readonly IMenuView _view;
         private readonly StartGameCommand _startGameCommand;
 
-        public MenuPresenter(MenuView view, StartGameCommand startGameCommand)
+        public MenuPresenter(IMenuView view, StartGameCommand startGameCommand)
         {
             _startGameCommand = startGameCommand;
             _view = view;
@@ -20,12 +19,11 @@ namespace BloodClockTower.Menu
 
         public void Initialize()
         {
-            _view.StartButton.SubscribeOnClick(Start).AddTo(disposables);
-        }
-
-        private void Start()
-        {
-            _startGameCommand.Execute(_view.PlayersAmountInputField.value);
+            _view
+                .StartButton.SubscribeOnClick(
+                    () => _startGameCommand.Execute(_view.PlayersAmountInputField.value)
+                )
+                .AddTo(disposables);
         }
     }
 }

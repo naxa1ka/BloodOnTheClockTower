@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace BloodClockTower.Game
 {
-    public class NightChangingView
+    public class NightChangingView : INightChangingView
     {
         public Button NextNightButton { get; private set; }
         public Button PreviousNightButton { get; private set; }

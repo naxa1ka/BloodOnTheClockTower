@@ -23,7 +23,8 @@ namespace BloodClockTower.Game
             var gameContext = await _gameScene.Load();
             _lifetimeScope
                 .CreateChild(builder => DependencyRegistration(builder, gameContext))
-                .AddTo(disposables).name = "GameEntryPointLifetimeScope";
+                .AddTo(disposables)
+                .name = "GameEntryPointLifetimeScope";
         }
 
         private void DependencyRegistration(IContainerBuilder builder, GameContext gameContext)

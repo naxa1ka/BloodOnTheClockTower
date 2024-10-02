@@ -4,8 +4,7 @@ namespace BloodClockTower.Menu
 {
     public class MenuScene : Scene<MenuContext>
     {
-        public MenuScene(SceneLoader sceneLoader) : base(sceneLoader, "MenuScene")
-        {
-        }
+        public MenuScene(SceneLoader sceneLoader)
+            : base(sceneLoader, "MenuScene") { }
     }
 }
