@@ -4,7 +4,8 @@ namespace BloodClockTower.Game
 {
     public class GameScene : Scene<GameContext>
     {
-        public GameScene()
-            : base("GameScene") { }
+        public GameScene(SceneLoader sceneLoader) : base(sceneLoader, "GameScene")
+        {
+        }
     }
 }

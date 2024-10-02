@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace Nxlk.UIToolkit
 {
-    public class ViewFactory<T>
+    public class ViewFactory<T> : IViewFactory<T>
     {
         private readonly VisualTreeAsset _visualTreeAsset;
 

@@ -15,7 +15,7 @@ namespace BloodClockTower.Game
     {
         private readonly GameTableView _view;
         private readonly GameTableViewModel _viewModel;
-        private readonly ViewFactory<PlayerIconView> _playerIconViewFactory;
+        private readonly IViewFactory<PlayerIconView> _playerIconViewFactory;
         private readonly Dictionary<
             PlayerViewModel,
             IDisposable
@@ -26,7 +26,7 @@ namespace BloodClockTower.Game
         public GameTablePresenter(
             GameTableView view,
             GameTableViewModel viewModel,
-            ViewFactory<PlayerIconView> playerIconViewFactory,
+            IViewFactory<PlayerIconView> playerIconViewFactory,
             VotingHistoryViewModel votingHistoryViewModel
         )
         {

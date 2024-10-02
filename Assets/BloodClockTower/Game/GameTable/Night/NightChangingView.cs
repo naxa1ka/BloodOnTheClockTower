@@ -9,7 +9,7 @@ namespace BloodClockTower.Game
         public Button PreviousNightButton { get; private set; }
         public Label NightCountLabel { get; private set; }
 
-        public NightChangingView(SafetyUiDocument safetyUiDocument)
+        public NightChangingView(ISafetyUiDocument safetyUiDocument)
         {
             NextNightButton = safetyUiDocument.Q<Button>("next-night-button");
             PreviousNightButton = safetyUiDocument.Q<Button>("prev-night-button");

@@ -9,7 +9,7 @@ namespace BloodClockTower.Game
         public VisualElement Root { get; private set; }
         public VisualElement Board { get; private set; }
 
-        public GameTableView(SafetyUiDocument safetyUiDocument)
+        public GameTableView(ISafetyUiDocument safetyUiDocument)
         {
             Root = safetyUiDocument.Q<VisualElement>("root");
             Board = safetyUiDocument.Q<VisualElement>("board");

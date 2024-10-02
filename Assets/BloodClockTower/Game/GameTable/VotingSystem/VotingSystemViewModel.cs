@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Nxlk.Bool;
+using Nxlk.Initialization;
 using Nxlk.UniRx;
 using UniRx;
 

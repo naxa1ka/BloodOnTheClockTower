@@ -10,7 +10,7 @@ namespace BloodClockTower.Game
         public Button KillPlayerButton { get; private set; }
         public TextField NameInputField { get; private set; }
 
-        public EditPlayerView(SafetyUiDocument safetyUiDocument)
+        public EditPlayerView(ISafetyUiDocument safetyUiDocument)
         {
             StartEditingButton = safetyUiDocument.Q<Button>("edit-button");
             EndEditingButton = safetyUiDocument.Q<Button>("end-editing-button");

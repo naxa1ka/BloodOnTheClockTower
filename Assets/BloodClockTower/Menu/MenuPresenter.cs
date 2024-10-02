@@ -20,12 +20,12 @@ namespace BloodClockTower.Menu
 
         public void Initialize()
         {
-            _view.StartButton.SubscribeOnClick(() => Start().Forget()).AddTo(disposables);
+            _view.StartButton.SubscribeOnClick(Start).AddTo(disposables);
         }
 
-        private async UniTaskVoid Start()
+        private void Start()
         {
-            await _startGameCommand.Execute(_view.PlayersAmountInputField.value);
+            _startGameCommand.Execute(_view.PlayersAmountInputField.value);
         }
     }
 }
