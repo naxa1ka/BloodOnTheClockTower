@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Nxlk.Bool;
+using Nxlk.LINQ;
 using Nxlk.ReactiveUIToolkit;
 using Nxlk.UIToolkit;
 using Nxlk.UniRx;
@@ -20,7 +19,7 @@ namespace BloodClockTower.Game
             PlayerViewModel,
             IDisposable
         > _playerViewModelDisposablesMapping;
-
+        private IDisposable _rearrangeSubscription = Disposable.Empty;
         private readonly IVotingHistoryViewModel _votingHistoryViewModel;
 
         public GameTablePresenter(
@@ -40,7 +39,11 @@ namespace BloodClockTower.Game
                 .Create(
                     () =>
                         StableCompositeDisposable
-                            .Create(_playerViewModelDisposablesMapping.Values)
+                            .Create(
+                                _playerViewModelDisposablesMapping.Values.Concat(
+                                    _rearrangeSubscription
+                                )
+                            )
                             .Dispose()
                 )
                 .AddTo(disposables);
@@ -53,14 +56,20 @@ namespace BloodClockTower.Game
                 .Subscribe(AddPlayer)
                 .AddTo(disposables);
             _viewModel.Players.ObserveRemoveItem().Subscribe(RemovePlayer).AddTo(disposables);
-            _view
+            _rearrangeSubscription = _view
                 .Board.RegisterCallbackAsObservable<GeometryChangedEvent>()
-                .Subscribe(@event => ArrangePlayersInCircle())
-                .AddTo(disposables);
+                .Subscribe(RearrangePlayersInCircle);
             _votingHistoryViewModel
                 .IsVisible.InverseBool()
                 .BindToVisible(_view.Root)
                 .AddTo(disposables);
+        }
+
+        private void RearrangePlayersInCircle(GeometryChangedEvent @event)
+        {
+            ArrangePlayersInCircle();
+            _rearrangeSubscription.Dispose();
+            _rearrangeSubscription = Disposable.Empty;
         }
 
         private void AddPlayer(PlayerViewModel playerViewModel)

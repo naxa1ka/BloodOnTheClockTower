@@ -7,6 +7,7 @@
         <ui:VisualElement name="header" style="flex-grow: 1; flex-direction: column;">
             <ui:Instance template="NightControl" />
             <ui:TextField picking-mode="Ignore" label="Write name" value="filler text" name="name-input-field" class="hide text-field" style="color: rgb(174, 43, 176); font-size: 36px;" />
+            <ui:Button name="swap-players-button" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/BloodClockTower/Sprites/swap-players-button.png?fileID=2800000&amp;guid=0413e94f03cb372459ad6066166280ca&amp;type=3#swap-players-button&quot;); max-width: 256px; max-height: 256px; width: 256px; height: 256px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-color: rgba(188, 188, 188, 0);" />
         </ui:VisualElement>
         <ui:VisualElement name="body" style="flex-grow: 5;">
             <ui:VisualElement name="board" style="flex-grow: 1;" />
