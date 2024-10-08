@@ -6,7 +6,6 @@
 [Bb]uilds/
 [Uu]serAssets/
 Assets/AssetStoreTools*
-/Packages/
 UserSettings/
 
 # Rider Unity plugin
