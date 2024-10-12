@@ -41,6 +41,9 @@ namespace BloodClockTower.Game
                     builder
                         .Register<PlayerNotesViewModel>(Lifetime.Singleton)
                         .AsImplementedInterfaces();
+                    builder
+                        .Register<SwapPlayersViewModel>(Lifetime.Singleton)
+                        .AsImplementedInterfaces();
 
                     builder
                         .Register<GameTableView>(Lifetime.Singleton)
@@ -89,6 +92,14 @@ namespace BloodClockTower.Game
                         .WithParameter<ISafetyUiDocument>(_gameUiDocument);
                     builder
                         .Register<PlayerNotesPresenter>(Lifetime.Singleton)
+                        .AsImplementedInterfaces(); 
+                    
+                    builder
+                        .Register<SwapPlayersView>(Lifetime.Singleton)
+                        .AsImplementedInterfaces()
+                        .WithParameter<ISafetyUiDocument>(_gameUiDocument);
+                    builder
+                        .Register<SwapPlayersPresenter>(Lifetime.Singleton)
                         .AsImplementedInterfaces();
                 })
                 .ReAttach(_contextDisposable)

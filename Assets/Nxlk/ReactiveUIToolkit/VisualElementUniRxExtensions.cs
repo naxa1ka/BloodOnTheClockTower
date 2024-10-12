@@ -48,7 +48,7 @@ namespace Nxlk.ReactiveUIToolkit
         )
         {
             return source.Subscribe(
-                newScale => visualElement.transform.position = newScale
+                newPosition => visualElement.transform.position = newPosition
             );
         }
 
